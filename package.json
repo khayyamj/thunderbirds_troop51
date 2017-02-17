@@ -1,5 +1,5 @@
 {
-  "name": "redux-simple-starter",
+  "name": "thunderbirds_troop51",
   "version": "1.0.0",
   "description": "Simple starter package for Redux with React and Babel support",
   "main": "index.js",
@@ -9,7 +9,7 @@
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm run test -- --watch"
   },
-  "author": "",
+  "author": "Khayyam Jones",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.2.1",
