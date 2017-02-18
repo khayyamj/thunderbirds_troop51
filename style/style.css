@@ -1,0 +1,73 @@
+.container {
+
+}
+.body{
+
+}
+.Header {
+   display: flex;
+   justify-content: space-between;
+   width: 100%;
+   background-color: #FF6F00;
+}
+.Header .logo {
+   width: 175px;
+   height: 150px;
+   padding: 0;
+   margin-left: 10px;
+}
+.Header .headline {
+   font-size: 50px;
+   font-weight: bold;
+   color: #2709B2;
+   text-align: center;
+}
+.Header .headline .title {
+   font-size: 30px;
+}
+.Header .social-media-icons {
+   width: 100px;
+}
+.navbar {
+   background-color: #092fb2;
+   height: 50px;
+   width: 100%;
+   color: #FF6F00;
+}
+.navigation {
+   list-style-type: none;
+   display: flex;
+   justify-content: flex-end;
+   align-items: flex-start;
+}
+.navigation > li {
+   display: inline;
+}
+.nav-btn {
+   width: auto;
+   min-width: 75px;
+   height: 25px;
+   border-radius: 10px;
+   background-color: #FF6F00;
+   color: black;
+   padding: 0px 5px;
+   margin: 5px 2px;
+   text-align: center;
+}
+.main-body {
+   width: 100%;
+   display: flex;
+   background-color: #999;
+}
+.main-body .left {
+   border: 1px solid black;
+   height: 400px;
+   width: auto;
+   flex-grow: 1;
+}
+.main-body .right {
+   width: 200px;
+}
+.profile-form {
+
+}
