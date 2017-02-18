@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
+import GoogleMap from './google_map'
 
 class Campouts extends Component {
    renderList(elem) {
@@ -10,11 +11,14 @@ class Campouts extends Component {
    }
 
    renderCampSites() {
+
       return this.props.campouts.map((campout) => {
+         const { lat, lng } = campout.location;
+         console.log('lat: ', lat, ' lng: ', lng);
          return (
             <div className="campout" key={campout.date}>
                Date: {campout.date} <br />
-               Campsite: {campout.site} <br />
+               Campsite: {campout.site} <GoogleMap lng={lng} lat={lat} /> <br />
                Notes: {campout.notes} <br />
                Scouts Attending:
                   <ul className="participants">
