@@ -1,21 +1,33 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 class NavBar extends Component {
+   renderLinks() {
+      return this.props.NavLinks.map((navLink) => {
+         return (
+            <Link to={navLink.address} className="nav-btn" key={navLink.link}>
+               <li>{navLink.link}</li>
+            </Link>
+         )
+      });
+   }
 
   render() {
     return(
       <div className="navbar">
          <ul className="navigation">
-            <Link to="/calendar" className="nav-btn"><li>Calendar</li></Link>
-            <Link to="/summer-camp" className="nav-btn"><li>Summer Camp</li></Link>
-            <Link to="/advancement" className="nav-btn"><li>Advancement</li></Link>
-            <Link to="/roster" className="nav-btn"><li>Roster</li></Link>
-            <Link to="/about" className="nav-btn"><li>About</li></Link>
-            <Link to="/" className="nav-btn"><li>Login</li></Link>
+            {this.renderLinks()}
          </ul>
       </div>
     );
   }
 }
-export default NavBar;
+const mapStateToProps = function(state) {
+   return {
+      NavLinks: state.navLinks
+   }
+}
+
+export default connect(mapStateToProps)(NavBar);

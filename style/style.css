@@ -71,3 +71,12 @@
 .profile-form {
 
 }
+.campout {
+
+}
+.campout .participants {
+   margin: 0 5px;
+   list-style-type: none;
+   display: flex;
+   justify-content: space-between;
+}

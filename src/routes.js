@@ -8,6 +8,7 @@ import SummerCamp from './components/summer-camp';
 import Advancement from './components/advancement';
 import Roster from './containers/roster';
 import About from './components/about';
+import Campouts from './components/campouts';
 
 
 export default (
@@ -19,6 +20,7 @@ export default (
       <Route path="/advancement" component={Advancement} />
       <Route path="/roster" component={Roster} />
       <Route path="/about" component={About} />
+      <Route path="/campouts" component={Campouts} />
 
    </Route>
 );
