@@ -4,15 +4,20 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var massive = require('massive');
+var cors = require('cors');
 // CONFIG
 // ============================================================
 var config = require('./config');
+var corsOptions = {
+   origin: 'http://localhost:8080'
+}
 // INITILIZE APP
 // ============================================================
 var app = module.exports = express();
 // INITILIZE DEPENDENCIES
 // ============================================================
-// app.use(express.static(__dirname + '/public'));
+// app.use(express.static(__dirname + ''));
+app.use(cors());
 app.use(bodyParser.json());
 // MASSIVE SETUP
 // ============================================================

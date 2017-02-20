@@ -12,8 +12,9 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.16.1",
+    "cors": "^2.8.1",
     "express": "^4.14.1",
-    "express-session": "^1.15.1",
-    "massive": "^2.6.0"
+    "massive": "^2.6.0",
+    "session": "^0.1.0"
   }
 }

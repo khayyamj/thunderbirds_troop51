@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
+import { fetchRoster } from './../actions/action_index';
 // import {action} from './../actions/Actions';
 
 class Roster extends Component {
+   componentWillMount(){
+      this.props.fetchRoster();
+   }
+
   renderList() {
      return this.props.profiles.map((profile) => {
         return (
-            <li key={profile.email} className="profile-item">
-               Name: {profile.firstName} <br />
+            <li key={profile.profileid} className="profile-item">
+               Name: {profile.firstname} <br />
                City: {profile.city} <br />
                Email: {profile.email} <hr />
             </li>
@@ -30,4 +35,4 @@ const mapStateToProps = function({ profiles }) {
 const mapDispatchToProps = function (dispatch) {
   return bindActionCreators({ action }, dispatch);
 }
-export default connect(mapStateToProps)(Roster);
+export default connect(mapStateToProps, { fetchRoster })(Roster);
