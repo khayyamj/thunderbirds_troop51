@@ -37,5 +37,5 @@ app.delete('/api/profiles/:id', mainCtrl.delete);
 // ============================================================
 var port = config.PORT;
 app.listen(port, function() {
-  console.log('listening on port ', port);
+  console.log('Khayyam is amazing! Now listening on port ', port);
 });
