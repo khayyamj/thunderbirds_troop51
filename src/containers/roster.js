@@ -32,7 +32,9 @@ class Roster extends Component {
 const mapStateToProps = function({ profiles }) {
   return { profiles }
 };
+
 const mapDispatchToProps = function (dispatch) {
   return bindActionCreators({ action }, dispatch);
-}
+};
+
 export default connect(mapStateToProps, { fetchRoster })(Roster);
