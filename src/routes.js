@@ -12,20 +12,11 @@ import About from './components/about';
 import Campouts from './components/campouts';
 import Login from './components/login';
 // import Home from './components/home';
-const auth0 = AUTH0();
-const auth = new AuthService(auth0.ID, auth0.DOMAIN);
-
-// validate authentication for private routes
-const requireAuth = (nextState, replace) => {
-  if (!auth.loggedIn()) {
-    replace({ pathname: '/login' })
-  }
-}
 
 export default (
    <Route path="/" component={App} >
       <IndexRoute component={Profile} />
-      <Route path="/login" component={Login} auth={auth} />
+      <Route path="/login" component={Login} />
       <Route path="/home" component={Profile} />
       <Route path="/profile" component={Profile} />
       <Route path="/calendar" component={Calendar} />

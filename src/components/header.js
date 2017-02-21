@@ -14,8 +14,9 @@ class Header extends Component {
            <img src={url}/>
          </div>
          <div className="headline">
-           <span className="title">Over 100 Years of Scouting</span> <br />
-           <span>Troop 51</span>
+           <span>Troop 51</span><br />
+           <span className="title">Over 100 Years of Scouting</span>
+
          </div>
          <div className="social-media-icons">
             <img src={fbIconUrl} style={{width: 100}} />
