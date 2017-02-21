@@ -27,3 +27,11 @@ export function submitMessage() {
       payload: null
    }
 }
+
+export function createBlogPost() {
+   console.log('createBlogPost function called');
+   return {
+      type: 'NONE',
+      payload: null
+   }
+}

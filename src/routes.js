@@ -14,6 +14,7 @@ import Blog from './components/blog';
 import Contact from './components/contact';
 import Handbook from './components/handbook';
 import Dinner from './components/dinner';
+import NewBlogPost from './components/blog_new_post';
 // import Home from './components/home';
 
 export default (
@@ -29,6 +30,7 @@ export default (
       <Route path="/about" component={About} />
       <Route path="/activities" component={Activities} />
       <Route path="/blog" component={Blog} />
+      <Route path="/newpost" component={NewBlogPost} />
       <Route path="/contact" component={Contact} />
       <Route path="/handbook" component={Handbook} />
       <Route path="/dinner" component={Dinner} />

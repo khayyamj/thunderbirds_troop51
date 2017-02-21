@@ -89,3 +89,11 @@
    height: 200px;
    width: 200px;
 }
+#content {
+   width: 480px;
+   margin: 0 auto;
+}
+.editor {
+   border: 1px solid grey;
+   padding: 6px;
+}
