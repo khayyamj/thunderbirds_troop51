@@ -1,8 +1,13 @@
 export default function() {
    return [
          {
-            link: 'Campouts',
-            address: '/campouts',
+            link: 'Blog',
+            address: '/blog',
+            permission: 0
+         },
+         {
+            link: 'Activities',
+            address: '/activities',
             permission: 1
          },
          {
@@ -29,8 +34,13 @@ export default function() {
             link: 'About',
             address: '/about',
             permission: 0
-         }
-         ,{
+         },
+         {
+            link: 'Contact',
+            address: '/contact',
+            permission: 0
+         },
+         {
             link: 'Login',
             address: '/',
             permission: 0

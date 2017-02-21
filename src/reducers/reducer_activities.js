@@ -1,6 +1,20 @@
 export default function() {
    return [
       {
+         date: '2017/02/17',
+         site: 'Hill Aerospace Museum',
+         location: {
+            lat: 41.1621,
+            lng: -112.0191
+         },
+         notes: 'Visited Hill Aerospace Museum and Railroad Museum (in Ogden)',
+         scouts: [
+            'Pete','Josh','Alex','Max','Sam','Donovan','Peter','Jack','Adam'
+         ],
+         leaders: [
+            'Kevin','Chad','Khayyam','Rolo','Kyle'
+         ]
+      },{
          date: '2017/01/17',
          site: 'Goshen Canyon',
          location: {

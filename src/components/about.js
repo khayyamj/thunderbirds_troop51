@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
+
 class About extends Component {
 
   render() {
@@ -6,7 +8,8 @@ class About extends Component {
     return(
       <div>
          This is the about page <br />
-         <img src={url} style={{width: 400}}/>
+         <img src={url} style={{width: 400}}/> <br />
+         <Link to='/handbook' className='nav-btn'> Handbook </Link>
       </div>
     );
   }

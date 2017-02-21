@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
 import ProfileReducer from './reducer_profiles';
 import NavLinkReducer from './reducer_nav-links';
-import Campouts from './reducer_campouts';
+import Activities from './reducer_activities';
 import { reducer as formReducer } from 'redux-form';
 
 
 const rootReducer = combineReducers({
    profiles: ProfileReducer,
    navLinks: NavLinkReducer,
-   campouts: Campouts,
+   activities: Activities,
    form: formReducer
 });
 

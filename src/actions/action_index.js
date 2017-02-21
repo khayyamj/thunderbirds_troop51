@@ -19,3 +19,11 @@ export function createProfile(props) {
       payload: request
    }
 }
+
+export function submitMessage() {
+   console.log('submitMessage function called');
+   return {
+      type: 'NONE',
+      payload: null
+   }
+}
