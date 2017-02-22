@@ -96,4 +96,8 @@
 .editor {
    border: 1px solid grey;
    padding: 6px;
+   min-height: 250px;
+}
+.myToolbar {
+   background-color: white;
 }
