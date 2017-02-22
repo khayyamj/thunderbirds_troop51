@@ -1,4 +1,4 @@
-import { FETCH_ROSTER, CREATE_PROFILE } from './../actions/action_index'
+import { FETCH_ROSTER, CREATE_PROFILE, FETCH_PROFILE } from './../actions/action_index'
 
 const INITIAL_STATE = { roster: [], profile: null };
 
@@ -7,8 +7,9 @@ export default function(state = [], action) {
       case FETCH_ROSTER:
          return action.payload.data;
       case CREATE_PROFILE:
-         return [ ...state, profile: action.payload.data];
-
+         return action.payload.data;
+      case FETCH_PROFILE:
+         return action.payload.data;
       default:
          return state;
    }

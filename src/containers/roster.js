@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
+import { Link } from 'react-router';
 import { fetchRoster } from './../actions/action_index';
 // import {action} from './../actions/Actions';
 
@@ -10,10 +11,12 @@ class Roster extends Component {
    }
 
   renderList() {
+
      return this.props.profiles.map((profile) => {
         return (
             <li key={profile.profileid} className="profile-item">
-               Name: {profile.firstname} <br />
+               Name: {profile.nickname}
+               <Link className='nav-btn' to={'/profile/' + profile.profileid}> view </Link> <br />
                City: {profile.city} <br />
                Email: {profile.email} <hr />
             </li>

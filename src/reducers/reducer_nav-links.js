@@ -42,7 +42,7 @@ export default function() {
          },
          {
             link: 'Login',
-            address: '/',
+            address: '/login',
             permission: 0
          }
       ]
