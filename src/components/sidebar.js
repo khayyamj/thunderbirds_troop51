@@ -6,7 +6,8 @@ export default class SideBar extends Component {
    return(
          <div className="right">
             Side Bar (right) <br />
-            <img src={url} style={{width: 100}}/> <hr />
+            <iframe src="https://calendar.google.com/calendar/embed?title=Troop%2051%20Calendar&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=300&amp;wkst=1&amp;bgcolor=%23ff9900&amp;src=calendar%40mytroop51.com&amp;color=%236f562e&amp;ctz=America%2FDenver" style={{borderWidth:0, width:200, height: 300, frameBorder:0, overflowY: "hidden", scrolling: "no"}}></iframe>
+            <hr />
             Resources: <br />
             <a>Council Website</a> <br />
             <a>District Website</a> <br />
