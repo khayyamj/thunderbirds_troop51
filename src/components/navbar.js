@@ -19,7 +19,9 @@ class NavBar extends Component {
       <div className="navbar">
          <ul className="navigation">
             {this.renderLinks()}
+
          </ul>
+         <a href='http://localhost:3000/auth'
       </div>
     );
   }

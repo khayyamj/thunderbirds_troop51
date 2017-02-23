@@ -8,6 +8,34 @@ db.init.create_profile_table([], function(err, results){
       console.log('Initialized Profile Table');
    }
 })
+db.init.create_accounts_table([], function(err, results){
+   if(err) {
+      console.error(err);
+   } else {
+      console.log('Initialized Accounts Table');
+   }
+})
+db.init.create_activities_table([], function(err, results){
+   if(err) {
+      console.error(err);
+   } else {
+      console.log('Initialized Activities Table');
+   }
+})
+db.init.create_participants_table([], function(err, results){
+   if(err) {
+      console.error(err);
+   } else {
+      console.log('Initialized Participants Table');
+   }
+})
+db.init.create_ranks_table([], function(err, results){
+   if(err) {
+      console.error(err);
+   } else {
+      console.log('Initialized Ranks Table');
+   }
+})
 
 module.exports = {
 
