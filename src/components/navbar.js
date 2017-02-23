@@ -21,7 +21,7 @@ class NavBar extends Component {
             {this.renderLinks()}
 
          </ul>
-         <a href='http://localhost:3000/auth'
+         <a href='http://localhost:3000/auth'>Login</a>
       </div>
     );
   }
