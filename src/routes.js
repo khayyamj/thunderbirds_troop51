@@ -41,7 +41,8 @@ export default (
       <Route path="/calendar" component={Calendar} />
       <Route path="/summer-camp" component={SummerCamp} />
       <Route path="/advancement" component={Advancement} />
-      <Route path="/roster" component={Roster} onEnter={requireAuth} />
+
+      <Route path="/roster" component={Roster} />
       <Route path="/about" component={About} />
       <Route path="/activities" component={Activities} />
       <Route path="/blog" component={Blog} />
@@ -52,3 +53,4 @@ export default (
 
    </Route>
 );
+      // <Route path="/roster" component={Roster} onEnter={requireAuth} />
