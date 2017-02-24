@@ -32,6 +32,7 @@ class Roster extends Component {
      )
   }
 }
+
 const mapStateToProps = function({ profiles }) {
   return { profiles }
 };
