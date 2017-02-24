@@ -1,5 +1,5 @@
 import axios from 'axios';
-const PROFILES_URL = 'http://localhost:3000/api/profiles/';
+const PROFILES_URL = 'http://localhost:3333/api/profiles/';
 
 export const FETCH_ROSTER = 'FETCH_ROSTER';
 export const FETCH_PROFILE = 'FETCH_PROFILE';
@@ -14,7 +14,6 @@ export function fetchRoster() {
 }
 
 export function fetchProfile(props) {
-   console.log('fetchProfile url: ',PROFILES_URL + props);
    const request = axios.get(PROFILES_URL + props);
    return {
       type: FETCH_PROFILE,

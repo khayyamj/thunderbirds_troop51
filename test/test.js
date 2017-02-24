@@ -1,3 +1,5 @@
+// change database to 'test' in config file before testing!
+
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var server = require('../server/server.js');
