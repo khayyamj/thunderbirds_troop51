@@ -16,7 +16,7 @@ import Blog from './components/blog';
 import Contact from './components/contact';
 import Handbook from './components/handbook';
 import Dinner from './components/dinner';
-import NewBlogPost from './components/blog_new_post';
+import NewBlogPost from './components/post_new';
 import Home from './components/home';
 import config from './../config';
 
