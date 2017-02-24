@@ -1,19 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
 import { fetchProfile } from './../actions/action_index';
 
 class Profile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {profile: undefined};
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {profile: undefined};
+  // }
 
   componentWillMount() {
    this.props.fetchProfile(this.props.params.profileid)
-   .then((request) => {
-      console.log('request returned: ',request);
-      this.setState({ profile: request.payload.data})
-   })
   }
 
   // request is being returned with the correct information
@@ -21,23 +18,26 @@ class Profile extends Component {
   // ===============================================================
 
   render() {
-     const { profile } = this.props;
-     if (!profile) {
+     console.log('Profile page --> ', this.props.profiles.profile);
+     if (!this.props.profiles.profile) {
         return <div>Loading...</div>;
      }
-     console.log('Request returned: ', this.state.profile);
+
     return(
       <div>
       Profile Page <br />
-      Profile id: {this.state.profileid} <br />
-      {this.state.profile}
+      Profile id:  {this.props.profiles.profile.profileid}<br />
+      {this.props.profiles.profile.firstname}
 
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-   return { profile: state.profiles.profile };
+function mapStateToProps({ profiles }) {
+   return { profiles };
 }
-export default connect(mapStateToProps, { fetchProfile })(Profile);
+const mapDispatchToProps = function (dispatch) {
+  return bindActionCreators({ fetchProfile }, dispatch);
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
