@@ -1,9 +1,9 @@
 {
   "name": "thunderbirds_troop51",
   "version": "1.0.0",
-  "description": "Simple starter package for Redux with React and Babel support",
+  "description": "Website designed for Utah Troop 51 Thunderbirds",
   "main": "./server/server.js",
-  "repository": "git@github.com:StephenGrider/ReduxSimpleStarter.git",
+  "repository": "https://github.com/khayyamj/thunderbirds_troop51",
   "scripts": {
     "start": "concurrently \"nodemon server/server.js\" \"node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors\"",
     "test": "mocha --compilers js:babel-core/register --require ./test/test.js --recursive ./test",

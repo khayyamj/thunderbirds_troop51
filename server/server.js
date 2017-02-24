@@ -32,15 +32,22 @@ var db = app.get('db');
 var mainCtrl = require('./mainCtrl');
 // ENDPOINTS
 // ============================================================
-// TEST ENDPOINTS
-// ============================================================
+
 
 // TABLE ENDPOINTS
+
+// PROFILES
 app.get('/api/profiles', mainCtrl.roster);
 app.get('/api/profiles/:id', mainCtrl.oneProfile)
 app.post('/api/profiles', mainCtrl.create);
 app.put('/api/profiles/:id', mainCtrl.update);
 app.delete('/api/profiles/:id', mainCtrl.delete);
+
+// ACTIVITIES
+app.get('/api/activities', mainCtrl.allActivities);
+app.post('/api/activities', mainCtrl.newActivity);
+
+
 // LISTEN
 // ============================================================
 var port = config.PORT;
