@@ -32,6 +32,9 @@ var db = app.get('db');
 var mainCtrl = require('./mainCtrl');
 // ENDPOINTS
 // ============================================================
+// TEST ENDPOINTS
+// ============================================================
+
 // TABLE ENDPOINTS
 app.get('/api/profiles', mainCtrl.roster);
 app.get('/api/profiles/:id', mainCtrl.oneProfile)

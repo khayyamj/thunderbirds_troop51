@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import GoogleMap from './google_map'
+import GoogleMap from './google_map';
 
 class Activities extends Component {
    renderList(elem) {

@@ -1,4 +1,6 @@
-// var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path')
+const webpack = require('webpack')
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 
 module.exports = {
   entry: [
@@ -9,6 +11,9 @@ module.exports = {
     publicPath: '/',
     filename: 'bundle.js'
   },
+  devtool: [
+     '#source-map'
+ ],
   module: {
    loaders: [{
       exclude: /node_modules/,
@@ -30,11 +35,13 @@ module.exports = {
   }
    ]
   },
-  // plugins: [
-  //       new ExtractTextPlugin('style/site.css', {
-  //           allChunks: true
-  //       })
-  //  ],
+  plugins: [
+        new BrowserSyncPlugin({
+           host: 'localhost',
+           port: 3000,
+           proxy: 'http://localhost:8080/'
+        })
+   ],
   resolve: {
     extensions: ['', '.js', '.jsx']
   },

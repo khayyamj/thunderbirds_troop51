@@ -70,6 +70,10 @@
    width: auto;
    flex-grow: 1;
 }
+#agendaEventContainer1.scrollbox {
+   overflow: hidden !important;
+   overflow-y: hidden !important;
+}
 .main-body .right {
    width: 200px;
 }

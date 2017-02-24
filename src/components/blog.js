@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Editor, EditorState, RichUtils } from 'draft-js';
+import BlogContentEditor from './post_new'
 
 class Blog extends Component {
    constructor(props) {
@@ -24,11 +25,7 @@ class Blog extends Component {
          Blog Page <br />
          <img src={url} /> <br />
          Utilize <a href='https://facebook.github.io/draft-js/'>Draft.js</a> for text editing in blog. <hr />
-         <Editor
-            editorState={this.state.editorState}
-            handleKeyCommand={this.handleKeyCommand}
-            onChange={this.onChange}
-         />
+         <BlogContentEditor />
       </div>
     );
   }
