@@ -17,11 +17,10 @@ class Profile extends Component {
 
   render() {
      const { profile } = this.props;
-     console.log('render this.props: ', this.props);
      if (!profile) {
         return <div>Loading...</div>;
      }
-
+     console.log('Request returned: ', this.props);
     return(
       <div>
       Profile Page <br />
