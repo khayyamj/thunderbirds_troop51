@@ -9,6 +9,8 @@ const db = server.get('db');
 
 chai.use(chaiHttp);
 
+  //  Testing Profile endpoints
+  // ==========================================================
 var fakeScout =  {
     firstname: 'Maximillian',
     lastname: 'Tester',
@@ -33,7 +35,11 @@ var roster = [];
 describe('Testing Profiles db:', function () {
 
   // after(function() {
-  //   db.dropTable('profiles','activities');
+  //   db.dropTable('profiles');
+  //   db.dropTable('activities');
+  //   db.dropTable('accounts');
+  //   db.dropTable('participants');
+  //   db.dropTable('ranks');
   // })
 
     it('expect post to create new profile', function(done) {
@@ -101,6 +107,8 @@ describe('Testing Profiles db:', function () {
 })
 
 describe('Activity endpoints --> ', function() {
+  //  test data
+  //  =======================================================
   var fakeActivity = {
     type: 'test activity',
     date: '2017/01/17',
@@ -126,19 +134,21 @@ describe('Activity endpoints --> ', function() {
       })
 
   })
-//   describe('Verifying activity entered into database', function () {
-//     chai.request(server)
-//       .get('/api/activities')
-//       .end(function (err, res) {
-//         expect(res).to.have.status(200);
-//         expect(res).to.be.json;
-//         expect(res.body).to.be.a('array');
-//         expect(res.body.aid[0]).to.be.a('integer');
-//
-//         done();
-//       })
-//   })
-//   describe('Verify created activity is in database')
+  // describe('Verifying activity entered into database', function () {
+  //   chai.request(server)
+  //     .get('/api/activities')
+  //     .end(function (err, res) {
+  //       expect(res).to.have.status(200);
+  //       expect(res).to.be.json;
+  //       expect(res.body).to.be.a('array');
+  //       expect(res.body.aid[0]).to.be.a('integer');
+  //
+  //       done();
+  //     })
+  // })
+
+
+  // describe('Verify created activity is in database')
 
 
 
