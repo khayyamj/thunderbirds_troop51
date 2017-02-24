@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
+import { Link } from 'react-router';
 import { fetchProfile } from './../actions/action_index';
 
 class Profile extends Component {
@@ -22,12 +23,13 @@ class Profile extends Component {
      if (!this.props.profiles.profile) {
         return <div>Loading...</div>;
      }
-
+     const profile = this.props.profiles.profile;
     return(
       <div>
+      <div className="nav-btn" to="/roster">roster</div>
       Profile Page <br />
-      Profile id:  {this.props.profiles.profile.profileid}<br />
-      {this.props.profiles.profile.firstname}
+      Profile id:  {profile.profileid}<br />
+      {profile.firstname}
 
       </div>
     );
