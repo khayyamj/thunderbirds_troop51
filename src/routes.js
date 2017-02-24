@@ -34,7 +34,8 @@ const requireAuth = (nextState, replace) => {
 export default (
    <Route path="/" component={App} >
       <IndexRoute component={Home} />
-      <Route path="/login" component={Login} onEnter={requireAuth} />
+
+      <Route path="/login" component={Login} />
       <Route path="/home" component={Home} />
       <Route path="/profile_create" component={ProfileCreate} />
       <Route path="/profile/:profileid" component={Profile} />
@@ -53,4 +54,5 @@ export default (
 
    </Route>
 );
+      // <Route path="/login" component={Login} onEnter={requireAuth} />
       // <Route path="/roster" component={Roster} onEnter={requireAuth} />

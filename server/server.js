@@ -9,7 +9,7 @@ var cors = require('cors');
 // ============================================================
 var config = require('./config');
 var corsOptions = {
-   origin: 'http://localhost:8080'
+   origin: 'http://localhost:3000'
 }
 // INITILIZE APP
 // ============================================================

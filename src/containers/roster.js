@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { Link } from 'react-router';
 import { fetchRoster } from './../actions/action_index';
-// import {action} from './../actions/Actions';
+
 
 class Roster extends Component {
    componentWillMount(){
@@ -11,8 +11,11 @@ class Roster extends Component {
    }
 
   renderList() {
-
-     return this.props.profiles.map((profile) => {
+    console.log('Roster page--> ', this.props.profiles);
+    if(!this.props.profiles.roster.length) {
+      return <div>Loading Roster...</div>;
+    }
+     return this.props.profiles.roster.map((profile) => {
         return (
             <li key={profile.profileid} className="profile-item">
                Name: {profile.nickname}
@@ -32,12 +35,13 @@ class Roster extends Component {
      )
   }
 }
+
 const mapStateToProps = function({ profiles }) {
   return { profiles }
 };
 
 const mapDispatchToProps = function (dispatch) {
-  return bindActionCreators({ action }, dispatch);
+  return bindActionCreators({ fetchRoster }, dispatch);
 };
 
-export default connect(mapStateToProps, { fetchRoster })(Roster);
+export default connect(mapStateToProps, mapDispatchToProps)(Roster);
