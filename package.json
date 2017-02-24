@@ -5,10 +5,11 @@
   "main": "./server/server.js",
   "repository": "git@github.com:StephenGrider/ReduxSimpleStarter.git",
   "scripts": {
-    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors",
+    "start": "concurrently \"node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors\" \"nodemon server/server.js\"",
     "test": "mocha --compilers js:babel-core/register --require ./test/test.js --recursive ./test",
     "test:watch": "npm run test -- --watch"
   },
+
   "author": "Khayyam Jones",
   "license": "ISC",
   "devDependencies": {
@@ -37,6 +38,7 @@
     "axios": "^0.15.3",
     "babel-preset-stage-1": "^6.1.18",
     "body-parser": "^1.16.1",
+    "concurrently": "^3.3.0",
     "cors": "^2.8.1",
     "draft-js": "^0.10.0",
     "draft-js-hashtag-plugin": "^2.0.0-beta1",

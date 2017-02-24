@@ -3,11 +3,16 @@ import { connect } from 'react-redux';
 import { fetchProfile } from './../actions/action_index';
 
 class Profile extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {profile: undefined};
+  }
 
   componentWillMount() {
    this.props.fetchProfile(this.props.params.profileid)
    .then((request) => {
       console.log('request returned: ',request);
+      this.setState({ profile: request.payload.data})
    })
   }
 
@@ -20,12 +25,12 @@ class Profile extends Component {
      if (!profile) {
         return <div>Loading...</div>;
      }
-     console.log('Request returned: ', this.props);
+     console.log('Request returned: ', this.state.profile);
     return(
       <div>
       Profile Page <br />
-      Profile id: {this.props.params.profileid} <br />
-      {profile}
+      Profile id: {this.state.profileid} <br />
+      {this.state.profile}
 
       </div>
     );
