@@ -16,7 +16,6 @@ var fakeScout =  {
     city: 'Test',
     state: 'UT',
     zip: '84000',
-
     cellphone: '435-000-0000',
     homephone: '801-000-0000',
     birthday: '2001-11-11',
@@ -27,60 +26,74 @@ var updateScout = {
    email: 'testerJ@superhim.com',
    homephone: '435-999-9999'
 }
+var roster = [];
 
-// var cleanDatabase = function(done) {
-//    ___.drop(function(e, r) {
-//       done()
-//    })
-// }
+describe('Testing Profiles db:', function () {
 
-describe('Test function working', function () {
+  after(function() {
+    db.dropTable('profiles');
+  })
 
-   // before(cleanDatabase)
-   // after(cleanDatabase)
-   // beforeEach
-   // afterEach
-
-   it('expects true to equal true', function() {
-
-      chai.expect(true).to.equal(!false);
-      chai.expect(2+2).to.equal(4);
-      chai.expect(2*2).to.equal(4);
-   })
-
+    it('expect post to create new profile', function(done) {
+       chai.request(server)
+          .post('/api/profiles')
+          .send(fakeScout)
+          .end(function(err, res) {
+             expect(res).to.have.status(200);
+             expect(res).to.be.json;
+             expect(res.body.firstname).to.equal(fakeScout.firstname);
+             done();
+          })
+    })
    it('expect profiles endpoint to return full roster', function(done) {
       chai.request(server)
          .get('/api/profiles')
          .end(function(err,res) {
+           roster = res.body;
             expect(res).to.be.ok;
             expect(res).to.have.status(200);
             expect(res).to.be.json;
-            console.log(res.body);
             done();
          })
    })
-
-   // it('expect profile to update', function(done) {
-   //    chai.request(server)
-   //       .get('/api/profiles/1')
-   //       .end(function(err,res) {
-   //          expect(res).to.have.status(500);
-   //          expect(res).to.be.json;
-   //          expect(res.body.firstname).to.equal(updateScout.firstname);
-   //          console.log(res.body);
-   //          done();
-   //       })
-   // })
-
-   // it('expect post to create new profile', function(done) {
-   //    chai.request(server)
-   //       .post('/api/profiles')
-   //       .end(function(err, res) {
-   //          expect(res).to.have.status(200);
-   //          expect(res).to.be.json;
-   //          expect(res.body.firstname).to.equal(fakeScout.firstname);
-   //
-   //          done();
-   //       })
-   // })
+   it('expect server to return a single profile', function(done) {
+      chai.request(server)
+         .get('/api/profiles/' + roster[0].profileid)
+         .end(function(err,res) {
+            expect(res).to.have.status(200);
+            expect(res).to.be.json;
+            done();
+         })
+   })
+   it('expect profile to update', function(done) {
+      chai.request(server)
+         .put('/api/profiles/' + roster[0].profileid)
+         .send(updateScout)
+         .end(function(err,res) {
+            expect(res).to.have.status(200);
+            expect(res).to.be.json;
+            expect(res.body.firstname).to.equal(updateScout.firstname);
+            done();
+         })
+   })
+   it('expect profile to be deleted', function(done) {
+     chai.request(server)
+      .get('/api/profiles')
+      .end(function(err,res) {
+        chai.request(server)
+        .delete('/api/profiles/' + res.body[0].profileid)
+        .end(function(err,res) {
+           expect(res).to.have.status(200);
+           expect(res).to.be.json;
+           chai.request(server)
+              .get('/api/profiles')
+              .end(function(err,res) {
+                 expect(res).to.have.status(200);
+                 expect(res.body).to.be.a('array');
+                 expect(res.body).to.have.length(roster.length - 1);
+                 done();
+              })
+        })
+      })
+   })
 })
