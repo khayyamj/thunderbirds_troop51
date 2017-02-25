@@ -5,5 +5,6 @@ CREATE TABLE IF NOT EXISTS Accounts (
    amount         NUMERIC(10,2),
    accounting     VARCHAR(5),
    activity       VARCHAR(20),
-   actid          INTEGER
+   actid          INTEGER,
+   notes          VARCHAR(255)
 )

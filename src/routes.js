@@ -18,6 +18,7 @@ import Handbook from './components/handbook';
 import Dinner from './components/dinner';
 import NewBlogPost from './components/post_new';
 import Home from './components/home';
+import Account from './containers/account'
 import config from './../config';
 
 const { clientId, domain } = config();
@@ -51,6 +52,7 @@ export default (
       <Route path="/contact" component={Contact} />
       <Route path="/handbook" component={Handbook} />
       <Route path="/dinner" component={Dinner} />
+      <Route path="/account/:profileid" component={Account} />
 
    </Route>
 );

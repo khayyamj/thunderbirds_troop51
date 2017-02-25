@@ -4,6 +4,7 @@ const PROFILES_URL = 'http://localhost:3333/api/profiles/';
 export const FETCH_ROSTER = 'FETCH_ROSTER';
 export const FETCH_PROFILE = 'FETCH_PROFILE';
 export const CREATE_PROFILE = 'CREATE_PROFILE';
+export const FETCH_ACCOUNT = 'FETCH_ACCOUNT';
 
 export function fetchRoster() {
    const request = axios.get(PROFILES_URL);
@@ -59,4 +60,12 @@ export function createBlogPost() {
       type: 'NONE',
       payload: null
    }
+}
+
+export function fetchAccount(props) {
+  console.log('fetchAccounts function called');
+  return {
+    type: FETCH_ACCOUNT,
+    payload: null
+  }
 }
