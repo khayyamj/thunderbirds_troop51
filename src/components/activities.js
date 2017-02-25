@@ -11,33 +11,32 @@ class Activities extends Component {
     this.selectActivity = this.selectActivity.bind(this);
   }
 
-   renderList(elem) {
+  renderList(elem) {
       return elem.map((e) => {
          return <li key={e}>{e}</li>
       })
    }
 
-   selectActivity(event) {
+  selectActivity(event) {
      console.log('selectActivity event: ', event.target.value);
      this.setState({ Activity: event.target.value });
    }
 
-   renderActivities() {
-     const filteredActivityList = [],
+  renderActivities() {
+    const filteredActivityList = [],
           filter = this.state.Activity;
 
-     this.props.activities.map((activity, i) => {
+    this.props.activities.map((activity, i) => {
        if (filter === 'all') {
-         console.log('Filter --> ' + filter);
          filteredActivityList.push(activity)
        } else
        if (activity.type === filter) {
-         console.log('Filter --> ' + filter);
          filteredActivityList.push(activity)
        }
        return filteredActivityList;
      })
-      return filteredActivityList.map((activity) => {
+
+    return filteredActivityList.map((activity) => {
          const { lat, lng } = activity.location;
          return (
             <div className="activity" key={activity.date}>
@@ -53,7 +52,7 @@ class Activities extends Component {
             </div>
          )
       })
-   }
+  }
 
   render() {
     return(
@@ -77,7 +76,7 @@ class Activities extends Component {
       </div>
     );
   }
-}
+
 const mapStateToProps = function({ activities }) {
    return { activities };
 }
