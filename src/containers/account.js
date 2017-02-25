@@ -3,69 +3,75 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { Link } from 'react-router';
 import { reduxForm } from 'redux-form';
-import { fetchAccount } from './../actions/action_index';
+import { fetchAccount, createTransaction } from './../actions/action_index';
 
 class Account extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {profile: undefined};
-  // }
   static contextTypes = {
     router: PropTypes.object
   }
 
   componentWillMount() {
-   this.props.fetchAccount(this.props.params.profileid)
+    console.log('Account --> componentWillMount --> this.props ', this.props)
+    this.props.fetchAccount(this.props.params.profileid)
   }
 
   onSubmit(props) {
-    this.props.createTransaction(props)
-    .then(() => {
-      this.context.router.push('/')
-    })
+    console.log('Account --> onSubmit --> props: ', props);
+    this.props.createTransaction(props);
   }
 
   render() {
-    const { fields: {}, handleSubmit} = this.props,
-        account = this.props.accounts;
+    if (!this.props.transactions) {
+       return <div>Loading...</div>;
+    }
 
-     console.log('Account page --> ', this.props.accounts);
-     if (!this.props.accounts) {
-        return <div>Loading...</div>;
-     }
+    const { fields: {profileid, amount, notes, date, activity, actid, accounting}, handleSubmit} = this.props,
+        account = this.props.transactions;
 
     return(
       <div>
 
       <div className="account-header">Account Page </div>
         <div className="account-profile">
-          Profile id: {account.scoutid}
+          Profile id:
+          Account balance: {console.log('account --> this.props.transactions: ' + this.props.transactions)}
 
         </div>
-        <form >
+        <form className="transaction-form" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <div className="account-transaction">
-            Account information -->
-            <select name="credit/debit">
-              <option value="+" {...accounting}>Paid</option>
-              <option value="-" {...accounting}>Owe</option>
-            </select> $<input type='text' placeholder="0.00" {...amount}/>
-            For <input type='text' placeholder='dues/campout/etc' {...event} />
-            Notes <input type='text' {...notes} />
-
+            Transaction information --> <br />
+            <input type='date' {...date} /> <br />
+            <select name="accounting" {...accounting}>
+              <option value="+">Paid</option>
+              <option value="-">Owe</option>
+            </select> $<input type='text' placeholder="0.00" {...amount}/> <br />
+            <select name="activity" {...activity}>
+              <option value="dues">Dues</option>
+              <option value="campout">Campout</option>
+              <option value="activity">Activity</option>
+              <option value="summer_camp">Summer Camp</option>
+              <option value="other">Other</option>
+            </select>
+            <input type='text' placeholder="Memo" {...notes} /> <br />
+            <button type='submit' className='nav-btn'>Submit</button>
           </div>
         </form>
+        <div>
+          Testing FormFields: <br />
+
+        </div>
       </div>
     );
   }
 }
 
-function mapStateToProps({ accounts }) {
-   return { accounts };
+function mapStateToProps({ transactions }) {
+   return { transactions };
 }
 const mapDispatchToProps = function (dispatch) {
-  return bindActionCreators({ fetchAccount }, dispatch);
+  return bindActionCreators({ fetchAccount, createTransaction }, dispatch);
 };
 export default reduxForm({
   form: 'AccountTransaction',
-  fields: ['profileid', 'amount', 'notes', 'date', 'activity', 'actid','accounting']
+  fields: ['profileid', 'amount', 'notes', 'date', 'activity', 'actid', 'accounting']
 },mapStateToProps, mapDispatchToProps)(Account);
