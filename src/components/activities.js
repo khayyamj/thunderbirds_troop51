@@ -4,17 +4,40 @@ import {bindActionCreators} from 'redux';
 import GoogleMap from './google_map';
 
 class Activities extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { Activity: 'all'};
+
+    this.selectActivity = this.selectActivity.bind(this);
+  }
+
    renderList(elem) {
       return elem.map((e) => {
          return <li key={e}>{e}</li>
       })
    }
 
-   renderActivities() {
+   selectActivity(event) {
+     console.log('selectActivity event: ', event.target.value);
+     this.setState({ Activity: event.target.value });
+   }
 
-      return this.props.activities.map((activity) => {
+   renderActivities() {
+     const filteredActivityList = [],
+          filter = this.state.Activity;
+
+     console.log('renderActivities --> this.state ', this.state);
+     this.props.activities.map((activity, i) => {
+       if (filter === 'all') {
+         filteredActivityList.push(activity)
+       } else
+       if (activity.type === filter) {
+         filteredActivityList.push(activity)
+       }
+       return filteredActivityList;
+     })
+      return filteredActivityList.map((activity) => {
          const { lat, lng } = activity.location;
-         console.log('lat: ', lat, ' lng: ', lng);
          return (
             <div className="activity" key={activity.date}>
                Date: {activity.date} <br />
@@ -34,7 +57,22 @@ class Activities extends Component {
   render() {
     return(
       <div className="activity-list">
-         {this.renderActivities()}
+
+        <select
+          name='Activity'
+          value={this.state.Activity}
+          onChange={this.selectActivity} >
+
+          <option value='all'>All Activities</option>
+          <option value='campout'>Campouts</option>
+          <option value='activity'>Activities</option>
+          <option value='service'>Service Projects</option>
+          <option value='summer_camp'>Summer Camp</option>
+
+        </select>
+
+        {this.renderActivities()}
+
       </div>
     );
   }
