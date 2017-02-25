@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import GoogleMap from './google_map';
 
 class Activities extends Component {
+
   constructor(props) {
     super(props);
     this.state = { Activity: 'all'};
@@ -18,7 +19,6 @@ class Activities extends Component {
    }
 
   selectActivity(event) {
-     console.log('selectActivity event: ', event.target.value);
      this.setState({ Activity: event.target.value });
    }
 
@@ -76,6 +76,7 @@ class Activities extends Component {
       </div>
     );
   }
+}
 
 const mapStateToProps = function({ activities }) {
    return { activities };

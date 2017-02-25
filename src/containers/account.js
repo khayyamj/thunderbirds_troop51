@@ -9,12 +9,12 @@ class Account extends Component {
   constructor(props) {
     super(props);
       this.state = {
-        accounting: '+',
+        accounting: '',
         activity: '',
         profileid: this.props.params.profileid,
         amount: 0.00,
         date: '',
-        activity: 'dues',
+        activity: '',
         actid: null,
         notes: ''
       };
@@ -36,7 +36,7 @@ class Account extends Component {
     const e = event.target,
           name = e.name,
           value = e.value;
-    this.setState({ name: value });
+    this.setState({ [event.target.name]: value });
   }
 
   onSubmit(props) {
@@ -58,29 +58,42 @@ class Account extends Component {
       <div className="account-header">Account Page </div>
         <div className="account-profile">
           Profile id:
-          Account balance: {console.log('account --> this.props.transactions: ' + this.props.transactions)}
+          Account balance:
 
         </div>
-        <form className="transaction-form" onSubmit={handleSubmit(this.onSubmit}>
+        <form className="transaction-form" onSubmit={handleSubmit(this.onSubmit)}>
           <div className="account-transaction">
             Transaction information --> <br />
             <input type='date' {...date} /> <br />
             <select
+              {...accounting}
               name="accounting"
               value={this.state.accounting}
-              onChange={this.updateValue}>
+              onChange={this.updateValue}  >
+              <option>Choose</option>
               <option value="+">Paid</option>
               <option value="-">Owe</option>
             </select> $<input type='text' placeholder="0.00" {...amount}/> <br />
-            <select name="activity" {...activity}>
+            <select
+              {...activity}
+              name="activity"
+              value={this.state.activity}
+              onChange={this.updateValue}  >
+              <option> Pick one </option>
               <option value="dues">Dues</option>
               <option value="campout">Campout</option>
               <option value="activity">Activity</option>
               <option value="summer_camp">Summer Camp</option>
               <option value="other">Other</option>
+
             </select>
             <input type='text' placeholder="Memo" {...notes} /> <br />
+            <input value={this.state.activity} {...activity} style={{display: 'none'}} />
+            <input value={this.state.accounting} {...accounting} style={{display: 'none'}} />
+            <input value={this.state.profileid} {...profileid} style={{display: 'none'}} />
+            {console.log('Initial Values --> Activity: ' + this.state.activity + ' Accounting: ' + this.state.accounting + ' ProfileId: ' + this.state.profileid)}
             <button type='submit' className='nav-btn'>Submit</button>
+
           </div>
         </form>
         <div>
