@@ -1,10 +1,12 @@
 import axios from 'axios';
 const PROFILES_URL = 'http://localhost:3333/api/profiles/';
+const ACTIVITIES_URL = 'http://localhost:3333/api/activities/';
 
 export const FETCH_ROSTER = 'FETCH_ROSTER';
 export const FETCH_PROFILE = 'FETCH_PROFILE';
 export const CREATE_PROFILE = 'CREATE_PROFILE';
-export const FETCH_ACCOUNT = 'FETCH_ACCOUNT';
+export const FETCH_TRANSACTIONS = 'FETCH_TRANSACTIONS';
+export const CREATE_TRANSACTION = 'CREATE_TRANSACTION';
 
 export function fetchRoster() {
    const request = axios.get(PROFILES_URL);
@@ -48,24 +50,36 @@ export function deleteProfile(props) {
 
 export function submitMessage() {
    console.log('submitMessage function called');
+   const request = null;
    return {
       type: 'NONE',
-      payload: null
+      payload: request
    }
 }
 
 export function createBlogPost() {
    console.log('createBlogPost function called');
+   const request = null;
    return {
       type: 'NONE',
-      payload: null
+      payload: request
    }
 }
 
 export function fetchAccount(props) {
   console.log('fetchAccounts function called');
+  const request = null;
   return {
-    type: FETCH_ACCOUNT,
-    payload: null
+    type: FETCH_TRANSACTIONS,
+    payload: request
+  }
+}
+
+export function createTransaction(props) {
+  console.log('createTransaction function called, submitted ', props);
+  const request = null;
+  return {
+    type: CREATE_TRANSACTION,
+    payload: request
   }
 }

@@ -6,10 +6,8 @@ import { Router, browserHistory } from 'react-router';
 import routes from './routes';
 import ReduxPromise from 'redux-promise';
 
-
 import App from './components/app';
 import reducers from './reducers';
-
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
