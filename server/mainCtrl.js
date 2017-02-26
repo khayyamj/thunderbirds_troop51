@@ -116,6 +116,19 @@ module.exports = {
        }
        return res.status(200).json(table[0]);
      })
+   },
+
+   updateActivity: function (req, res, next) {
+     const id = parseInt(req.params.id),
+           activity = req.body;
+
+     db.updateActivity([id,activity.type,activity.date,activity.site,activity.lat,activity.lng,activity.notes], function(err, table) {
+       if(err) {
+         console.error('updateActivity: ', err);
+         return res.status(400).send(err);
+       }
+       return res.status(200).json(table[0]);
+     })
    }
 
 

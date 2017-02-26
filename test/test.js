@@ -138,55 +138,99 @@ describe('<<********************** Unit Testing Begins **********************>>'
   // <============ end Profile endpoints testing ================>
   });
 
+  describe('<====================== Activity Endpoints ======================>', function() {
+    //  test data
+    //  =======================================================
+      var fakeActivity = {
+        type: 'test activity',
+        date: '2017/01/17',
+        site: 'Testing Testing',
+        lat: 39.8898,
+        lng: -111.8867,
+        notes: 'Testing notes with a fake activity'
+      }
+      var aid = '';
+      var activityUrl = '/api/activities/'
 
-  // describe('<====================== Activity Endpoints ======================>', function() {
-  //   //  test data
-  //   //  =======================================================
-  //     var fakeActivity = {
-  //       type: 'test activity',
-  //       date: '2017/01/17',
-  //       site: 'Testing Testing',
-  //       lat: 39.8898,
-  //       lng: -111.8867,
-  //       notes: 'Testing notes with a fake activity'
-  //     }
-  //     var aid = '';
-  //
-  //
-  //     describe('Adding activity to database', function () {
-  //       chai.request(server)
-  //         .post('/api/activities')
-  //         .send(fakeActivity)
-  //         .end(function(err, res) {
-  //           expect(res).to.have.status(200);
-  //           expect(res).to.be.json;
-  //           console.log('...................res.body.aid...............' + res.body.aid);
-  //           expect(res.body.aid).to.exist;
-  //           expect(res.body.aid).to.be.a('number');
-  //           aid = res.body.aid;
-  //           done();
-  //         })
-  //     });
 
-  //   describe('Verifying activity entered into database', function () {
-  //     chai.request(server)
-  //       .get('/api/activities')
-  //       .end(function (err, res) {
-  //         expect(res).to.have.status(200);
-  //         expect(res).to.be.json;
-  //
-  //
-  //         done();
-  //       })
-  //   })
-  //
-  //
-  //
-  //
-  //
-  // });
+    describe('POST (adding activity) Test -----------------------> ', function () {
+        it('Made a successful post submission', function(done) {
+          chai.request(server)
+            .post(activityUrl)
+            .send(fakeActivity)
+            .end(function(err, res) {
+              console.log('Return object: ', res.body);
+              expect(res).to.have.status(200);
+              expect(res).to.be.json;
+              expect(res.body.actid).to.exist;
+              expect(res.body.actid).to.be.a('number');
+              done();
+            })
+        })
+        it('Correct information was submitted', function(done) {
+          chai.request(server)
+            .post(activityUrl)
+            .send(fakeActivity)
+            .end(function(err, res) {
+              expect(res.body.type).to.be.equal(fakeActivity.type);
+              expect(res.body.notes).to.be.equal(fakeActivity.notes);
+              expect(res.body.date).to.be.a('string');
+
+              done();
+            })
+        })
+      });
+
+    describe('GET Activities (all activities) test', function () {
+      it('GET Endpoint exists and returns valid', function() {
+        chai.request(server)
+          .get(activityUrl)
+          .end(function(err, res) {
+            expect(res).to.have.status(200);
+
+            done();
+          })
+      })
+      it('Endpoint returns correct information', function() {
+        chai.request(server)
+          .get(activityUrl)
+          .end(function(err, res) {
+            expect(res).to.be.json;
+            expect(res.body).to.exist;
+            expect(res.body.type).to.equal(fakeActivity.type);
+
+            done();
+          })
+      })
+    });
+
+    describe('PUT Activities (updating activities) test', function () {
+      const fakeActivityUpdate = {
+        type: 'update test',
+        date: '1999/13/29',
+        site: 'DevMtn Test Silo',
+        lat: 40.0000,
+        lng: -112.0000,
+        notes: 'Getting the hand of testing with Mocha and Chai'
+      },
+            actid = '',
+            body = {};
+
+      it('PUT Endpoint exists and returns valid', function() {
+        chai.request(server)
+          .put(activityUrl)
+          .end(function(err, res) {
+            body = res.body;
+            expect(res).to.have.status(200);
+            done();
+          })
+      })
+
+    });
+
+
   // <============ end Activity endpoints testing ================>
-  // });
+  });
 
   // <====================== Unit Testing Ends ======================>
 })

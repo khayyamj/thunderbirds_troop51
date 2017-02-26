@@ -46,6 +46,7 @@ app.delete('/api/profiles/:id', mainCtrl.delete);
 // ACTIVITIES
 app.get('/api/activities', mainCtrl.allActivities);
 app.post('/api/activities', mainCtrl.newActivity);
+app.put('/api/activities', mainCtrl.updateActivity);
 
 
 // LISTEN
