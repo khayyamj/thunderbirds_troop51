@@ -9,12 +9,17 @@ const db = server.get('db');
 
 chai.use(chaiHttp);
 describe('<<********************** Unit Testing Begins **********************>>', function() {
-
+  // after(function() {
+  //   db.dropTable('profiles');
+  //   db.dropTable('activities');
+  //   db.dropTable('accounts');
+  //   db.dropTable('participants');
+  //   db.dropTable('ranks');
+  // })
 
 
   describe('<====================== Testing Profiles db ======================>', function () {
-    //  Testing Profile endpoints
-    // ==========================================================
+
   var fakeScout =  {
       firstname: 'Maximillian',
       lastname: 'Tester',
@@ -37,17 +42,7 @@ describe('<<********************** Unit Testing Begins **********************>>'
   var roster = [];
   var profileUrl = '/api/profiles/';
 
-
-
-    // after(function() {
-    //   db.dropTable('profiles');
-    //   db.dropTable('activities');
-    //   db.dropTable('accounts');
-    //   db.dropTable('participants');
-    //   db.dropTable('ranks');
-    // })
-
-    describe('Creating profile Test ----------------->', function() {
+    describe('Creating profile Test', function() {
 
 
       it('expect post to create new profile', function(done) {
@@ -63,7 +58,7 @@ describe('<<********************** Unit Testing Begins **********************>>'
       })
     })
 
-    describe('GET (full roster) Test ----------------->', function() {
+    describe('GET (full roster) Test', function() {
      it('expect profiles endpoint to return full roster', function(done) {
         chai.request(server)
            .get('/api/profiles')
@@ -77,7 +72,7 @@ describe('<<********************** Unit Testing Begins **********************>>'
       })
    })
 
-    describe('Checking on GET (SINGLE PROFILE) ----------------->', function() {
+    describe('Checking on GET (SINGLE PROFILE)', function() {
       it('expect server to return a single profile', function(done) {
         chai.request(server)
           .get(profileUrl)
@@ -93,13 +88,14 @@ describe('<<********************** Unit Testing Begins **********************>>'
       })
     })
 
-    describe('PUT (updating profile) Test ----------------->', function() {
+    describe('PUT (updating profile) Test', function() {
      it('expect profile to update', function(done) {
         chai.request(server)
           .get(profileUrl)
           .end(function(err, res) {
+            var i = res.body.length;
             chai.request(server)
-              .put('/api/profiles/' + res.body[0].profileid)
+              .put('/api/profiles/' + res.body[i-1].profileid)
               .send(updateScout)
               .end(function(err,res) {
                 expect(res).to.have.status(200);
@@ -111,7 +107,7 @@ describe('<<********************** Unit Testing Begins **********************>>'
      })
   })
 
-    describe('DELETE (removing profile) Test ----------------->', function() {
+    describe('DELETE (removing profile) Test>', function() {
       it('expect profile to be deleted', function(done) {
          chai.request(server)
           .get(profileUrl)
@@ -153,13 +149,12 @@ describe('<<********************** Unit Testing Begins **********************>>'
       var activityUrl = '/api/activities/'
 
 
-    describe('POST (adding activity) Test -----------------------> ', function () {
+    describe('POST (adding activity) Test', function () {
         it('Made a successful post submission', function(done) {
           chai.request(server)
             .post(activityUrl)
             .send(fakeActivity)
             .end(function(err, res) {
-              console.log('Return object: ', res.body);
               expect(res).to.have.status(200);
               expect(res).to.be.json;
               expect(res.body.actid).to.exist;
@@ -187,7 +182,6 @@ describe('<<********************** Unit Testing Begins **********************>>'
           .get(activityUrl)
           .end(function(err, res) {
             expect(res).to.have.status(200);
-
             done();
           })
       })
@@ -198,7 +192,6 @@ describe('<<********************** Unit Testing Begins **********************>>'
             expect(res).to.be.json;
             expect(res.body).to.exist;
             expect(res.body.type).to.equal(fakeActivity.type);
-
             done();
           })
       })
@@ -228,9 +221,65 @@ describe('<<********************** Unit Testing Begins **********************>>'
 
     });
 
+    describe('DELETE Activities (remove activities) test', function () {
+      it('Remove an activity from the database')
+    })
+
 
   // <============ end Activity endpoints testing ================>
   });
+
+  describe('<<********************** Accounts Testing Begins **********************>>', function() {
+    it('Accounts should have GET, POST, PUT and DELETE endpoints')
+    describe('POST tests', function() {
+      it('POST endpoint should return information')
+      it('POST should create a new transaction entry')
+      it('POST should add correct information')
+    })
+    describe('GET tests', function() {
+      it('GET endpoint should exist and return information')
+      it('GET should return a .json object')
+      it('GET should return transaction objects')
+      it('GET :/{transactionid} should return a single entry')
+    })
+    describe('PUT tests', function() {
+      it('PUT endpoint should exist and return information')
+      it('PUT should return a .json object')
+      it('PUT should modify the transaction entry correctly')
+    })
+    describe('DELETE tests', function() {
+      it('DELETE endpoint should exist and return information')
+      it('DELETE should return a .json object')
+      it('DELETE should remove a transaction entry')
+    })
+  })
+  // <================== Accounting Testing Ends ====================>
+
+  describe('<<********************** RANKS Testing Begins **********************>>', function() {
+    it('RANKS should have GET, POST, PUT and DELETE endpoints')
+    describe('POST tests', function() {
+      it('POST endpoint should return information')
+      it('POST should create a new entry')
+      it('POST should add correct information')
+    })
+    describe('GET tests', function() {
+      it('GET endpoint should exist and return information')
+      it('GET should return a .json object')
+      it('GET should return ranks objects')
+      it('GET :/{rankid} should return a single entry')
+    })
+    describe('PUT tests', function() {
+      it('PUT endpoint should exist and return information')
+      it('PUT should return a .json object')
+      it('PUT should modify the transaction entry correctly')
+    })
+    describe('DELETE tests', function() {
+      it('DELETE endpoint should exist and return information')
+      it('DELETE should return a .json object')
+      it('DELETE should remove a rank entry')
+    })
+  })
+  // <================== Accounting Testing Ends ====================>
 
   // <====================== Unit Testing Ends ======================>
 })
