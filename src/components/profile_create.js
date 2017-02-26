@@ -10,20 +10,23 @@ class Profile extends Component {
       <form className="profile-form" onSubmit={handleSubmit(this.props.createProfile)}>
       <h3>Profile Page</h3>
          <div className="form-group">
-            <label>First Name</label>
+            <label>*First Name</label>
             <input type="text" className="form-input" {...firstname} />
+            {firstname.touched ? firstname.error : ''}
          </div>
          <div className="form-group">
-            <label>Last Name</label>
+            <label>*Last Name</label>
             <input type="text" className="form-input" {...lastname} />
+            {lastname.touched ? lastname.error : ''}
          </div>
          <div className="form-group">
             <label>Preferred Name</label>
             <input type="text" className="form-input" {...nickname} />
          </div>
          <div className="form-group">
-            <label>Email</label>
+            <label>*Email</label>
             <input type="email" className="form-input" {...email} />
+            {email.touched ? email.error : ''}
          </div>
          <div className="form-group">
             <label>Address</label>
@@ -53,14 +56,30 @@ class Profile extends Component {
             <label>Birthday</label>
             <input type="date" className="form-input" {...birthday} />
          </div>
-         <button type="submit" className="nav-btn">Update</button>
+         *Required Fields <br />
+         <button type="submit" className="nav-btn">Add/Update</button>
       </form>
     );
   }
 }
+
+function validate(values) {
+  const errors = {};
+  if (!values.firstname) {
+    errors.firstname = 'First Name is required'
+  }
+  if (!values.lastname) {
+    errors.lastname = 'Last Name is required'
+  }
+  if (!values.email) {
+    errors.email = 'Email address is required'
+  }
+  return errors;
+}
+
 export default reduxForm({
    /* config for reduxForm here */
    form: 'ProfileForm',
-   fields: ['firstname', 'lastname', 'nickname', 'email', 'address', 'city', 'state', 'zip', 'cellphone', 'homephone', 'birthday']
+   fields: ['firstname', 'lastname', 'nickname', 'email', 'address', 'city', 'state', 'zip', 'cellphone', 'homephone', 'birthday'], validate
    /* then add mapStateToProps and add dispatchToProps properties */
 }, null, { createProfile })(Profile);
