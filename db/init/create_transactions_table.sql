@@ -1,5 +1,5 @@
-CREATE TABLE IF NOT EXISTS Accounts (
-   transaction    SERIAL PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS Transactions (
+   transactionid    SERIAL PRIMARY KEY,
    date           VARCHAR(10),
    profileid      INTEGER,
    amount         NUMERIC(10,2),

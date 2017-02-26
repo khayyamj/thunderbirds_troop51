@@ -8,7 +8,7 @@ db.init.create_profile_table([], function(err, results){
       // console.log('Initialized Profile Table');
    }
 })
-db.init.create_accounts_table([], function(err, results){
+db.init.create_transactions_table([], function(err, results){
    if(err) {
       console.error(err);
    } else {
@@ -39,7 +39,7 @@ db.init.create_ranks_table([], function(err, results){
 
 module.exports = {
 
-  roster: function(req, res, next) {
+  fullRoster: function(req, res, next) {
     db.get_roster([], function(err, table){
        if (err) {
           console.error('roster: ', err);
@@ -51,7 +51,7 @@ module.exports = {
 
    oneProfile: function(req, res, next) {
       const id=parseInt(req.params.id);
-      db.get_profile([id], function(err, table){
+      db.get_oneprofile([id], function(err, table){
          console.log('Params: ', req.params.id);
          if (err) {
             console.error('oneProfile: ', err);
@@ -62,9 +62,9 @@ module.exports = {
 
    },
 
-   create: function(req, res, next) {
+   createProfile: function(req, res, next) {
       const body = req.body;
-      db.createProfile([body.firstname, body.lastname, body.nickname, body.email, body.address, body.city, body.state, body.zip, body.cellphone, body.homephone, body.birthday], function(err,table) {
+      db.create_profile([body.firstname, body.lastname, body.nickname, body.email, body.address, body.city, body.state, body.zip, body.cellphone, body.homephone, body.birthday], function(err,table) {
          if (err) {
             console.error('create: ', err);
             return res.status(400).send(err);
@@ -74,10 +74,10 @@ module.exports = {
 
    },
 
-   update: function(req, res, next) {
+   updateProfile: function(req, res, next) {
       const id = parseInt(req.params.id);
       const body = req.body;
-      db.updateProfile([id, body.firstname, body.lastname, body.nickname, body.email, body.address, body.city, body.state, body.zip, body.cellphone, body.homephone, body.birthday], function(err,table) {
+      db.update_profile([id, body.firstname, body.lastname, body.nickname, body.email, body.address, body.city, body.state, body.zip, body.cellphone, body.homephone, body.birthday], function(err,table) {
          if (err) {
             console.error('update: ', err);
             return res.status(400).send(err);
@@ -86,9 +86,9 @@ module.exports = {
       });
    },
 
-   delete: function(req, res, next) {
+   deleteProfile: function(req, res, next) {
       const id=parseInt(req.params.id);
-      db.deleteProfile([id], function(err,table) {
+      db.delete_profile([id], function(err,table) {
          if (err) {
             console.log('delete: ', err);
             return res.status(400).send(err);
@@ -98,7 +98,7 @@ module.exports = {
    },
 
    allActivities: function(req, res, next) {
-      db.getActivities([], function(err,table) {
+      db.get_transactions([], function(err,table) {
         if(err) {
           console.error('getActivites: ', err);
           return res.status(400).send(err);
@@ -107,9 +107,21 @@ module.exports = {
       })
    },
 
+   oneActivity: function(req, res, next) {
+      const id=parseInt(req.params.id);
+      db.get_activity([id], function(err, table){
+         console.log('Params: ', req.params.id);
+         if (err) {
+            console.error('oneActivity: ', err);
+            return res.status(400).json(err);
+         }
+         return res.status(200).json(table[0]);
+      });
+   },
+
    newActivity: function (req, res, next) {
      const activity = req.body
-     db.newActivity([activity.type,activity.date,activity.site,activity.lat,activity.lng,activity.notes], function(err, table) {
+     db.new_activity([activity.type,activity.date,activity.site,activity.lat,activity.lng,activity.notes], function(err, table) {
        if(err) {
          console.error('newActivity: ', err);
          return res.status(400).send(err);
@@ -121,14 +133,80 @@ module.exports = {
    updateActivity: function (req, res, next) {
      const id = parseInt(req.params.id),
            activity = req.body;
-
-     db.updateActivity([id,activity.type,activity.date,activity.site,activity.lat,activity.lng,activity.notes], function(err, table) {
+     db.update_activity([id,activity.type,activity.date,activity.site,activity.lat,activity.lng,activity.notes], function(err, table) {
        if(err) {
          console.error('updateActivity: ', err);
          return res.status(400).send(err);
        }
        return res.status(200).json(table[0]);
      })
+   },
+
+   deleteActivity: function(req, res, next) {
+      const id=parseInt(req.params.id);
+      db.delete_activity([id], function(err,table) {
+         if (err) {
+            console.log('deleteActivity: ', err);
+            return res.status(400).send(err);
+         }
+         return res.status(200).json(table[0]);
+      });
+   },
+
+   allTransactions: function(req, res, next) {
+      db.get_transactions([], function(err,table) {
+        if(err) {
+          console.error('allTransactions: ', err);
+          return res.status(400).send(err);
+        }
+        return res.status(200).json(table);
+      })
+   },
+
+   oneTransaction: function(req, res, next) {
+      const id=parseInt(req.params.id);
+      db.get_transaction([id], function(err, table){
+         console.log('Params: ', req.params.id);
+         if (err) {
+            console.error('oneTransaction: ', err);
+            return res.status(400).json(err);
+         }
+         return res.status(200).json(table[0]);
+      });
+   },
+
+   newTransactions: function (req, res, next) {
+     const transaction = req.body
+     db.new_transactions([transaction.date,transaction.profileid,transaction.amount,transaction.activity,transaction.actid,transaction.notes], function(err, table) {
+       if(err) {
+         console.error('newTransactions: ', err);
+         return res.status(400).send(err);
+       }
+       return res.status(200).json(table[0]);
+     })
+   },
+
+   updateTransactions: function (req, res, next) {
+     const id = parseInt(req.params.id),
+           transaction = req.body;
+     db.update_transaction([id,transaction.date,transaction.profileid,transaction.amount,transaction.activity,transaction.actid,transaction.notes], function(err, table) {
+       if(err) {
+         console.error('updateTransactions: ', err);
+         return res.status(400).send(err);
+       }
+       return res.status(200).json(table[0]);
+     })
+   },
+
+   deleteTransactions: function(req, res, next) {
+      const id=parseInt(req.params.id);
+      db.delete_transaction([id], function(err,table) {
+         if (err) {
+            console.log('deleteTransactions: ', err);
+            return res.status(400).send(err);
+         }
+         return res.status(200).json(table[0]);
+      });
    }
 
 

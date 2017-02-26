@@ -37,17 +37,27 @@ var mainCtrl = require('./mainCtrl');
 // TABLE ENDPOINTS
 
 // PROFILES
-app.get('/api/profiles', mainCtrl.roster);
+app.get('/api/profiles', mainCtrl.fullRoster);
 app.get('/api/profiles/:id', mainCtrl.oneProfile)
-app.post('/api/profiles', mainCtrl.create);
-app.put('/api/profiles/:id', mainCtrl.update);
-app.delete('/api/profiles/:id', mainCtrl.delete);
+app.post('/api/profiles', mainCtrl.createProfile);
+app.put('/api/profiles/:id', mainCtrl.updateProfile);
+app.delete('/api/profiles/:id', mainCtrl.deleteProfile);
 
 // ACTIVITIES
 app.get('/api/activities', mainCtrl.allActivities);
-app.post('/api/activities', mainCtrl.newActivity);
-app.put('/api/activities', mainCtrl.updateActivity);
+app.get('/api/activities/:actid', mainCtrl.oneActivity)
+app.post('/api/activities/:actid', mainCtrl.newActivity);
+app.put('/api/activities/:actid', mainCtrl.updateActivity);
+app.delete('/api/activities/:actid', mainCtrl.deleteActivity);
 
+// TRANSACTIONS
+app.get('/api/transactions', mainCtrl.allTransactions);
+app.get('/api/transactions/:actid', mainCtrl.oneTransaction)
+app.post('/api/transactions/:actid', mainCtrl.newTransaction);
+app.put('/api/transactions/:actid', mainCtrl.updateTransaction);
+app.delete('/api/transactions/:actid', mainCtrl.deleteTransaction);
+
+// RANKS & ADVANCEMENTS
 
 // LISTEN
 // ============================================================
