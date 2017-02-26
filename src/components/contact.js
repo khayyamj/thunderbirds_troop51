@@ -17,20 +17,24 @@ class ContactUs extends Component {
          <form className="contact-form" onSubmit={handleSubmit(this.props.submitMessage)}>
             <h3>Contact Us</h3>
                <div>
-               <label>Name</label>
-               <input type='text' className='form-input' {...name} />
+                  <label>Name</label>
+                  <input type='text' className='form-input' {...name} />
+                  {name.touched ? name.error : ''}
                </div>
                <div>
                   <label>Email</label>
                   <input type='text' className='form-input' {...email} />
+                  {email.touched ? email.error : ''}
                </div>
                <div>
                   <label>Phone</label>
                   <input type='text' className='form-input' {...phone} />
+                  {phone.touched ? phone.error : ''}
                </div>
                <div>
                   <label>Message</label>
                   <input type='textarea' className='form-input' {...message} />
+                  {message.touched ? message.error : ''}
                </div>
                <button type='submit' className='nav-btn'>Submit</button>
          </form>
@@ -38,7 +42,25 @@ class ContactUs extends Component {
     );
   }
 }
+
+function validate(values) {
+  const errors = {};
+  if (!values.name) {
+    errors.name = 'Please enter your name'
+  }
+  if (!values.email) {
+    errors.email = 'Please enter your email address'
+  }
+  if (!values.phone) {
+    errors.phone = 'Please enter your phone number'
+  }
+  if (!values.message) {
+    errors.message = 'Please enter your message'
+  }
+  return errors;
+}
+
 export default reduxForm({
    form: 'contactUsMessage',
-   fields: ['name','email','phone','message']
+   fields: ['name','email','phone','message'], validate
 }, null, { submitMessage })(ContactUs);
