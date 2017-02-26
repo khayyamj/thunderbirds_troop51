@@ -64,7 +64,10 @@ class Account extends Component {
         <form className="transaction-form" onSubmit={handleSubmit(this.onSubmit)}>
           <div className="account-transaction">
             Transaction information --> <br />
-            <input type='date' {...date} /> <br />
+            <div className={`form-group ${date.touched && date.invalid ? 'has-danger' : ''}`}>
+              <div className='text-help'>{date.touched ? date.error : ''}</div>
+              <input type='date' {...date} />
+            </div>
             <select
               {...accounting}
               name="accounting"
@@ -73,7 +76,9 @@ class Account extends Component {
               <option>Choose</option>
               <option value="+">Paid</option>
               <option value="-">Owe</option>
-            </select> $<input type='text' placeholder="0.00" {...amount}/> <br />
+            </select> {accounting.touched ? accounting.error : ''}
+            $<input type='text' placeholder="0.00" {...amount}/>
+            {amount.touched ? amount.error : ''}<br />
             <select
               {...activity}
               name="activity"
@@ -87,22 +92,39 @@ class Account extends Component {
               <option value="other">Other</option>
 
             </select>
-            <input type='text' placeholder="Memo" {...notes} /> <br />
+            {activity.touched ? activity.error : ''}
+            <input type='text' placeholder="Memo" {...notes} /> <br /> {notes.touched ? notes.error : ''}
             <input value={this.state.activity} {...activity} style={{display: 'none'}} />
             <input value={this.state.accounting} {...accounting} style={{display: 'none'}} />
             <input value={this.state.profileid} {...profileid} style={{display: 'none'}} />
-            {console.log('Initial Values --> Activity: ' + this.state.activity + ' Accounting: ' + this.state.accounting + ' ProfileId: ' + this.state.profileid)}
+
             <button type='submit' className='nav-btn'>Submit</button>
 
           </div>
         </form>
-        <div>
-          Testing FormFields: <br />
-
-        </div>
       </div>
     );
   }
+}
+
+function validate(values) {
+  const errors = {};
+  if (!values.accounting) {
+    errors.accounting = 'Pick a transaction';
+  }
+  if (!values.amount) {
+    errors.amount = 'Enter amount';
+  }
+  if (!values.date) {
+    errors.date = 'Enter transaction date';
+  }
+  if (!values.notes) {
+    errors.notes = 'Enter a memo for this transaction';
+  }
+  if (!values.activity) {
+    errors.activity = 'Pick a Category';
+  }
+  return errors;
 }
 
 function mapStateToProps({ transactions }) {
@@ -113,5 +135,5 @@ const mapDispatchToProps = function (dispatch) {
 };
 export default reduxForm({
   form: 'AccountTransaction',
-  fields: ['profileid', 'amount', 'notes', 'date', 'activity', 'actid', 'accounting']
+  fields: ['profileid', 'amount', 'notes', 'date', 'activity', 'actid', 'accounting'], validate
 },mapStateToProps, mapDispatchToProps)(Account);

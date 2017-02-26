@@ -105,3 +105,9 @@
 .myToolbar {
    background-color: white;
 }
+.has-danger {
+  border: 2px solid red;
+}
+.text-help {
+  color: red;
+}
