@@ -19,16 +19,22 @@ class TransactionForm extends Component {
   }
 
   onSubmit(props) {
+    let amount = 0;
+    if(props.accounting === 'debit') {
+      amount = props.amount * -1;
+    } else {
+      amount = props.amount;
+    }
     const transaction = {
       date: props.date,
       profileid: this.props.profileid,
-      amount: props.amount,
+      amount: amount,
       accounting: props.accounting,
       activity: props.activity,
       actid: null,
       notes: props.notes
     };
-    console.log('onSubmit ---> transaction object: ' + transaction);
+    console.log('onSubmit ---> transaction object: ', transaction);
     this.props.createTransaction(transaction);
   }
 
@@ -38,7 +44,6 @@ class TransactionForm extends Component {
       <div>
       <form className="transaction-form" onSubmit={handleSubmit(this.onSubmit)}>
         <div className="account-transaction">
-          Transaction information --> <br />
           <div className={`form-group ${date.touched && date.invalid ? 'has-danger' : ''}`}>
             <div className='text-help'>{date.touched ? date.error : ''}</div>
             <input type='date' {...date} />
@@ -49,8 +54,8 @@ class TransactionForm extends Component {
             value={this.state.accounting}
             onChange={this.updateValue}  >
             <option>Choose</option>
-            <option value="+">Paid</option>
-            <option value="-">Owe</option>
+            <option value="credit">Paid</option>
+            <option value="debit">Owe</option>
           </select> {accounting.touched ? accounting.error : ''}
           $<input type='text' placeholder="0.00" {...amount}/>
           {amount.touched ? amount.error : ''}<br />

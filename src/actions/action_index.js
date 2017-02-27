@@ -18,7 +18,6 @@ export function fetchRoster() {
 }
 
 export function fetchProfile(props) {
-  console.log('fetchProfile function props --> ' + props);
    const request = axios.get(PROFILES_URL + props);
    return {
       type: FETCH_PROFILE,
@@ -68,8 +67,7 @@ export function createBlogPost() {
    }
 }
 
-export function fetchAccount(props) {
-  console.log('fetchAccounts function called --> props: ' + props);
+export function fetchAccountTransactions(props) {
   const request = axios.get(TRANSACTIONS_URL+props);
   return {
     type: FETCH_TRANSACTIONS,
@@ -78,7 +76,6 @@ export function fetchAccount(props) {
 }
 
 export function createTransaction(props) {
-  console.log('createTransaction function called, submitted ', props);
   const request = axios.post(TRANSACTIONS_URL, props);
   return {
     type: CREATE_TRANSACTION,

@@ -163,15 +163,15 @@ module.exports = {
       })
    },
 
-   oneTransaction: function(req, res, next) {
+   oneSetOfTransactions: function(req, res, next) {
       const id=parseInt(req.params.profileid);
-      db.get_transaction([id], function(err, table){
+      db.get_transactionSet([id], function(err, table){
          console.log('Params: ', req.params.id);
          if (err) {
-            console.error('oneTransaction: ', err);
+            console.error('oneSetOfTransactions: ', err);
             return res.status(400).json(err);
          }
-         return res.status(200).json(table[0]);
+         return res.status(200).json(table);
       });
    },
 
