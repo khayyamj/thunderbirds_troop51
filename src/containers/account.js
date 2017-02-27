@@ -28,7 +28,6 @@ class Account extends Component {
   }
 
   componentWillMount() {
-    console.log('Account --> componentWillMount --> this.props ', this.props)
     this.props.fetchAccount(this.props.params.profileid)
   }
 
@@ -40,8 +39,17 @@ class Account extends Component {
   }
 
   onSubmit(props) {
-    console.log('Account --> onSubmit --> props: ', props);
-    this.props.createTransaction(props);
+    const transaction = {
+      date: props.date,
+      profileid: this.props.params.profileid,
+      amount: props.amount,
+      accounting: props.accounting,
+      activity: props.activity,
+      actid: null,
+      notes: props.notes
+    };
+    console.log('onSubmit ---> transaction object: ' + transaction);
+    this.props.createTransaction(transaction);
   }
 
   render() {

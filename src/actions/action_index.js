@@ -1,6 +1,7 @@
 import axios from 'axios';
 const PROFILES_URL = 'http://localhost:3333/api/profiles/';
 const ACTIVITIES_URL = 'http://localhost:3333/api/activities/';
+const TRANSACTIONS_URL = 'http://localhost:3333/api/transactions/';
 
 export const FETCH_ROSTER = 'FETCH_ROSTER';
 export const FETCH_PROFILE = 'FETCH_PROFILE';
@@ -67,8 +68,8 @@ export function createBlogPost() {
 }
 
 export function fetchAccount(props) {
-  console.log('fetchAccounts function called');
-  const request = null;
+  console.log('fetchAccounts function called --> props: ' + props);
+  const request = axios.get(TRANSACTIONS_URL+props);
   return {
     type: FETCH_TRANSACTIONS,
     payload: request
@@ -77,7 +78,7 @@ export function fetchAccount(props) {
 
 export function createTransaction(props) {
   console.log('createTransaction function called, submitted ', props);
-  const request = null;
+  const request = axios.post(TRANSACTIONS_URL, props);
   return {
     type: CREATE_TRANSACTION,
     payload: request

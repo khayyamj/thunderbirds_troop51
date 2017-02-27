@@ -1,2 +1,2 @@
 SELECT * FROM Transactions
-WHERE transactionid = $1;
+WHERE profileid = $1;

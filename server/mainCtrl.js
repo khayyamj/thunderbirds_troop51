@@ -164,7 +164,7 @@ module.exports = {
    },
 
    oneTransaction: function(req, res, next) {
-      const id=parseInt(req.params.id);
+      const id=parseInt(req.params.profileid);
       db.get_transaction([id], function(err, table){
          console.log('Params: ', req.params.id);
          if (err) {
@@ -177,7 +177,7 @@ module.exports = {
 
    createTransaction: function (req, res, next) {
      const transaction = req.body
-     db.create_transaction([transaction.date,transaction.profileid,transaction.amount,transaction.activity,transaction.actid,transaction.notes], function(err, table) {
+     db.create_transaction([transaction.date,transaction.profileid,transaction.amount,transaction.accounting,transaction.activity,transaction.actid,transaction.notes], function(err, table) {
        if(err) {
          console.error('createTransaction: ', err);
          return res.status(400).send(err);
