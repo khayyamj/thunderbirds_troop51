@@ -46,14 +46,14 @@ app.delete('/api/profiles/:id', mainCtrl.deleteProfile);
 // ACTIVITIES
 app.get('/api/activities', mainCtrl.allActivities);
 app.get('/api/activities/:actid', mainCtrl.oneActivity)
-app.post('/api/activities/:actid', mainCtrl.newActivity);
+app.post('/api/activities', mainCtrl.createActivity);
 app.put('/api/activities/:actid', mainCtrl.updateActivity);
 app.delete('/api/activities/:actid', mainCtrl.deleteActivity);
 
 // TRANSACTIONS
 app.get('/api/transactions', mainCtrl.allTransactions);
 app.get('/api/transactions/:actid', mainCtrl.oneTransaction)
-app.post('/api/transactions/:actid', mainCtrl.newTransaction);
+app.post('/api/transactions/', mainCtrl.createTransaction);
 app.put('/api/transactions/:actid', mainCtrl.updateTransaction);
 app.delete('/api/transactions/:actid', mainCtrl.deleteTransaction);
 

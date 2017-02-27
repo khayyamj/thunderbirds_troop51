@@ -98,7 +98,7 @@ module.exports = {
    },
 
    allActivities: function(req, res, next) {
-      db.get_transactions([], function(err,table) {
+      db.get_activities([], function(err,table) {
         if(err) {
           console.error('getActivites: ', err);
           return res.status(400).send(err);
@@ -119,9 +119,9 @@ module.exports = {
       });
    },
 
-   newActivity: function (req, res, next) {
+   createActivity: function (req, res, next) {
      const activity = req.body
-     db.new_activity([activity.type,activity.date,activity.site,activity.lat,activity.lng,activity.notes], function(err, table) {
+     db.create_activity([activity.type,activity.date,activity.site,activity.lat,activity.lng,activity.notes], function(err, table) {
        if(err) {
          console.error('newActivity: ', err);
          return res.status(400).send(err);
@@ -175,34 +175,34 @@ module.exports = {
       });
    },
 
-   newTransactions: function (req, res, next) {
+   createTransaction: function (req, res, next) {
      const transaction = req.body
-     db.new_transactions([transaction.date,transaction.profileid,transaction.amount,transaction.activity,transaction.actid,transaction.notes], function(err, table) {
+     db.create_transaction([transaction.date,transaction.profileid,transaction.amount,transaction.activity,transaction.actid,transaction.notes], function(err, table) {
        if(err) {
-         console.error('newTransactions: ', err);
+         console.error('createTransaction: ', err);
          return res.status(400).send(err);
        }
        return res.status(200).json(table[0]);
      })
    },
 
-   updateTransactions: function (req, res, next) {
+   updateTransaction: function (req, res, next) {
      const id = parseInt(req.params.id),
            transaction = req.body;
      db.update_transaction([id,transaction.date,transaction.profileid,transaction.amount,transaction.activity,transaction.actid,transaction.notes], function(err, table) {
        if(err) {
-         console.error('updateTransactions: ', err);
+         console.error('updateTransaction: ', err);
          return res.status(400).send(err);
        }
        return res.status(200).json(table[0]);
      })
    },
 
-   deleteTransactions: function(req, res, next) {
+   deleteTransaction: function(req, res, next) {
       const id=parseInt(req.params.id);
       db.delete_transaction([id], function(err,table) {
          if (err) {
-            console.log('deleteTransactions: ', err);
+            console.log('deleteTransaction: ', err);
             return res.status(400).send(err);
          }
          return res.status(200).json(table[0]);
