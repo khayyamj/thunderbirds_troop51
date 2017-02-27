@@ -18,6 +18,7 @@ export function fetchRoster() {
 }
 
 export function fetchProfile(props) {
+  console.log('fetchProfile function props --> ' + props);
    const request = axios.get(PROFILES_URL + props);
    return {
       type: FETCH_PROFILE,

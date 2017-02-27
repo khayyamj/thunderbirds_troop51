@@ -5,18 +5,10 @@ import { Link } from 'react-router';
 import { fetchProfile } from './../actions/action_index';
 
 class Profile extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {profile: undefined};
-  // }
 
   componentWillMount() {
    this.props.fetchProfile(this.props.params.profileid)
   }
-
-  // request is being returned with the correct information
-  // but this page is not re-rendering with the new information.
-  // ===============================================================
 
   render() {
      console.log('Profile page --> ', this.props.profiles.profile);
