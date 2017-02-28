@@ -1,6 +1,5 @@
 import React from 'react';
-import { Route, IndexRoute, browserHistory, Router, Redirect } from 'react-router';
-import AUTH0 from './../config';
+import { Route, IndexRoute, browserHistory, Router, IndexRedirect } from 'react-router';
 import App from './components/app';
 import AuthService from './utils/AuthService';
 import ProfileCreate from './components/profile_create';
@@ -32,13 +31,12 @@ const requireAuth = (nextState, replace) => {
   }
 }
 
-export const makeMainRoutes = () => {
-  return (
-   <Route path="/" component={App} >
+export default (
+   <Route path="/" component={App} auth={auth}>
       <IndexRoute component={Home} />
-      <IndexRedirect to="/login" />
+      <IndexRedirect to="/home" />
 
-      <Route path="/login" component={Login} onEnter={requireAuth}/>
+      <Route path="/login" component={Login} />
       <Route path="/home" component={Home} />
       <Route path="/profile_create" component={ProfileCreate} />
       <Route path="/profile/:profileid" component={Profile} />
@@ -58,7 +56,6 @@ export const makeMainRoutes = () => {
 
    </Route>
   );
-}
-export default makeMainRoutes
+
       // <Route path="/login" component={Login} onEnter={requireAuth} />
       // <Route path="/roster" component={Roster} onEnter={requireAuth} />
