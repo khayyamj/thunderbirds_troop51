@@ -50,8 +50,8 @@ export default class EditorDemo extends Component {
             placeholder="Editor Source"
             value={value.toString(format)}
             onChange={this._onChangeSource}
-          />
-          {console.log(value.toString(format))}
+          /> <br />
+          {console.log('Form component: ',this.props.blogProps)}
         </div>
 
       </div>

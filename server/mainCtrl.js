@@ -40,21 +40,21 @@ db.init.create_blog([], function(err, results) {
   if (err) {
     console.error(err);
   } else {
-    console.log('Initialized Blog Table');
+    // console.log('Initialized Blog Table');
   }
 })
 db.init.create_blogtag_connection([], function(err, results) {
   if (err) {
     console.error(err);
   } else {
-    console.log('Initialized Blog Tag Connection Table');
+    // console.log('Initialized Blog Tag Connection Table');
   }
 })
 db.init.create_blogtags([], function(err, results) {
   if (err) {
     console.error(err);
   } else {
-    console.log('Initialized Blog Tag Table')
+    // console.log('Initialized Blog Tag Table')
   }
 })
 
