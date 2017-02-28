@@ -32,11 +32,13 @@ const requireAuth = (nextState, replace) => {
   }
 }
 
-export default (
+export const makeMainRoutes = () => {
+  return (
    <Route path="/" component={App} >
       <IndexRoute component={Home} />
+      <IndexRedirect to="/login" />
 
-      <Route path="/login" component={Login} />
+      <Route path="/login" component={Login} onEnter={requireAuth}/>
       <Route path="/home" component={Home} />
       <Route path="/profile_create" component={ProfileCreate} />
       <Route path="/profile/:profileid" component={Profile} />
@@ -55,6 +57,8 @@ export default (
       <Route path="/account/:profileid" component={Account} />
 
    </Route>
-);
+  );
+}
+export default makeMainRoutes
       // <Route path="/login" component={Login} onEnter={requireAuth} />
       // <Route path="/roster" component={Roster} onEnter={requireAuth} />

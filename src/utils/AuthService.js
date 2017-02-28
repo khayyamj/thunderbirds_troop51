@@ -1,7 +1,8 @@
-import { EventEmitter } from 'events'
-import { isTokenExpired } from './jwtHelper'
 import Auth0Lock from 'auth0-lock'
 import { browserHistory } from 'react-router'
+
+import { EventEmitter } from 'events'
+import { isTokenExpired } from './jwtHelper'
 import { clientId, domain } from './../../config'
 
 export default class AuthService extends EventEmitter {
@@ -14,6 +15,7 @@ export default class AuthService extends EventEmitter {
         responseType: 'token'
       }
     })
+
     // Add callback for lock `authenticated` event
     this.lock.on('authenticated', this._doAuthentication.bind(this))
     // Add callback for lock `authorization_error` event
@@ -30,7 +32,7 @@ export default class AuthService extends EventEmitter {
     // Async loads the user profile data
     this.lock.getProfile(authResult.idToken, (error, profile) => {
       if (error) {
-        console.log('Error loading the Profile', error)
+        console.error('Error loading the Profile', error)
       } else {
         this.setProfile(profile)
       }
@@ -39,7 +41,7 @@ export default class AuthService extends EventEmitter {
 
   _authorizationError(error){
     // Unexpected authentication error
-    console.log('Authentication Error', error)
+    console.error('Authentication Error', error)
   }
 
   login() {
@@ -53,6 +55,11 @@ export default class AuthService extends EventEmitter {
     return !!token && !isTokenExpired(token)
   }
 
+  setToken(idToken){
+    // Saves user token to localStorage
+    localStorage.setItem('id_token', idToken)
+  }
+
   setProfile(profile){
     // Saves profile data to localStorage
     localStorage.setItem('profile', JSON.stringify(profile))
@@ -64,11 +71,6 @@ export default class AuthService extends EventEmitter {
     // Retrieves the profile data from localStorage
     const profile = localStorage.getItem('profile')
     return profile ? JSON.parse(localStorage.profile) : {}
-  }
-
-  setToken(idToken){
-    // Saves user token to localStorage
-    localStorage.setItem('id_token', idToken)
   }
 
   getToken(){
