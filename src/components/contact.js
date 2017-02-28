@@ -1,42 +1,55 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import { submitMessage } from './../actions/action_index';
+
+const FIELDS = {
+  name: {
+    type: 'input',
+    label: 'Name'
+  },
+  email: {
+    type: 'input',
+    label: 'Email'
+  },
+  phone: {
+    type: 'input',
+    label: 'Phone'
+  },
+  message: {
+    type: 'textarea',
+    label: 'Message'
+  }
+};
+
+
 
 class ContactUs extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
+
+  renderField(fieldConfig, field) {
+    const fieldHelper = this.props.fields[field];
+
+    return (
+      <div key={fieldConfig.label}>
+         <label>{fieldConfig.label}</label>
+         <fieldConfig.type type='text' className='form-input' {...fieldHelper} />
+         {fieldHelper.touched ? fieldHelper.error : ''}
+      </div>
+    )
+  }
+
   render() {
-    const url = 'http://www.clker.com/cliparts/l/0/9/z/8/c/contact-us-hi.png',
-         {fields: {name, email, phone, message}, handleSubmit } = this.props;
+    const { handleSubmit } = this.props;
     return(
       <div>
-         <img src={url} style={{height: 250}}/> <hr />
-
          <form className="contact-form" onSubmit={handleSubmit(this.props.submitMessage)}>
             <h3>Contact Us</h3>
-               <div>
-                  <label>Name</label>
-                  <input type='text' className='form-input' {...name} />
-                  {name.touched ? name.error : ''}
-               </div>
-               <div>
-                  <label>Email</label>
-                  <input type='text' className='form-input' {...email} />
-                  {email.touched ? email.error : ''}
-               </div>
-               <div>
-                  <label>Phone</label>
-                  <input type='text' className='form-input' {...phone} />
-                  {phone.touched ? phone.error : ''}
-               </div>
-               <div>
-                  <label>Message</label>
-                  <input type='textarea' className='form-input' {...message} />
-                  {message.touched ? message.error : ''}
-               </div>
-               <button type='submit' className='nav-btn'>Submit</button>
+            {_.map(FIELDS, this.renderField.bind(this))}
+            <button type='submit' className='nav-btn'>Submit</button>
          </form>
       </div>
     );
@@ -45,22 +58,18 @@ class ContactUs extends Component {
 
 function validate(values) {
   const errors = {};
-  if (!values.name) {
-    errors.name = 'Please enter your name'
-  }
-  if (!values.email) {
-    errors.email = 'Please enter your email address'
-  }
-  if (!values.phone) {
-    errors.phone = 'Please enter your phone number'
-  }
-  if (!values.message) {
-    errors.message = 'Please enter your message'
-  }
+
+  _.each(FIELDS, (type, field) => {
+    if (!values[field]) {
+      errors[field] = `Enter a ${field}`;
+    }
+  })
+
   return errors;
 }
 
 export default reduxForm({
    form: 'contactUsMessage',
-   fields: ['name','email','phone','message'], validate
+   fields: _.keys(FIELDS),
+   validate
 }, null, { submitMessage })(ContactUs);
