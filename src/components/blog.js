@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { reduxForm } from 'redux-form';
 import BlogContentEditor from './post_new';
+import { createBlogPost } from './../actions/action_index';
 
 
 class Blog extends Component {
@@ -15,6 +17,7 @@ class Blog extends Component {
 
   inputChange(event) {
     this.setState({ title: event.target.value });
+    console.log('inputChange...value of content: ', this.props.blogpost.content);
   }
 
   tagInputChange(event) {
@@ -22,27 +25,56 @@ class Blog extends Component {
     this.setState({ tags: tagArray });
   }
 
-  render() {
+  createPost(props) {
+    this.setState ({ content: this.state.blogpost.content});
+    console.log('****** createPost props: ', props);
+  }
 
+  render() {
+    const { fields: {title, content, tags}, handleSubmit } = this.props;
     return(
 
       <div>
-         Blog Page <br />
-         <form>
-         <input
+        <form onSubmit={handleSubmit(this.props.createBlogPost)}>
+          <input
             type='text'
             value={this.state.title}
             placeholder='Post Headline'
-            onChange={this.inputChange} /> {this.state.title}
-         <BlogContentEditor blogProps={this.state}/>
-         <input
+            onChange={this.inputChange}
+            {...title}/> <br />
+            {title.touched ? title.error : ''}
+          <BlogContentEditor />
+            {content.touched ? content.error : ''}
+          <input
             type='text'
             value={this.state.tags}
-            placeholder='Tags'
-            onChange={this.tagInputChange} />
+            placeholder='Tags (separate tags with ,)'
+            onChange={this.tagInputChange}
+            {...tags}/> {tags.touched ? tags.error : ''} <br />
+          <button type='submit' className='nav-btn'>Publish</button>
         </form>
       </div>
     );
   }
 }
-export default Blog;
+function validate(values) {
+  const errors = {};
+  if (!values.title) {
+    errors.title = 'Enter Title';
+  }
+  if (!values.tags) {
+    errors.tags = 'Enter at least one tag';
+  }
+  // if (!values.content) {
+  //   errors.content = 'Please tell your story before publishing'
+  // }
+  return errors;
+}
+function mapStateToProps (state) {
+  return { blogpost: state.posts}
+}
+export default reduxForm({
+  form: 'BlogPost',
+  fields: ['title', 'content', 'tags'],
+  validate
+}, mapStateToProps, {createBlogPost})(Blog);

@@ -15,6 +15,7 @@ export const FETCH_POST = 'FETCH_POST';
 export const FETCH_POSTS = 'FETCH_POSTS';
 export const CREATE_POST = 'CREATE_POST';
 export const DELETE_POST = 'DELETE_POST';
+export const CREATE_BLOG_CONTENT = 'CREATE_BLOG_CONTENT';
 
 export function fetchRoster() {
    const request = axios.get(PROFILES_URL);
@@ -65,13 +66,24 @@ export function submitMessage() {
    }
 }
 
-export function createBlogPost() {
-   console.log('createBlogPost function called');
+export function createBlogPost(props) {
+   console.log('createBlogPost function called with -->', props);
    const request = null;
    return {
       type: 'NONE',
       payload: request
    }
+}
+export function createPostContent(content) {
+  console.log('<-- createPostContent -->', content);
+  return {
+    type: CREATE_BLOG_CONTENT,
+    payload: {
+      title: '',
+      tags: [],
+      content: content
+    }
+  }
 }
 
 export function fetchAccountTransactions(props) {

@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS Profiles (
    homephone      VARCHAR(15),
    birthday       VARCHAR(10),
    imageUrl       VARCHAR(400),
+   position       VARCHAR(20),
    permissions    INTEGER,
    handbook       BOOLEAN,
    orangeneckerchief       BOOLEAN,
