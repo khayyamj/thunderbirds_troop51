@@ -57,6 +57,9 @@ app.post('/api/transactions/', mainCtrl.createTransaction);
 app.put('/api/transactions/:actid', mainCtrl.updateTransaction);
 app.delete('/api/transactions/:actid', mainCtrl.deleteTransaction);
 
+// BLOG POSTS
+app.post('/api/blog', mainCtrl.createBlogPost);
+app.post('/api/blog/tag',mainCtrl.createBlogPostTag);
 // RANKS & ADVANCEMENTS
 
 // LISTEN

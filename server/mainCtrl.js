@@ -36,6 +36,27 @@ db.init.create_ranks_table([], function(err, results){
       // console.log('Initialized Ranks Table');
    }
 })
+db.init.create_blog([], function(err, results) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log('Initialized Blog Table');
+  }
+})
+db.init.create_blogtag_connection([], function(err, results) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log('Initialized Blog Tag Connection Table');
+  }
+})
+db.init.create_blogtags([], function(err, results) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log('Initialized Blog Tag Table')
+  }
+})
 
 module.exports = {
 
@@ -207,8 +228,27 @@ module.exports = {
          }
          return res.status(200).json(table[0]);
       });
-   }
+   },
 
+   createBlogPost: function(req, res, next) {
+     db.create_blogpost([], function(err, table) {
+       if(err) {
+         console.error('createBlogPost: ', err);
+         return res.status(400).send(err);
+       }
+       return res.status(200).json(table[0]);
+     })
+   },
+
+   createBlogPostTag: function(req, res, next) {
+     db.create_blogpost_tag([], function(err, table) {
+       if(err) {
+         console.error('createBlogPostTag: ', err);
+         return res.status(400).send(err);
+       }
+       return res.status(200).json(table[0]);
+     })
+   }
 
 //  end of module.exports
 }
