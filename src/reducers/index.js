@@ -2,7 +2,8 @@ import { combineReducers } from 'redux';
 import ProfileReducer from './reducer_profiles';
 import NavLinkReducer from './reducer_nav-links';
 import Activities from './reducer_activities';
-import TransactionsReducer from './reducer_transactions'
+import TransactionsReducer from './reducer_transactions';
+import PostsReducer from './reducer_posts';
 import { reducer as formReducer } from 'redux-form';
 
 const rootReducer = combineReducers({
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
    navLinks: NavLinkReducer,
    activities: Activities,
    transactions: TransactionsReducer,
+   posts: PostsReducer,
    form: formReducer
 });
 

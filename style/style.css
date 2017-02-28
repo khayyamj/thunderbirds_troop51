@@ -91,6 +91,13 @@
    padding: 6px;
    min-height: 250px;
 }
+.editor .area {
+  margin: 10;
+}
+.blog-window {
+  width: 100%;
+  min-height: 300px;
+}
 .myToolbar {
    background-color: white;
 }

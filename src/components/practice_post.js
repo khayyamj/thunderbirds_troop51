@@ -31,8 +31,11 @@ export default class EditorDemo extends Component {
     let {value, format} = this.state;
 
     return (
-      <div className="editor">
-        <div className="area">
+      <div className="editor-demo">
+        <div className="row">
+          <p>This is a demo of the <a href="https://github.com/sstur/react-rte" target="top">react-rte</a> editor.</p>
+        </div>
+        <div className="row">
           <RichTextEditor
             value={value}
             onChange={this._onChange}
@@ -43,7 +46,36 @@ export default class EditorDemo extends Component {
             readOnly={this.state.readOnly}
           />
         </div>
-
+        <div className="row">
+          <label className="radio-item">
+            <input
+              type="radio"
+              name="format"
+              value="html"
+              checked={format === 'html'}
+              onChange={this._onChangeFormat}
+            />
+            <span>HTML</span>
+          </label>
+          <label className="radio-item">
+            <input
+              type="radio"
+              name="format"
+              value="markdown"
+              checked={format === 'markdown'}
+              onChange={this._onChangeFormat}
+            />
+            <span>Markdown</span>
+          </label>
+          <label className="radio-item">
+            <input
+              type="checkbox"
+              onChange={this._onChangeReadOnly}
+              checked={this.state.readOnly}
+            />
+            <span>Editor is read-only</span>
+          </label>
+        </div>
         <div className="row">
           <textarea
             className="source"
@@ -51,9 +83,12 @@ export default class EditorDemo extends Component {
             value={value.toString(format)}
             onChange={this._onChangeSource}
           />
-          {console.log(value.toString(format))}
         </div>
-
+        <div className="row btn-row">
+          <span className="label">Debugging:</span>
+          <button className="btn" onClick={this._logState}>Log Content State</button>
+          <button className="btn" onClick={this._logStateRaw}>Log Raw</button>
+        </div>
       </div>
     );
   }
