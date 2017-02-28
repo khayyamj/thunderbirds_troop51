@@ -5,11 +5,17 @@ import { EventEmitter } from 'events'
 import { isTokenExpired } from './jwtHelper'
 import { clientId, domain } from './../../config'
 
+const options = {
+  primaryColor: "#FF6F00",
+  title: "Thunderbirds",
+  logo: "./../images/thunderbird.png"
+}
+
 export default class AuthService extends EventEmitter {
   constructor(clientId, domain) {
     super()
     // Configure Auth0
-    this.lock = new Auth0Lock(clientId, domain, {
+    this.lock = new Auth0Lock(clientId, domain, options, {
       auth: {
         redirectUrl: `${window.location.origin}/login`,
         responseType: 'token'
