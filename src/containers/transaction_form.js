@@ -6,7 +6,7 @@ import { createTransaction} from './../actions/action_index';
 class TransactionForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { date: Date.now() };
     this.updateValue = this.updateValue.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -15,7 +15,8 @@ class TransactionForm extends Component {
     const e = event.target,
           name = e.name,
           value = e.value;
-    this.setState({ [event.target.name]: value });
+    console.log('updateValue --> ', name, ':', value);
+    this.setState({ [name]: value });
   }
 
   onSubmit(props) {
@@ -34,11 +35,18 @@ class TransactionForm extends Component {
       actid: null,
       notes: props.notes
     };
-    console.log('onSubmit ---> transaction object: ', transaction);
     this.props.createTransaction(transaction);
+    this.setState({
+      accounting: 'credit',
+      date: null,
+      amount: 0.00,
+      activity: '',
+      notes: ''
+    });
   }
 
   render() {
+    console.log('*** render function called; date: ', this.props.fields.date);
     const { fields: {profileid, amount, notes, date, activity, actid, accounting}, handleSubmit} = this.props;
     return(
       <div>
@@ -57,7 +65,7 @@ class TransactionForm extends Component {
             <option value="credit">Paid</option>
             <option value="debit">Owe</option>
           </select> {accounting.touched ? accounting.error : ''}
-          $<input type='text' placeholder="0.00" {...amount}/>
+          $<input type='text' placeholder="0.00" {...amount} />
           {amount.touched ? amount.error : ''}<br />
           <select
             {...activity}

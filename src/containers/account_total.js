@@ -18,7 +18,7 @@ class AccountTotal extends Component {
   listTransactions(allTransactions) {
     return allTransactions.map((transaction, i) => {
       return (
-        <li key = {transaction.date}> {transaction.date} {transaction.amount} {transaction.activity} </li>
+        <li key = {transaction.transactionid}> {transaction.date} {transaction.amount} {transaction.activity} </li>
       )
     })
 

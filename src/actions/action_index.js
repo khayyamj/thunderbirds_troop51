@@ -1,7 +1,10 @@
 import axios from 'axios';
-const PROFILES_URL = 'http://localhost:3333/api/profiles/';
-const ACTIVITIES_URL = 'http://localhost:3333/api/activities/';
-const TRANSACTIONS_URL = 'http://localhost:3333/api/transactions/';
+import CONFIG from './../../server/config';
+
+const PROFILES_URL = `http://localhost:${CONFIG.PORT}/api/profiles/`;
+const ACTIVITIES_URL = `http://localhost:${CONFIG.PORT}/api/activities/`;
+const TRANSACTIONS_URL = `http://localhost:${CONFIG.PORT}/api/transactions/`;
+const BLOG_URL = `http://localhost:${CONFIG.PORT}/api/blog`;
 
 export const FETCH_ROSTER = 'FETCH_ROSTER';
 export const FETCH_PROFILE = 'FETCH_PROFILE';
@@ -80,6 +83,7 @@ export function fetchAccountTransactions(props) {
 }
 
 export function createTransaction(props) {
+  console.log('****************  Submitting transaction url: ', TRANSACTIONS_URL, 'Props: ', props);
   const request = axios.post(TRANSACTIONS_URL, props);
   return {
     type: CREATE_TRANSACTION,
@@ -88,7 +92,7 @@ export function createTransaction(props) {
 }
 
 export function createPost(props) {
-  const request = axios.post('');
+  const request = axios.post(BLOG_URL);
   return {
     type: CREATE_POST,
     payload: request
@@ -104,7 +108,7 @@ export function fetchPosts() {
 }
 
 export function fetchPost(id) {
-  const request = axios.get('');
+  const request = axios.get(BLOG_URL);
   return {
     type: FETCH_POST,
     payload: request
