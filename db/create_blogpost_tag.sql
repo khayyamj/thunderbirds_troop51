@@ -1,2 +1,3 @@
 INSERT INTO BlogTags (title)
 VALUES ($1)
+RETURNING *;

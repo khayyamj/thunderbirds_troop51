@@ -4,6 +4,12 @@
 .body{
 
 }
+.display {
+  display: inline-block;
+}
+.noDisplay {
+  display: none;
+}
 .profileDisplay {
   display: inline-block;
 }
@@ -16,6 +22,9 @@
   border-radius: 10px;
   background-color: #FF6F00;
   cursor: pointer;
+}
+.BlogPostButton {
+  background-color: blue;
 }
 .Header {
    display: flex;

@@ -241,12 +241,22 @@ module.exports = {
    },
 
    createBlogPostTag: function(req, res, next) {
-     db.create_blogpost_tag([], function(err, table) {
+     db.create_blogpost_tag([req.body.title], function(err, table) {
        if(err) {
          console.error('createBlogPostTag: ', err);
          return res.status(400).send(err);
        }
+       console.log('Create Tag response: ', table[0])
        return res.status(200).json(table[0]);
+     })
+   },
+
+   getTags: function(req, res, next) {
+     db.get_tags([], function(err, table) {
+       if(err) {
+         console.error('getTags: ', err);
+       }
+       return res.status(200).json(table);
      })
    }
 

@@ -10,28 +10,41 @@ class Blog extends Component {
     this.state = {
       title: '',
       tags: [],
+      content: '',
+      displayBtn: 'noDisplay'
     }
     this.inputChange = this.inputChange.bind(this);
     this.tagInputChange = this.tagInputChange.bind(this);
   }
 
   inputChange(event) {
-    this.setState({ title: event.target.value });
-    console.log('inputChange...value of content: ', this.props.blogpost.content);
+    this.setState({
+      title: event.target.value,
+      content: this.props.blogpost
+    });
+    if (this.props.blogpost) {
+      this.setState({displayBtn: 'display'})
+    }
+    console.log('inputChange...value of content: ', this.props.blogpost);
   }
 
   tagInputChange(event) {
     const tagArray = event.target.value.split(',');
     this.setState({ tags: tagArray });
+    if (this.props.blogpost) {
+      this.setState({displayBtn: 'display'})
+    }
   }
 
   createPost(props) {
-    this.setState ({ content: this.state.blogpost.content});
+    this.setState ({ content: this.props.blogpost});
     console.log('****** createPost props: ', props);
   }
 
   render() {
     const { fields: {title, content, tags}, handleSubmit } = this.props;
+
+    this.props.fields.content.value = this.props.blogpost.content;
     return(
 
       <div>
@@ -41,17 +54,27 @@ class Blog extends Component {
             value={this.state.title}
             placeholder='Post Headline'
             onChange={this.inputChange}
-            {...title}/> <br />
+            {...title}
+            className="noDisplay"/> <br />
             {title.touched ? title.error : ''}
           <BlogContentEditor />
+          <input
+            value={this.props.blogpost.content}
+            {...content}
+            className="noDisplay" />
             {content.touched ? content.error : ''}
           <input
             type='text'
             value={this.state.tags}
             placeholder='Tags (separate tags with ,)'
             onChange={this.tagInputChange}
-            {...tags}/> {tags.touched ? tags.error : ''} <br />
-          <button type='submit' className='nav-btn'>Publish</button>
+            {...tags}
+            className="noDisplay"/> {tags.touched ? tags.error : ''} <br />
+          <button
+            type='submit'
+            className={this.state.displayBtn} >
+            Publish
+          </button>
         </form>
       </div>
     );
@@ -71,7 +94,7 @@ function validate(values) {
   return errors;
 }
 function mapStateToProps (state) {
-  return { blogpost: state.posts}
+  return { blogpost: state.posts.post}
 }
 export default reduxForm({
   form: 'BlogPost',

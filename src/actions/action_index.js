@@ -4,7 +4,7 @@ import CONFIG from './../../server/config';
 const PROFILES_URL = `http://localhost:${CONFIG.PORT}/api/profiles/`;
 const ACTIVITIES_URL = `http://localhost:${CONFIG.PORT}/api/activities/`;
 const TRANSACTIONS_URL = `http://localhost:${CONFIG.PORT}/api/transactions/`;
-const BLOG_URL = `http://localhost:${CONFIG.PORT}/api/blog`;
+const BLOG_URL = `http://localhost:${CONFIG.PORT}/api/blog/`;
 
 export const FETCH_ROSTER = 'FETCH_ROSTER';
 export const FETCH_PROFILE = 'FETCH_PROFILE';
@@ -15,6 +15,8 @@ export const CREATE_TRANSACTION = 'CREATE_TRANSACTION';
 export const FETCH_POST = 'FETCH_POST';
 export const FETCH_POSTS = 'FETCH_POSTS';
 export const CREATE_POST = 'CREATE_POST';
+export const FETCH_TAGS = 'FETCH_TAGS';
+export const CREATE_TAG = 'CREATE_TAG';
 export const DELETE_POST = 'DELETE_POST';
 export const CREATE_BLOG_CONTENT = 'CREATE_BLOG_CONTENT';
 
@@ -80,8 +82,6 @@ export function createPostContent(content) {
   return {
     type: CREATE_BLOG_CONTENT,
     payload: {
-      title: '',
-      tags: [],
       content: content
     }
   }
@@ -116,6 +116,22 @@ export function createPost(props) {
   const request = axios.post(BLOG_URL);
   return {
     type: CREATE_POST,
+    payload: request
+  }
+}
+
+export function fetchTags() {
+  const request = axios.get(BLOG_URL+'tag')
+  return {
+    type: FETCH_TAGS,
+    payload: request
+  }
+}
+
+export function createTags(tag) {
+  const request = axios.post(BLOG_URL+'tag',tag)
+  return {
+    type: CREATE_TAG,
     payload: request
   }
 }
