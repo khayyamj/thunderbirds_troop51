@@ -4,6 +4,19 @@
 .body{
 
 }
+.elemDisplay {
+  display: inline-block;
+}
+.elemNoDisplay {
+  display: none;
+}
+.button {
+  width: 75px;
+  height: auto;
+  border-radius: 10px;
+  background-color: #FF6F00;
+  cursor: pointer;
+}
 .Header {
    display: flex;
    justify-content: space-between;
@@ -27,6 +40,10 @@
 }
 .Header .social-media-icons {
    width: 100px;
+}
+.Admin-dashboard {
+  display: flex;
+  justify-content: space-around;
 }
 .navbar {
    background-color: #092fb2;

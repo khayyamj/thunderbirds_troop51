@@ -19,6 +19,7 @@ import NewBlogPost from './components/post_new';
 import Home from './components/home';
 import Account from './containers/account'
 import config from './../config';
+import Admin from './containers/admin'
 
 const { clientId, domain } = config();
 
@@ -34,7 +35,7 @@ const requireAuth = (nextState, replace) => {
 export default (
    <Route path="/" component={App} auth={auth}>
       <IndexRoute component={Home} />
-      <IndexRedirect to="/home" />
+      <IndexRedirect to="/login" />
 
       <Route path="/login" component={Login} />
       <Route path="/home" component={Home} />
@@ -53,6 +54,7 @@ export default (
       <Route path="/handbook" component={Handbook} />
       <Route path="/dinner" component={Dinner} />
       <Route path="/account/:profileid" component={Account} />
+      <Route path="/admin" component={Admin} />
 
    </Route>
   );
