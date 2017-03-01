@@ -35,7 +35,7 @@ const requireAuth = (nextState, replace) => {
 export default (
    <Route path="/" component={App} auth={auth}>
       <IndexRoute component={Home} />
-      <IndexRedirect to="/login" />
+      <IndexRedirect to="/home" />
 
       <Route path="/login" component={Login} />
       <Route path="/home" component={Home} />

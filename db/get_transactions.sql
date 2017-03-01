@@ -1,2 +1,1 @@
-SELECT * FROM Activities
-WHERE profileid = $1
+SELECT * FROM Transactions

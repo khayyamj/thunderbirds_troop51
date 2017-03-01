@@ -10,6 +10,7 @@ export const FETCH_ROSTER = 'FETCH_ROSTER';
 export const FETCH_PROFILE = 'FETCH_PROFILE';
 export const CREATE_PROFILE = 'CREATE_PROFILE';
 export const FETCH_TRANSACTIONS = 'FETCH_TRANSACTIONS';
+export const FETCH_ALL_TRANSACTIONS = 'FETCH_ALL_TRANSACTIONS';
 export const CREATE_TRANSACTION = 'CREATE_TRANSACTION';
 export const FETCH_POST = 'FETCH_POST';
 export const FETCH_POSTS = 'FETCH_POSTS';
@@ -83,6 +84,14 @@ export function createPostContent(content) {
       tags: [],
       content: content
     }
+  }
+}
+
+export function fetchAllTransactions() {
+  const request = axios.get(TRANSACTIONS_URL);
+  return {
+    type: FETCH_ALL_TRANSACTIONS,
+    payload: request
   }
 }
 

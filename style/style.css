@@ -4,10 +4,10 @@
 .body{
 
 }
-.elemDisplay {
+.profileDisplay {
   display: inline-block;
 }
-.elemNoDisplay {
+.profileNoDisplay {
   display: none;
 }
 .button {

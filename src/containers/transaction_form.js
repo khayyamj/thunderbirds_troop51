@@ -1,3 +1,5 @@
+// use form with <TransactionForm profileid={profileid}/>
+
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -15,7 +17,6 @@ class TransactionForm extends Component {
     const e = event.target,
           name = e.name,
           value = e.value;
-    console.log('updateValue --> ', name, ':', value);
     this.setState({ [name]: value });
   }
 
@@ -38,7 +39,7 @@ class TransactionForm extends Component {
     this.props.createTransaction(transaction);
     this.setState({
       accounting: 'credit',
-      date: null,
+      date: Date.now(),
       amount: 0.00,
       activity: '',
       notes: ''
@@ -46,7 +47,6 @@ class TransactionForm extends Component {
   }
 
   render() {
-    console.log('*** render function called; date: ', this.props.fields.date);
     const { fields: {profileid, amount, notes, date, activity, actid, accounting}, handleSubmit} = this.props;
     return(
       <div>

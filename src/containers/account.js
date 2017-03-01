@@ -8,35 +8,42 @@ import PicNameHeader from './../components/pic_name';
 import TransactionForm from './transaction_form';
 import AccountTotal from './account_total';
 
-
 class Account extends Component {
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      loadedProfile: false,
+      loadedTransactions: false
+    }
+  }
   static contextTypes = {
     router: PropTypes.object
   }
 
   componentWillMount() {
-    this.props.fetchAccountTransactions(this.props.params.profileid);
-    this.props.fetchProfile(this.props.params.profileid);
+    this.props.fetchAccountTransactions(this.props.params.profileid)
+      .then(() => {
+        this.setState({loadedTransactions: true});
+      });
+    this.props.fetchProfile(this.props.params.profileid)
+      .then(() => {
+        this.setState({loadedProfile: true});
+      });
   }
 
   render() {
-    if (!this.props.transactions) {
-      console.log('<---------- Empty Transactions condition')
-       return <div>Loading...</div>;
+    if (this.state.loadedTransactions === false) {
+       return <div> Transactions Loading...</div>;
     }
-    if (this.props.profiles.profile === null) {
-       return <div>Loading...</div>;
+    if (this.state.loadedProfile === false) {
+       return <div>Profile Loading...</div>;
     }
-    console.log('this.props.transactions ==>> ', this.props.tranactions)
 
-    const account = this.props.transactions;
-    console.log('**** Account Transactions: ', account, ' ****');
-    console.log('this.props.profiles ==>> ', this.props.profiles);
+    const account = this.props.transactions.transactions;
 
     return(
       <div>
-        <PicNameHeader />
+        <PicNameHeader profile={this.props.profiles.profile}/>
         <div className="account">
           <AccountTotal allTransactions={account}/>
           <TransactionForm profileid={this.props.params.profileid}/>
@@ -46,9 +53,11 @@ class Account extends Component {
   }
 }
 
-function mapStateToProps({ transactions, profiles }) {
-   return { transactions, profiles };
-}
+function mapStateToProps(state) {
+  return {
+    transactions: state.transactions,
+    profiles: state.profiles };
+  }
 const mapDispatchToProps = function (dispatch) {
   return bindActionCreators({ fetchAccountTransactions, fetchProfile }, dispatch);
 };

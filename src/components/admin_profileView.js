@@ -20,7 +20,7 @@ class RosterAdmin extends Component {
   }
   render() {
     return(
-      <div className={this.props.passedProps.displayClass}>
+      <div className={this.props.passedProps.displayProfClass}>
         Roster:
         {this.renderRoster()}
       </div>

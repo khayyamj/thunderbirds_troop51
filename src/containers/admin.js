@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import { fetchRoster } from './../actions/action_index';
+import { fetchRoster, fetchAllTransactions } from './../actions/action_index';
 import { Link } from 'react-router';
-import RosterAdmin from './../components/profile_adminView';
+import RosterAdmin from './../components/admin_profileView';
+import AllTransactionsView from './../components/admin_transactionView'
 
 let profileToggleShow = false;
+let transToggleShow = false;
 let profileText = 'Edit Profiles';
 
 
@@ -14,58 +16,85 @@ class Admin extends Component {
     super(props);
     this.state = {
       profileText: 'Edit Profiles',
-      toggleDisplay: 'none',
-      displayClass: 'elemNoDisplay'
+      displayProfClass: 'profileNoDisplay',
+      transText: 'Add Transactions',
+      displayTransClass: 'profileNoDisplay'
     };
     this.listProfiles = this.listProfiles.bind(this);
+    this.listTransactions = this.listTransactions.bind(this);
   }
 
   componentWillMount() {
     this.props.fetchRoster();
+    this.props.fetchAllTransactions();
   }
 
   listProfiles() {
     profileToggleShow = !profileToggleShow;
-    const profiles = this.props.profiles.roster;
     if (profileToggleShow === true) {
       this.setState({
         profileText: 'Hide Profiles',
-        displayClass: 'elemDisplay'
-      });
-
+        displayProfClass: 'profileDisplay',
+        transText: 'Add Transactions',
+        displayTransClass: 'profileNoDisplay'
+      })
     } else {
       this.setState({
         profileText: 'Edit Profiles',
-        displayClass: 'elemNoDisplay'
-      });
+        displayProfClass: 'profileNoDisplay'
+      })
     }
-
+  }
+  listTransactions() {
+    transToggleShow = !transToggleShow;
+    if (transToggleShow === true) {
+      this.setState({
+        transText: 'Hide Transactions',
+        displayTransClass: 'profileDisplay',
+        profileText: 'Edit Profiles',
+        displayProfClass: 'profileNoDisplay'
+      })
+    } else {
+      this.setState({
+        transText: 'Add Transactions',
+        displayTransClass: 'profileNoDisplay'
+      })
+    }
   }
 
   render() {
     const profiles = this.props.profiles.roster;
     let profileProps = {
-      profiles: this.props.profiles.roster,
-      displayClass: this.state.displayClass
-    }
+        profiles: this.props.profiles.roster,
+        displayProfClass: this.state.displayProfClass
+        },
+        transProps = {
+          transactions: this.props.transactions.allTransactions,
+          displayTransClass: this.state.displayTransClass
+        }
     return(
       <div>
         <div className="Admin-dashboard">
           <div className="button" onClick={this.listProfiles}> {this.state.profileText} </div>
-          <div className="button"> Add Accout Transaction </div>
+          <div className="button" onClick={this.listTransactions}> {this.state.transText} </div>
           <div className="button"> Add Activity </div>
         </div>
         <RosterAdmin passedProps={profileProps} />
+        <AllTransactionsView
+          transProps={transProps} 
+          profProps={profileProps}
+          />
       </div>
     );
   }
 }
 function mapStateToProps(state) {
   return {
-    profiles: state.profiles
+    profiles: state.profiles,
+    transactions: state.transactions
   }
 };
 var mapDispatchToProps = function (dispatch) {
-  return bindActionCreators({ fetchRoster }, dispatch);
+  return bindActionCreators({ fetchRoster, fetchAllTransactions }, dispatch);
 }
-export default connect(mapStateToProps, {fetchRoster})(Admin);
+export default connect(mapStateToProps, {fetchRoster,fetchAllTransactions})(Admin);

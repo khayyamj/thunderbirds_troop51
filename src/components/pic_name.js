@@ -8,7 +8,6 @@ export default class PicNameHeader extends Component {
 
 
   render() {
-    console.log('pic_name info passed in: ', this.props.profile)
     const { firstname, lastname, email, homephone, imageurl } = this.props.profile;
     return(
       <div className="profile-header">
