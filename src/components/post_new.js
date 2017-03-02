@@ -175,7 +175,6 @@ class BlogEditor extends Component {
         if (match === false) {
           if (btag.trim()) {
             let title = btag.toLowerCase()
-            console.log('tag:',title);
             let tagObject = {
               title: title
             }
@@ -202,23 +201,15 @@ class BlogEditor extends Component {
           blogTags[title] = index++
         }
       }
-      console.log('<-- Completed tag id collection -->')
     })
     .then((response) => {
-      console.log('response ', response)
     // create new blog-tag connection entries
-      console.log("Time to connect the blog with the tags", blogTags)
       for (let connectTag in blogTags) {
-        console.log('connectTag value: ', blogTags[connectTag]);
         let mergeObject = {
           tagid: blogTags[connectTag],
           blogid: newBlogId
         }
-        console.log('mergeObject: ', mergeObject);
         this.props.mergeBlogTags(mergeObject)
-        .then((response) => {
-          console.log('*** mergeBlogTags function complete! ***')
-        })
       }
     })
   }

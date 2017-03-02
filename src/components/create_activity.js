@@ -1,44 +1,45 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { reduxForm } from 'redux-form';
-import { createActivity } from './../actions/action_index';
+import { createActivity, linkParticipantstoActivity } from './../actions/action_index';
 
 const FIELDS = {
   type: {
     type: 'text',
     label: 'Activity Type',
-  },
+    },
   date: {
     type: 'date',
     label: 'Date',
-  },
+    },
   site: {
     type: 'text',
     label: 'Site',
-  },
+    },
   lat: {
     type: 'text',
     label: 'Latitude',
-  },
+    },
   lng: {
     type: 'text',
     label: 'Longitude',
-  },
+    },
   notes: {
     type: 'textarea',
     label: 'Activity Notes',
-  }
-},
-  participantsArray=[];
+    }
+  },
+  pObj={};
+let initialized = false;
 
 class CreateActivity extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      attendance: 'Attended',
-      };
+    this.state = {  };
     this.renderRoster = this.renderRoster.bind(this);
     this._onSelect = this._onSelect.bind(this);
+    this.toggleButton = this.toggleButton.bind(this);
+    this._submitActivity = this._submitActivity.bind(this);
   }
 
   renderField(fieldConfig, field) {
@@ -52,28 +53,20 @@ class CreateActivity extends Component {
     )
   }
   _onSelect(event) {
-    selected = !selected;
-    console.log('event: ', event.target.value);
-    this.setState({ attendance: 'Remove'});
-    participantsArray.push(parseInt(event.target.value))
-    console.log('participantsArray:',participantsArray)
+    console.log('pObj start -->', pObj);
+    let going = pObj[event.target.value];
+    pObj[event.target.value] = !going;
+    console.log('pObj', pObj);
   }
+
   renderRoster() {
     const {profiles} = this.props.profProps
-    console.log('renderRoster Profiles: ', profiles)
     return (
       profiles.map((profile) => {
-        profile.selected = false;
         if (profile.active) {
           return (
             <div key={profile.profileid}>
-              <button
-                className=''
-                value={profile.profileid}
-                onClick={this._onSelect()}
-                style={{cursor: 'pointer'}}>
-                {this.state.attendance}
-              </button>
+              {this.toggleButton(profile)}
               {profile.firstname} {profile.lastname}
             </div>
           )
@@ -82,22 +75,67 @@ class CreateActivity extends Component {
     )
   }
 
+  toggleButton(going) {
+    if (!going) {
+      return <div></div>
+    }
+    if (!initialized) {
+      initialized = !initialized
+      pObj[going.profileid] = false;
+    }
+    return (
+        <button
+          className=''
+          value={going.profileid}
+          onClick={this._onSelect}
+          style={{cursor: 'pointer'}}>
+          {pObj[going.profileid] ? 'Remove' : 'Attended'}
+        </button>
+      )
+  }
+
   render() {
     const { handleSubmit } = this.props;
     return(
       <div>
          <form
             className="contact-form"
-            onSubmit={handleSubmit(this.props.createActivity)}>
+            onSubmit={handleSubmit(this._submitActivity)}>
             <h3>New Activity</h3>
             {_.map(FIELDS, this.renderField.bind(this))}
             {this.renderRoster()}
-            <button type='submit' className='nav-btn'>Submit</button>
+            <button
+              type='submit'
+              className='nav-btn'>
+              Submit
+            </button>
          </form>
       </div>
     );
   }
+
+  hasSubmitSucceded(CreateActivity) {
+    console.log("Succeeded")
+  }
+
+  _submitActivity(data) {
+    return this.props.createActivity(data).then((response) => {
+      console.log('Activity submittted: ', response)
+      for (let participant in pObj) {
+        console.log("participant: ",participant, pObj[participant]);
+        if (pObj[participant]) {
+          let actid = response.payload.data.actid;
+          let profileid = parseInt(participant);
+          let ptaObj = [ actid, profileid ];
+          this.props.linkParticipantstoActivity(ptaObj)
+          .then(() => { console.log('Link added')})
+        }
+      }
+    })
+  }
 }
+
+
 
 function validate(values) {
   const errors = {};
@@ -115,4 +153,4 @@ export default reduxForm({
    form: 'CreateActivity',
    fields: _.keys(FIELDS),
    validate
-}, null, { createActivity })(CreateActivity);
+}, null, { createActivity, linkParticipantstoActivity })(CreateActivity);

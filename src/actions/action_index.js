@@ -22,6 +22,7 @@ export const DELETE_POST = 'DELETE_POST';
 export const CREATE_BLOG_CONTENT = 'CREATE_BLOG_CONTENT';
 export const MERGE_BLOG_TAGS = 'MERGE_BLOG_TAGS';
 export const CREATE_ACTIVITY = 'CREATE_ACTIVITY';
+export const LINK_PARTICIPANTS_TO_ACITIVTY = 'LINK_PARTICIPANTS_TO_ACITIVTY';
 export const FETCH_ACTIVITY = 'FETCH_ACTIVITY';
 
 export function fetchRoster() {
@@ -155,9 +156,21 @@ export function deletePost(id) {
 }
 
 export function createActivity(props) {
+  console.log('createActivity with ', props);
   const request = axios.post(ACTIVITIES_URL, props);
   return {
     type: CREATE_ACTIVITY,
+    payload: request
+  }
+}
+
+export function linkParticipantstoActivity(props) {
+  console.log('linkParticipantstoActivity props:', props)
+  const actid = props[0], profileid = props[1];
+  const request = axios.post(`${ACTIVITIES_URL}${actid}/${profileid}`);
+  console.log('URL: ', `${ACTIVITIES_URL}${actid}/${profileid}`)
+  return {
+    type: LINK_PARTICIPANTS_TO_ACITIVTY,
     payload: request
   }
 }

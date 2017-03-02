@@ -151,6 +151,18 @@ module.exports = {
      })
    },
 
+   linkParticipants: function(req, res, next) {
+     const actid = req.params.actid,
+            profileid = req.params.profileid;
+     db.create_link_participants_activity([actid, profileid], function(err, table) {
+       if (err) {
+         console.error('linkParticipants: ', err);
+         return res.status(400).send(err);
+       }
+       return res.status(200).json(table);
+     })
+   },
+
    updateActivity: function (req, res, next) {
      const id = parseInt(req.params.id),
            activity = req.body;

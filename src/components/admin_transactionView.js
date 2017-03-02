@@ -14,7 +14,6 @@ class AllTransactionsView extends Component {
 
     return(
       profiles.map((profile) => {
-        console.log(profile.profileid);
         let tArray = [];
         transactions.map((transaction, i) => {
           if(transaction.profileid === profile.profileid) {
@@ -22,7 +21,6 @@ class AllTransactionsView extends Component {
           }
         })
         tArray.map((t) => {
-          console.log(t)
           return (
             <div key={t.transactionid}>
               New Entry
