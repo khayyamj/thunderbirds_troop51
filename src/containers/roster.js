@@ -11,7 +11,6 @@ class Roster extends Component {
    }
 
   renderList() {
-    console.log('Roster page--> ', this.props.profiles);
     if(!this.props.profiles.roster.length) {
       return <div>Loading Roster...</div>;
     }

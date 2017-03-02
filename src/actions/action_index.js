@@ -6,6 +6,7 @@ const ACTIVITIES_URL = `http://localhost:${CONFIG.PORT}/api/activities/`;
 const TRANSACTIONS_URL = `http://localhost:${CONFIG.PORT}/api/transactions/`;
 const BLOG_URL = `http://localhost:${CONFIG.PORT}/api/blog/`;
 
+
 export const FETCH_ROSTER = 'FETCH_ROSTER';
 export const FETCH_PROFILE = 'FETCH_PROFILE';
 export const CREATE_PROFILE = 'CREATE_PROFILE';
@@ -20,6 +21,8 @@ export const CREATE_TAG = 'CREATE_TAG';
 export const DELETE_POST = 'DELETE_POST';
 export const CREATE_BLOG_CONTENT = 'CREATE_BLOG_CONTENT';
 export const MERGE_BLOG_TAGS = 'MERGE_BLOG_TAGS';
+export const CREATE_ACTIVITY = 'CREATE_ACTIVITY';
+export const FETCH_ACTIVITY = 'FETCH_ACTIVITY';
 
 export function fetchRoster() {
    const request = axios.get(PROFILES_URL);
@@ -68,23 +71,6 @@ export function submitMessage() {
       type: 'NONE',
       payload: request
    }
-}
-
-export function createBlogPost(props) {
-   const request = null;
-   return {
-      type: 'NONE',
-      payload: request
-   }
-}
-export function createPostContent(content) {
-  console.log('<-- createPostContent -->', content);
-  return {
-    type: CREATE_BLOG_CONTENT,
-    payload: {
-      content: content
-    }
-  }
 }
 
 export function fetchAllTransactions() {
@@ -164,6 +150,22 @@ export function deletePost(id) {
   const request = axios.delete('');
   return {
     type: DELETE_POST,
+    payload: request
+  }
+}
+
+export function createActivity(props) {
+  const request = axios.post(ACTIVITIES_URL, props);
+  return {
+    type: CREATE_ACTIVITY,
+    payload: request
+  }
+}
+
+export function fetchAllActivities() {
+  const request = axios.get(ACTIVITIES_URL);
+  return {
+    type: FETCH_ACTIVITY,
     payload: request
   }
 }

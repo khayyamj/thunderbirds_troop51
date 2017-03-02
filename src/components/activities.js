@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import GoogleMap from './google_map';
+import { fetchAllActivities } from './../actions/action_index';
 
 class Activities extends Component {
 
@@ -10,6 +11,9 @@ class Activities extends Component {
     this.state = { Activity: 'all'};
 
     this.selectActivity = this.selectActivity.bind(this);
+  }
+  componentWillMount() {
+    this.props.fetchAllActivities();
   }
 
   renderList(elem) {
@@ -25,8 +29,8 @@ class Activities extends Component {
   renderActivities() {
     const filteredActivityList = [],
           filter = this.state.Activity;
-
-    this.props.activities.map((activity, i) => {
+          console.log('this.props.activities.all: ', this.props.activities.all);
+    this.props.activities.all.map((activity, i) => {
        if (filter === 'all') {
          filteredActivityList.push(activity)
        } else
@@ -37,7 +41,10 @@ class Activities extends Component {
      })
 
     return filteredActivityList.map((activity) => {
-         const { lat, lng } = activity.location;
+         let { lat, lng } = activity.location;
+         lat = parseInt(lat)
+         lng = parseInt(lng)
+         console.log(lat, lng, '<-- lat, lng');
          return (
             <div className="activity" key={activity.date}>
                Date: {activity.date} <br />
@@ -81,4 +88,7 @@ class Activities extends Component {
 const mapStateToProps = function({ activities }) {
    return { activities };
 }
-export default connect(mapStateToProps)(Activities);
+const mapDispatchToProps = function(dispatch) {
+  return bindActionCreators({ fetchAllActivities }, dispatch);
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Activities);

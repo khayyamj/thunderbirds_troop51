@@ -4,7 +4,8 @@ import {bindActionCreators} from 'redux';
 import { fetchRoster, fetchAllTransactions } from './../actions/action_index';
 import { Link } from 'react-router';
 import RosterAdmin from './../components/admin_profileView';
-import AllTransactionsView from './../components/admin_transactionView'
+import AllTransactionsView from './../components/admin_transactionView';
+import CreateActivity from './../components/create_activity';
 
 let profileToggleShow = false;
 let transToggleShow = false;
@@ -75,13 +76,18 @@ class Admin extends Component {
     return(
       <div>
         <div className="Admin-dashboard">
-          <div className="button" onClick={this.listProfiles}> {this.state.profileText} </div>
-          <div className="button" onClick={this.listTransactions}> {this.state.transText} </div>
-          <div className="button"> Add Activity </div>
+          <button className="button" onClick={this.listProfiles}> {this.state.profileText} </button>
+          <button className="button" onClick={this.listTransactions}> {this.state.transText} </button>
+          <button className="button"> Add Activity </button>
         </div>
-        <RosterAdmin passedProps={profileProps} />
+        <RosterAdmin
+          passedProps={profileProps}
+          />
         <AllTransactionsView
-          transProps={transProps} 
+          transProps={transProps}
+          profProps={profileProps}
+          />
+        <CreateActivity
           profProps={profileProps}
           />
       </div>

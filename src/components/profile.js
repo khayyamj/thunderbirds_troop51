@@ -12,7 +12,6 @@ class Profile extends Component {
   }
 
   render() {
-     console.log('Profile page --> ', this.props.profiles.profile);
      if (!this.props.profiles.profile) {
         return <div>Loading...</div>;
      }
@@ -20,11 +19,10 @@ class Profile extends Component {
           { image, name, email, phone } = this.props.profiles.profile;
     return(
       <div>
-      <div className="nav-btn" to="/roster">roster</div>
-      <PicNameHeader profile={profile} />
-      Profile id:  {profile.profileid}<br />
-      {profile.firstname}
-
+        <div className="nav-btn" to="/roster">roster</div>
+        <PicNameHeader profile={profile} />
+          Profile id:  {profile.profileid}<br />
+          {profile.firstname}
       </div>
     );
   }

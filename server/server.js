@@ -53,7 +53,7 @@ app.delete('/api/activities/:actid', mainCtrl.deleteActivity);
 // TRANSACTIONS
 app.get('/api/transactions', mainCtrl.allTransactions);
 app.get('/api/transactions/:profileid', mainCtrl.oneSetOfTransactions)
-app.post('/api/transactions/', mainCtrl.createTransaction);
+app.post('/api/transactions', mainCtrl.createTransaction);
 app.put('/api/transactions/:actid', mainCtrl.updateTransaction);
 app.delete('/api/transactions/:actid', mainCtrl.deleteTransaction);
 

@@ -92,7 +92,7 @@ class BlogEditor extends Component {
               readOnly={this.state.readOnly}
             />
           </div>
-
+          <button onClick={this.handleButtonSave}>Validate</button>
           <div>
             <input
               type = 'text'
@@ -101,7 +101,7 @@ class BlogEditor extends Component {
               onChange = {this.tagChange}
             />
           </div>
-          <button onClick={this.handleButtonSave}>Validate</button>
+
 
 
           <div className="row" style={{display: 'none'}}>

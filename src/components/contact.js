@@ -46,7 +46,9 @@ class ContactUs extends Component {
     const { handleSubmit } = this.props;
     return(
       <div>
-         <form className="contact-form" onSubmit={handleSubmit(this.props.submitMessage)}>
+         <form
+            className="contact-form"
+            onSubmit={handleSubmit(this.props.submitMessage)}>
             <h3>Contact Us</h3>
             {_.map(FIELDS, this.renderField.bind(this))}
             <button type='submit' className='nav-btn'>Submit</button>
