@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import GoogleMap from './google_map';
-import { fetchAllActivities } from './../actions/action_index';
+import { fetchAllAttendedActivities, fetchAllParticipants } from './../actions/action_index';
+
+const
+  oneTime = [],
+  filteredActivityList = [];
 
 class Activities extends Component {
 
@@ -13,52 +17,72 @@ class Activities extends Component {
     this.selectActivity = this.selectActivity.bind(this);
   }
   componentWillMount() {
-    this.props.fetchAllActivities();
+    this.props.fetchAllAttendedActivities().then((response) => {
+      console.log('fetchAllAttendedActivities: ',response);
+    });
+    // this.props.fetchAllParticipants();
   }
 
-  renderList(elem) {
-      return elem.map((e) => {
-         return <li key={e}>{e}</li>
-      })
-   }
+  renderList(elem, currentActivity) {
+    const youth = [], adults = [];
+    let scout = '', leader = '';
+
+
+    return filteredActivityList.map((activity) => {
+      if (activity.actid === currentActivity) {
+        if (elem === 'youth' && activity.firstname) {
+          scout = `${activity.firstname} ${activity.lastname}`;
+          return (
+            <li key={activity.actid + activity.profileid + activity.firstname}>
+              {scout}
+            </li>)
+        } else if (elem === 'adults' && activity.firstname){
+          leader = `${activity.firstname} ${activity.lastname}`;
+          return (
+            <li key={activity.actid + activity.profileid + activity.firstname}>
+              {leader}
+            </li>)
+        }
+      }
+    })
+  }
 
   selectActivity(event) {
      this.setState({ Activity: event.target.value });
    }
 
   renderActivities() {
-    const filteredActivityList = [],
-          filter = this.state.Activity;
-          console.log('this.props.activities.all: ', this.props.activities.all);
+    const filter = this.state.Activity;
     this.props.activities.all.map((activity, i) => {
-       if (filter === 'all') {
-         filteredActivityList.push(activity)
-       } else
-       if (activity.type === filter) {
-         filteredActivityList.push(activity)
-       }
-       return filteredActivityList;
-     })
-
+      if (oneTime.indexOf(activity.actid) > 0){
+        return filteredActivityList;
+      }
+      if (filter === 'all') {
+       filteredActivityList.push(activity)
+      } else
+      if (activity.type === filter) {
+       filteredActivityList.push(activity)
+      }
+      oneTime.push(activity);
+      return filteredActivityList;
+    })
     return filteredActivityList.map((activity) => {
-         let { lat, lng } = activity.location;
-         lat = parseInt(lat)
-         lng = parseInt(lng)
-         console.log(lat, lng, '<-- lat, lng');
-         return (
-            <div className="activity" key={activity.date}>
-               Date: {activity.date} <br />
-               Campsite: {activity.site} <GoogleMap lng={lng} lat={lat} /> <br />
-               Notes: {activity.notes} <br />
-               Scouts Attending:
-                  <ul className="participants">
-                  {this.renderList(activity.scouts)} </ul><br />
-               Adults Attending:
-                  <ul className="participants">
-                  {this.renderList(activity.leaders)} </ul><hr />
-            </div>
-         )
-      })
+     let { lat, lng } = activity;
+     console.log(lat, Number(lng), '<-- lat, lng');
+      return (
+        <div className="activity" key={activity.date}>
+           Date: {activity.date} <br />
+           Campsite: {activity.site} <GoogleMap lng={Number(lng)} lat={Number(lat)} /> <br />
+           Notes: {activity.notes} <br />
+           Scouts Attending:
+              <ul className="participants">
+              {this.renderList('youth', activity.actid)} </ul><br />
+           Adults Attending:
+              <ul className="participants">
+              {this.renderList('adults', activity.actid)} </ul><hr />
+        </div>
+      )
+   })
   }
 
   render() {
@@ -89,6 +113,6 @@ const mapStateToProps = function({ activities }) {
    return { activities };
 }
 const mapDispatchToProps = function(dispatch) {
-  return bindActionCreators({ fetchAllActivities }, dispatch);
+  return bindActionCreators({ fetchAllAttendedActivities, fetchAllParticipants }, dispatch);
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Activities);

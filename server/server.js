@@ -45,6 +45,8 @@ app.delete('/api/profiles/:id', mainCtrl.deleteProfile);
 
 // ACTIVITIES
 app.get('/api/activities', mainCtrl.allActivities);
+app.get('/api/activities/attended', mainCtrl.allAttendedActivities)
+app.get('/api/activities/participants', mainCtrl.allParticipants)
 app.get('/api/activities/:actid', mainCtrl.oneActivity)
 app.post('/api/activities', mainCtrl.createActivity);
 app.post('/api/activities/:actid/:profileid', mainCtrl.linkParticipants)

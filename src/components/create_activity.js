@@ -97,7 +97,7 @@ class CreateActivity extends Component {
   render() {
     const { handleSubmit } = this.props;
     return(
-      <div>
+      <div className={this.props.actProps.displayActClass}>
          <form
             className="contact-form"
             onSubmit={handleSubmit(this._submitActivity)}>

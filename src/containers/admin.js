@@ -9,6 +9,7 @@ import CreateActivity from './../components/create_activity';
 
 let profileToggleShow = false;
 let transToggleShow = false;
+let actToggleShow = false;
 let profileText = 'Edit Profiles';
 
 
@@ -19,10 +20,13 @@ class Admin extends Component {
       profileText: 'Edit Profiles',
       displayProfClass: 'profileNoDisplay',
       transText: 'Add Transactions',
-      displayTransClass: 'profileNoDisplay'
+      displayTransClass: 'profileNoDisplay',
+      actText: 'Add Activity',
+      displayActClass: 'profileNoDisplay'
     };
     this.listProfiles = this.listProfiles.bind(this);
     this.listTransactions = this.listTransactions.bind(this);
+    this.addActivity = this.addActivity.bind(this);
   }
 
   componentWillMount() {
@@ -37,7 +41,9 @@ class Admin extends Component {
         profileText: 'Hide Profiles',
         displayProfClass: 'profileDisplay',
         transText: 'Add Transactions',
-        displayTransClass: 'profileNoDisplay'
+        displayTransClass: 'profileNoDisplay',
+        actText: 'Add Activity',
+        displayActClass: 'profileNoDisplay'
       })
     } else {
       this.setState({
@@ -53,12 +59,33 @@ class Admin extends Component {
         transText: 'Hide Transactions',
         displayTransClass: 'profileDisplay',
         profileText: 'Edit Profiles',
-        displayProfClass: 'profileNoDisplay'
+        displayProfClass: 'profileNoDisplay',
+        actText: 'Add Activity',
+        displayActClass: 'profileNoDisplay'
       })
     } else {
       this.setState({
         transText: 'Add Transactions',
         displayTransClass: 'profileNoDisplay'
+      })
+    }
+  }
+
+  addActivity() {
+    actToggleShow = !actToggleShow;
+    if (actToggleShow === true) {
+      this.setState({
+        actText: 'Hide Activities',
+        displayActClass: 'profileDisplay',
+        profileText: 'Edit Profiles',
+        displayProfClass: 'profileNoDisplay',
+        transText: 'Add Transactions',
+        displayTransClass: 'profileNoDisplay'
+      })
+    } else {
+      this.setState({
+        actText: 'Add Activity',
+        displayActClass: 'profileNoDisplay'
       })
     }
   }
@@ -72,13 +99,16 @@ class Admin extends Component {
         transProps = {
           transactions: this.props.transactions.allTransactions,
           displayTransClass: this.state.displayTransClass
+        },
+        actProps = {
+          displayActClass: this.state.displayActClass
         }
     return(
       <div>
         <div className="Admin-dashboard">
           <button className="button" onClick={this.listProfiles}> {this.state.profileText} </button>
           <button className="button" onClick={this.listTransactions}> {this.state.transText} </button>
-          <button className="button"> Add Activity </button>
+          <button className="button" onClick={this.addActivity}> {this.state.actText} </button>
         </div>
         <RosterAdmin
           passedProps={profileProps}
@@ -89,6 +119,7 @@ class Admin extends Component {
           />
         <CreateActivity
           profProps={profileProps}
+          actProps={actProps}
           />
       </div>
     );

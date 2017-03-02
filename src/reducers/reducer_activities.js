@@ -1,6 +1,6 @@
-import { CREATE_ACTIVITY, FETCH_ACTIVITY } from './../actions/action_index';
+import { CREATE_ACTIVITY, FETCH_ACTIVITY, FETCH_ALL_PARTICIPANTS, FETCH_ATTENDED_ACTIVITIES } from './../actions/action_index';
 
-const INITIAL_STATE = { all: [], activity: []};
+const INITIAL_STATE = { all: [], activity: [], allParticipants: [], activityParticipants: []};
 
 
 export default function( state = INITIAL_STATE, action) {
@@ -9,6 +9,10 @@ export default function( state = INITIAL_STATE, action) {
       return {...state, activity: action.payload.data};
     case FETCH_ACTIVITY:
       return {...state, all: action.payload.data};
+    case FETCH_ALL_PARTICIPANTS:
+      return {...state, allParticipants: action.payload.data};
+    case FETCH_ATTENDED_ACTIVITIES:
+      return {...state, all: action.payload.data}
     default:
       return state;
   }

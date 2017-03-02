@@ -128,6 +128,27 @@ module.exports = {
       })
    },
 
+   allAttendedActivities: function(req, res, next) {
+     db.get_all_attended_activities([], function(err, table) {
+       if(err) {
+         console.error('allAttendedActivities: ', err);
+         return res.status(400).send(err);
+       }
+       return res.status(200).json(table);
+     })
+   },
+
+   allParticipants: function(req, res, next) {
+     console.log('allParticipants function called');
+     db.get_all_participants([], function(err, table) {
+       if(err) {
+         console.log('allParticipants: ', err);
+         return res.status(400).send(err);
+       }
+       return res. status(200).json(table);
+     })
+   },
+
    oneActivity: function(req, res, next) {
       const id=parseInt(req.params.id);
       db.get_activity([id], function(err, table){

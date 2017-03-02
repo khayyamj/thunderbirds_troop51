@@ -24,6 +24,8 @@ export const MERGE_BLOG_TAGS = 'MERGE_BLOG_TAGS';
 export const CREATE_ACTIVITY = 'CREATE_ACTIVITY';
 export const LINK_PARTICIPANTS_TO_ACITIVTY = 'LINK_PARTICIPANTS_TO_ACITIVTY';
 export const FETCH_ACTIVITY = 'FETCH_ACTIVITY';
+export const FETCH_ATTENDED_ACTIVITIES = 'FETCH__ATTENDED_ACTIVITIES';
+export const FETCH_ALL_PARTICIPANTS = 'FETCH_ALL_PARTICIPANTS';
 
 export function fetchRoster() {
    const request = axios.get(PROFILES_URL);
@@ -165,10 +167,8 @@ export function createActivity(props) {
 }
 
 export function linkParticipantstoActivity(props) {
-  console.log('linkParticipantstoActivity props:', props)
   const actid = props[0], profileid = props[1];
   const request = axios.post(`${ACTIVITIES_URL}${actid}/${profileid}`);
-  console.log('URL: ', `${ACTIVITIES_URL}${actid}/${profileid}`)
   return {
     type: LINK_PARTICIPANTS_TO_ACITIVTY,
     payload: request
@@ -179,6 +179,23 @@ export function fetchAllActivities() {
   const request = axios.get(ACTIVITIES_URL);
   return {
     type: FETCH_ACTIVITY,
+    payload: request
+  }
+}
+
+export function fetchAllAttendedActivities() {
+  const request = axios.get(ACTIVITIES_URL+'attended');
+  return {
+    type: FETCH_ATTENDED_ACTIVITIES,
+    payload: request
+  }
+}
+
+export function fetchAllParticipants() {
+  console.log('fetchAllParticipants called, URL:', `${ACTIVITIES_URL}participants`);
+  const request = axios.get(`${ACTIVITIES_URL}participants`)
+  return {
+    type: FETCH_ALL_PARTICIPANTS,
     payload: request
   }
 }
