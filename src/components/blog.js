@@ -25,7 +25,6 @@ class Blog extends Component {
     if (this.props.blogpost) {
       this.setState({displayBtn: 'display'})
     }
-    console.log('inputChange...value of content: ', this.props.blogpost);
   }
 
   tagInputChange(event) {
@@ -38,7 +37,6 @@ class Blog extends Component {
 
   createPost(props) {
     this.setState ({ content: this.props.blogpost});
-    console.log('****** createPost props: ', props);
   }
 
   render() {
@@ -80,24 +78,11 @@ class Blog extends Component {
     );
   }
 }
-function validate(values) {
-  const errors = {};
-  if (!values.title) {
-    errors.title = 'Enter Title';
-  }
-  if (!values.tags) {
-    errors.tags = 'Enter at least one tag';
-  }
-  // if (!values.content) {
-  //   errors.content = 'Please tell your story before publishing'
-  // }
-  return errors;
-}
+
 function mapStateToProps (state) {
   return { blogpost: state.posts.post}
 }
 export default reduxForm({
   form: 'BlogPost',
-  fields: ['title', 'content', 'tags'],
-  validate
+  fields: ['title', 'content', 'tags']
 }, mapStateToProps, {createBlogPost})(Blog);

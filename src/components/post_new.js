@@ -4,7 +4,7 @@ import RichTextEditor, {createEmptyValue} from 'react-rte';
 import {convertToRaw} from 'draft-js';
 import autobind from 'class-autobind';
 import type {EditorValue} from './RichTextEditor';
-import { createPostContent, fetchTags, createTags } from './../actions/action_index';
+import { createPost, fetchTags, createTags, mergeBlogTags } from './../actions/action_index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -37,7 +37,7 @@ class BlogEditor extends Component {
     this.handleButtonSave = this.handleButtonSave.bind(this);
     this.titleChange = this.titleChange.bind(this);
     this.tagChange = this.tagChange.bind(this);
-    this.alert = this.alert.bind(this);
+    this.publishPost = this.publishPost.bind(this);
   }
 
   componentWillMount() {
@@ -116,7 +116,7 @@ class BlogEditor extends Component {
             <button
               className="BlogPostButton"
               className={this.state.display}
-              onClick={this.alert}
+              onClick={this.publishPost}
             >
               Submit Post
             </button>
@@ -138,46 +138,89 @@ class BlogEditor extends Component {
     }
   }
 
-  alert(event) {
-    const postDetails = {
-            title: this.state.title,
-            content: this.state.content
-          },
-          currentTags = this.props.tags,
-          newTags = [];
-    // check the current list of tags and see if any new tags Exists
-    for (let btag of this.state.tags) {
-       let match = false;
-      for (let ctag of currentTags) {
-        console.log(btag, ctag.title, match);
-        if (btag.toLowerCase().trim() == ctag.title.toLowerCase()) {
-          match = true;
-          break;
-        }
-      }
-      if (match === false) {
-        newTags.push(btag.toLowerCase().trim());
-      }
-    }
-    // submit new tags to db and get tag id's
-    console.log('newTags', newTags)
-    for (let tag of newTags) {
-      if (!tag) {
-        console.log('No New Tags')
-      } else {
-        let tagObject = { title: tag}
-        console.log('tag: ', tagObject);
-        this.props.createTags(tagObject);
-      }
-    }
-    // get all used tags with their id's
-    //
+  publishPost(event) {
+    const
+      postDetails = {
+        title: this.state.title,
+        content: this.state.content
+      },
+      currentTags = this.props.tags,
+      newTags = [],
+      blogTags = {};
+
+    let newBlogId = 0;
 
     // post blog content to db
-    // get new blog id back
-    //
-    // create new blog-tag connection entries
+    const blogObject = {
+      title: this.state.title,
+      content: this.state.content
+    }
+    this.props.createPost(blogObject)
+    .then((response) => {
 
+    // get new blog id back
+      newBlogId = response.payload.data.blogid;
+    })
+    .then((response) => {
+
+    // check the current list of tags and see if any new tags included
+      for (let btag of this.state.tags) {
+        let match = false;
+        for (let ctag of currentTags) {
+          if (btag.toLowerCase().trim() == ctag.title.toLowerCase()) {
+            match = true;
+            break;
+          }
+        }
+        if (match === false) {
+          if (btag.trim()) {
+            let title = btag.toLowerCase()
+            console.log('tag:',title);
+            let tagObject = {
+              title: title
+            }
+            this.props.createTags(tagObject)
+          }
+        }
+      }
+    })
+    .then((response) => {
+
+    // get all used tags with their id's
+      let index = this.props.tags.length + 1;
+      for (let btag of this.state.tags) {
+        let match = false;
+        for (let ctag of this.props.tags) {
+          if (btag.toLowerCase().trim() === ctag.title) {
+            match = true;
+            blogTags[ctag.title] = ctag.tagid
+            break;
+          }
+        }
+        if (match === false) {
+          let title = btag.toLowerCase().trim()
+          blogTags[title] = index++
+        }
+      }
+      console.log('<-- Completed tag id collection -->')
+    })
+    .then((response) => {
+      console.log('response ', response)
+    // create new blog-tag connection entries
+      console.log("Time to connect the blog with the tags", blogTags)
+      for (let connectTag in blogTags) {
+        console.log('connectTag value: ', blogTags[connectTag]);
+        let mergeObject = {
+          tagid: blogTags[connectTag],
+          blogid: newBlogId
+        }
+        console.log('mergeObject: ', mergeObject);
+        this.props.mergeBlogTags(mergeObject)
+        .then((response) => {
+          console.log('*** mergeBlogTags function complete! ***')
+        })
+      }
+    })
   }
   // ===============================================
   // inherited functions
@@ -220,6 +263,6 @@ function mapStateToProps (state) {
   }
 }
 const mapDispatchToProps = function (dispatch) {
-  return bindActionCreators({ createPostContent, fetchTags, createTags }, dispatch);
+  return bindActionCreators({ createPost, fetchTags, createTags, mergeBlogTags }, dispatch);
 };
 export default connect(mapStateToProps, mapDispatchToProps)(BlogEditor);

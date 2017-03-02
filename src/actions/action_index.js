@@ -19,6 +19,7 @@ export const FETCH_TAGS = 'FETCH_TAGS';
 export const CREATE_TAG = 'CREATE_TAG';
 export const DELETE_POST = 'DELETE_POST';
 export const CREATE_BLOG_CONTENT = 'CREATE_BLOG_CONTENT';
+export const MERGE_BLOG_TAGS = 'MERGE_BLOG_TAGS';
 
 export function fetchRoster() {
    const request = axios.get(PROFILES_URL);
@@ -70,7 +71,6 @@ export function submitMessage() {
 }
 
 export function createBlogPost(props) {
-   console.log('createBlogPost function called with -->', props);
    const request = null;
    return {
       type: 'NONE',
@@ -113,7 +113,7 @@ export function createTransaction(props) {
 }
 
 export function createPost(props) {
-  const request = axios.post(BLOG_URL);
+  const request = axios.post(BLOG_URL, props);
   return {
     type: CREATE_POST,
     payload: request
@@ -132,6 +132,14 @@ export function createTags(tag) {
   const request = axios.post(BLOG_URL+'tag',tag)
   return {
     type: CREATE_TAG,
+    payload: request
+  }
+}
+
+export function mergeBlogTags(props) {
+  const request = axios.post(BLOG_URL+'tagConnection',props);
+  return {
+    type: MERGE_BLOG_TAGS,
     payload: request
   }
 }

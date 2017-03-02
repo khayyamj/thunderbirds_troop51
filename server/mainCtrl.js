@@ -231,7 +231,8 @@ module.exports = {
    },
 
    createBlogPost: function(req, res, next) {
-     db.create_blogpost([], function(err, table) {
+     const b = req.body;
+     db.create_blogpost([b.title, b.content, b.authorid, b.date_saved, b.date_published], function(err, table) {
        if(err) {
          console.error('createBlogPost: ', err);
          return res.status(400).send(err);
@@ -248,6 +249,16 @@ module.exports = {
        }
        console.log('Create Tag response: ', table[0])
        return res.status(200).json(table[0]);
+     })
+   },
+
+   tagConnection: function (req, res, next) {
+     const b = req.body;
+     db.create_blog_tag_connection([b.tagid, b.blogid], function(err, table) {
+       if(err) {
+         console.error('tagConnection: ', err)
+       }
+       return res.status(200).json(table);
      })
    },
 

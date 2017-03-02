@@ -61,6 +61,7 @@ app.delete('/api/transactions/:actid', mainCtrl.deleteTransaction);
 app.post('/api/blog', mainCtrl.createBlogPost);
 app.post('/api/blog/tag',mainCtrl.createBlogPostTag);
 app.get('/api/blog/tag',mainCtrl.getTags);
+app.post('/api/blog/tagConnection', mainCtrl.tagConnection);
 // RANKS & ADVANCEMENTS
 
 // LISTEN
