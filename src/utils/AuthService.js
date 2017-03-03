@@ -40,6 +40,7 @@ export default class AuthService extends EventEmitter {
       if (error) {
         console.error('Error loading the Profile', error)
       } else {
+        console.log('Auth0 profile: ', profile);
         this.setProfile(profile)
       }
     })

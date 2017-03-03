@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
+import { Button } from 'semantic-ui-react'
 
 class NavBar extends Component {
    renderLinks() {
       return this.props.NavLinks.map((navLink) => {
          return (
-            <Link to={navLink.address} className="ui orange button" key={navLink.link}>
+            <Link to={navLink.address} className="ui primary button" key={navLink.link}>
               <div className="ui animated button">
                 <div className="hidden content">{navLink.link} </div>
                 <div className="visible content">

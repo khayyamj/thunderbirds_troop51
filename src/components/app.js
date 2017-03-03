@@ -23,9 +23,13 @@ export default class App extends Component {
           <Header />
           <NavBar />
           <div className="main-body">
-             <div className="left">{children}</div>
-             <SideBar />
+             <a id="sidebar" className="item">
+                <i className="sidebar icon"></i>
+             </a>
+             <SideBar classname="ui sidebar right vertical menu" />
+             <div className="pusher">{children}</div>
           </div>
+          
        </div>
     );
    }

@@ -7,7 +7,7 @@ export default class SideBar extends Component {
          lat = 40.2203,
          lng = -111.6605;
    return(
-         <div className="right">
+         <div className="sidebar">
             <iframe className="sidebar-calendar" src="https://calendar.google.com/calendar/embed?title=Troop%2051%20Calendar&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=300&amp;wkst=1&amp;bgcolor=%23FF6F00&amp;src=calendar%40mytroop51.com&amp;color=%236f562e&amp;ctz=America%2FDenver" style={{borderWidth:0, width:200, height: 300, frameBorder:0, overflowY: "hidden", scrolling: "no"}}></iframe>
             <hr />
             Resources: <br />

@@ -39,7 +39,7 @@ export default function() {
          {
             link: 'Login',
             address: '/login',
-            icon: 'inverted unlock icon',
+            icon: 'unlock icon',
             permission: 0
          }
       ]
