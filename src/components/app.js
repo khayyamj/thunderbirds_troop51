@@ -11,22 +11,22 @@ export default class App extends Component {
     router: T.object
   }
 
-   render() {
-     let children = null;
-     if (this.props.children) {
-       children = React.cloneElement(this.props.children, {
-         auth: this.props.route.auth // sends auth instance from route to children
-       })
-     }
-      return (
-         <div className="body">
-            <Header />
-            <NavBar />
-            <div className="main-body">
-               <div className="left">{children}</div>
-               <SideBar />
-            </div>
-         </div>
-      );
+ render() {
+   let children = null;
+   if (this.props.children) {
+     children = React.cloneElement(this.props.children, {
+       auth: this.props.route.auth // sends auth instance from route to children
+    })
+  }
+    return (
+       <div className="body">
+          <Header />
+          <NavBar />
+          <div className="main-body">
+             <div className="left">{children}</div>
+             <SideBar />
+          </div>
+       </div>
+    );
    }
 }

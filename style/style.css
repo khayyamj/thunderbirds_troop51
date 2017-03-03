@@ -1,5 +1,11 @@
 .container {
-
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-image: url('./../images/Tent-Night-Sky.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 .body{
 
@@ -157,4 +163,12 @@
 .profile-name .name {
   font-size: 30px;
   font-weight: bold;
+}
+@media (min-width: 544px)
+.container {
+    max-width: 576px;
+}
+@media (min-width: 768px)
+.container {
+  max-width: 720px;
 }
