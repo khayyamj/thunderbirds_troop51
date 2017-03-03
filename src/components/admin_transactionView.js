@@ -10,21 +10,30 @@ class AllTransactionsView extends Component {
   }
   renderTransactionList() {
     const {transactions} = this.props.transProps,
-          {profiles} = this.props.profProps;
+          profiles = [];
+    console.log(transactions)
+    transactions.map((profile, i) => { // create filtered array of active profiles
+      profile.active && profiles.indexOf(profile.profileid) === -1 ? profiles.push(profile.profileid) : console.log('Profile Not Active')
+      console.log('Profiles: ', profiles);
+    })
+console.log('<--------- finished filtering active members');
 
     return(
-      profiles.map((profile) => {
+      profiles.map((profile) => { // map over filtered array of active members
         let tArray = [];
-        transactions.map((transaction, i) => {
-          if(transaction.profileid === profile.profileid) {
+        transactions.map((transaction) => {
+          console.log('profileid: ',profile,'transaction: ', transaction.profileid);
+          if(transaction.profileid == profile) {
             tArray.push(transaction);
+            console.log('Transaction added to array', tArray)
           }
         })
-        tArray.map((t) => {
+        return tArray.map((t, i) => {
+          console.log('tArray map', i)
           return (
             <div key={t.transactionid}>
-              New Entry
-
+                {i}->
+                {t.firstname} {t.lastname}
                 {t.date} {t.amount} {t.activity} {t.notes}
 
             </div>
@@ -36,7 +45,6 @@ class AllTransactionsView extends Component {
   render() {
     return(
       <div className={this.props.transProps.displayTransClass}>
-        TransactionView
         {this.renderTransactionList()}
       </div>
     );

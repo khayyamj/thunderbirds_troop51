@@ -14,9 +14,7 @@ class Posts extends Component {
   }
 
   renderPosts() {
-    console.log('renderPosts--> ',this.props.posts)
     return this.props.posts.map((post) => {
-      console.log('map: ', post);
       return (
         <div key={post.blogid}>
           Title: {post.title} <br />

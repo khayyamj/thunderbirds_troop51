@@ -180,7 +180,6 @@ class BlogEditor extends Component {
             }
             this.props.createTags(tagObject)
             .then((response) => {
-              console.log('createTags response -->', reponse);
             })
           }
         }
