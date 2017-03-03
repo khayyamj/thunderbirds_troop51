@@ -7,8 +7,13 @@ class NavBar extends Component {
    renderLinks() {
       return this.props.NavLinks.map((navLink) => {
          return (
-            <Link to={navLink.address} className="nav-btn" key={navLink.link}>
-               <li>{navLink.link}</li>
+            <Link to={navLink.address} className="ui orange button" key={navLink.link}>
+              <div className="ui animated button">
+                <div className="hidden content">{navLink.link} </div>
+                <div className="visible content">
+                  <i className={navLink.icon}></i>
+                </div>
+              </div>
             </Link>
          )
       });
