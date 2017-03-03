@@ -61,6 +61,7 @@ app.put('/api/transactions/:actid', mainCtrl.updateTransaction);
 app.delete('/api/transactions/:actid', mainCtrl.deleteTransaction);
 
 // BLOG POSTS
+app.get('/api/blog', mainCtrl.fetchPosts);
 app.post('/api/blog', mainCtrl.createBlogPost);
 app.post('/api/blog/tag',mainCtrl.createBlogPostTag);
 app.get('/api/blog/tag',mainCtrl.getTags);

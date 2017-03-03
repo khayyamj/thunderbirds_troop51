@@ -1,3 +1,3 @@
-INSERT INTO BlogTags (title)
+INSERT INTO BlogTags (tags)
 VALUES ($1)
 RETURNING *;

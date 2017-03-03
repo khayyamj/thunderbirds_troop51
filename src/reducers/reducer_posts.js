@@ -7,7 +7,7 @@ export default function(state = INITIAL_STATE, action) {
       case FETCH_POST:
          return { ...state, post: action.payload.data};
       case FETCH_POSTS:
-         return { ...state, all: action.payload.data };
+         return { ...state, all: action.payload.data};
       case CREATE_POST:
         return {...state, post: action.payload};
       case FETCH_TAGS:

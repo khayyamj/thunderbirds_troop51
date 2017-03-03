@@ -72,7 +72,7 @@ class Activities extends Component {
       return (
         <div className="activity" key={activity.date}>
            Date: {activity.date} <br />
-           Campsite: {activity.site} <GoogleMap lng={Number(lng)} lat={Number(lat)} /> <br />
+           Campsite: {activity.site} <GoogleMap lng={Number(lng)} lat={Number(lat)} zoom={8} /> <br />
            Notes: {activity.notes} <br />
            Scouts Attending:
               <ul className="participants">

@@ -1,88 +1,48 @@
 import React, { Component } from 'react';
-import { reduxForm } from 'redux-form';
-import BlogContentEditor from './post_new';
-import { createBlogPost } from './../actions/action_index';
-
-
-class Blog extends Component {
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import { fetchPosts } from './../actions/action_index';
+class Posts extends Component {
   constructor(props) {
-    super(props)
-    this.state = {
-      title: '',
-      tags: [],
-      content: '',
-      displayBtn: 'noDisplay'
-    }
-    this.inputChange = this.inputChange.bind(this);
-    this.tagInputChange = this.tagInputChange.bind(this);
+    super(props);
+    this.state = {};
+    this.renderPosts = this.renderPosts.bind(this);
   }
 
-  inputChange(event) {
-    this.setState({
-      title: event.target.value,
-      content: this.props.blogpost
-    });
-    if (this.props.blogpost) {
-      this.setState({displayBtn: 'display'})
-    }
+  componentWillMount() {
+    this.props.fetchPosts();
   }
 
-  tagInputChange(event) {
-    const tagArray = event.target.value.split(',');
-    this.setState({ tags: tagArray });
-    if (this.props.blogpost) {
-      this.setState({displayBtn: 'display'})
-    }
-  }
-
-  createPost(props) {
-    this.setState ({ content: this.props.blogpost});
+  renderPosts() {
+    console.log('renderPosts--> ',this.props.posts)
+    return this.props.posts.map((post) => {
+      console.log('map: ', post);
+      return (
+        <div key={post.blogid}>
+          Title: {post.title} <br />
+          Tags: {post.tags} <br />
+          Post:  <div dangerouslySetInnerHTML={{__html:post.content}} />
+          <hr />
+        </div>
+      )
+    })
   }
 
   render() {
-    const { fields: {title, content, tags}, handleSubmit } = this.props;
-
-    this.props.fields.content.value = this.props.blogpost.content;
     return(
-
       <div>
-        <form onSubmit={handleSubmit(this.props.createBlogPost)}>
-          <input
-            type='text'
-            value={this.state.title}
-            placeholder='Post Headline'
-            onChange={this.inputChange}
-            {...title}
-            className="noDisplay"/> <br />
-            {title.touched ? title.error : ''}
-          <BlogContentEditor />
-          <input
-            value={this.props.blogpost.content}
-            {...content}
-            className="noDisplay" />
-            {content.touched ? content.error : ''}
-          <input
-            type='text'
-            value={this.state.tags}
-            placeholder='Tags (separate tags with ,)'
-            onChange={this.tagInputChange}
-            {...tags}
-            className="noDisplay"/> {tags.touched ? tags.error : ''} <br />
-          <button
-            type='submit'
-            className={this.state.displayBtn} >
-            Publish
-          </button>
-        </form>
+      Posts go here...
+      {this.renderPosts()}
       </div>
     );
   }
 }
-
-function mapStateToProps (state) {
-  return { blogpost: state.posts.post}
+function mapStateToProps(state) {
+  return {
+    posts: state.posts.all
+  }
+};
+var mapDispatchToProps = function (dispatch) {
+  return bindActionCreators({ fetchPosts }, dispatch);
 }
-export default reduxForm({
-  form: 'BlogPost',
-  fields: ['title', 'content', 'tags']
-}, mapStateToProps, {createBlogPost})(Blog);
+export default connect(mapStateToProps, mapDispatchToProps)(Posts);

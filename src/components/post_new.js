@@ -167,7 +167,7 @@ class BlogEditor extends Component {
       for (let btag of this.state.tags) {
         let match = false;
         for (let ctag of currentTags) {
-          if (btag.toLowerCase().trim() == ctag.title.toLowerCase()) {
+          if (btag.toLowerCase().trim() == ctag.tags.toLowerCase()) {
             match = true;
             break;
           }
@@ -179,6 +179,9 @@ class BlogEditor extends Component {
               title: title
             }
             this.props.createTags(tagObject)
+            .then((response) => {
+              console.log('createTags response -->', reponse);
+            })
           }
         }
       }
@@ -190,9 +193,9 @@ class BlogEditor extends Component {
       for (let btag of this.state.tags) {
         let match = false;
         for (let ctag of this.props.tags) {
-          if (btag.toLowerCase().trim() === ctag.title) {
+          if (btag.toLowerCase().trim() === ctag.tags) {
             match = true;
-            blogTags[ctag.title] = ctag.tagid
+            blogTags[ctag.tags] = ctag.tagid
             break;
           }
         }
@@ -210,6 +213,9 @@ class BlogEditor extends Component {
           blogid: newBlogId
         }
         this.props.mergeBlogTags(mergeObject)
+          .then((response) => {
+            return response;
+          })
       }
     })
   }

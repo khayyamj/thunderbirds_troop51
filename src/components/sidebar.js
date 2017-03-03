@@ -20,7 +20,7 @@ export default class SideBar extends Component {
             Elk's Lodge <br />
             1000 S. University Ave. <br />
             Provo, UT <br />
-            <GoogleMap lat={lat} lng={lng} />
+            <GoogleMap lat={lat} lng={lng} zoom={12}/>
             Scoutmaster: Kevin Keaton <br />
             Phone: (801) 687-2725 <br />
             Time: Thursdays at 7:00 - 8:30 p.m.

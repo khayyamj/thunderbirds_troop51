@@ -134,7 +134,7 @@ export function mergeBlogTags(props) {
 }
 
 export function fetchPosts() {
-  const request = axios.get('');
+  const request = axios.get(BLOG_URL);
   return {
     type: FETCH_POSTS,
     payload: request

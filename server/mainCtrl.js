@@ -289,7 +289,8 @@ module.exports = {
      const b = req.body;
      db.create_blog_tag_connection([b.tagid, b.blogid], function(err, table) {
        if(err) {
-         console.error('tagConnection: ', err)
+         console.error('tagConnection: ', err);
+         return res.status(400).send(err);
        }
        return res.status(200).json(table);
      })
@@ -299,10 +300,21 @@ module.exports = {
      db.get_tags([], function(err, table) {
        if(err) {
          console.error('getTags: ', err);
+         return res.status(400).send(err);
        }
        return res.status(200).json(table);
      })
-   }
+   },
+
+  fetchPosts: function(req, res, next) {
+    db.get_posts([], function(err, table) {
+      if (err) {
+        console.error('fetchPosts: ', err);
+        return res.status(400).send(err);
+      }
+      return res.status(200).json(table);
+    })
+  }
 
 //  end of module.exports
 }
