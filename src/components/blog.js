@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { fetchPosts } from './../actions/action_index';
+import { List } from 'semantic-ui-react';
+
 class Posts extends Component {
   constructor(props) {
     super(props);
@@ -16,12 +18,14 @@ class Posts extends Component {
   renderPosts() {
     return this.props.posts.map((post) => {
       return (
-        <div key={post.blogid}>
-          Title: {post.title} <br />
-          Tags: {post.tags} <br />
-          Post:  <div dangerouslySetInnerHTML={{__html:post.content}} />
+        <List key={post.blogid}>
+        <List.Content key={post.blogid}>
+            <List.Header> Title: {post.title} <br /> </List.Header>
+            <List.Description> Tags: {post.tags} <br /> </List.Description>
+            <List.Description> Post:  <div dangerouslySetInnerHTML={{__html:post.content}} /> </List.Description>
+          </List.Content>
           <hr />
-        </div>
+        </List>
       )
     })
   }
@@ -29,8 +33,7 @@ class Posts extends Component {
   render() {
     return(
       <div>
-      Posts go here...
-      {this.renderPosts()}
+        {this.renderPosts()}
       </div>
     );
   }

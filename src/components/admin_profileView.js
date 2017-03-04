@@ -1,6 +1,7 @@
 // needs object with roster profiles and display class
 
 import React, { Component } from 'react';
+import { Grid } from 'semantic-ui-react';
 
 class RosterAdmin extends Component {
   constructor(props) {
@@ -11,9 +12,14 @@ class RosterAdmin extends Component {
     return (
       this.props.passedProps.profiles.map((profile) => {
         return (
-          <div key={profile.profileid}>
-            {profile.firstname} {profile.lastname}
-          </div>
+          <Grid.Row key={profile.profileid}>
+            <Grid.Column width={2}>
+              {profile.firstname}
+            </Grid.Column>
+            <Grid.Column width={2}>
+              {profile.lastname}
+            </Grid.Column>
+          </Grid.Row>
         )
       })
     )
@@ -21,8 +27,14 @@ class RosterAdmin extends Component {
   render() {
     return(
       <div className={this.props.passedProps.displayProfClass}>
-        Roster:
+        <Grid>
+          <Grid.Row>
+            <Grid.Column width={3}>
+              Roster:
+            </Grid.Column>
+          </Grid.Row>
         {this.renderRoster()}
+        </Grid>
       </div>
     );
   }

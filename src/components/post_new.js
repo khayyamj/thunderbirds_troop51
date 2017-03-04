@@ -42,7 +42,7 @@ class BlogEditor extends Component {
 
   componentWillMount() {
     this.props.fetchTags();
-    console.log('Fetching Tags...')
+    console.log('Date...', Date.now())
   }
 
 
