@@ -28,7 +28,7 @@ export default class App extends Component {
           <HeaderBanner />
           <NavBar />
           <div className="main-body">
-            <Button onClick={this.toggleVisibility}>Toggle Visibility</Button>
+            <Button floated='right' onClick={this.toggleVisibility}>Menu</Button>
             <Sidebar.Pushable as={Segment}>
               <Sidebar
                   as={Menu}

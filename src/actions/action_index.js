@@ -1,12 +1,14 @@
 import axios from 'axios';
 import CONFIG from './../../server/config';
 
+const LOGIN_URL=`http://localhost:${CONFIG.PORT}/api/login/`;
 const PROFILES_URL = `http://localhost:${CONFIG.PORT}/api/profiles/`;
 const ACTIVITIES_URL = `http://localhost:${CONFIG.PORT}/api/activities/`;
 const TRANSACTIONS_URL = `http://localhost:${CONFIG.PORT}/api/transactions/`;
 const BLOG_URL = `http://localhost:${CONFIG.PORT}/api/blog/`;
 
-
+export const CREATE_LOGIN_PROFILE = 'CREATE_LOGIN_PROFILE';
+export const UPDATE_LOGIN_PROFILE = 'UPDATE_LOGIN_PROFILE';
 export const FETCH_ROSTER = 'FETCH_ROSTER';
 export const FETCH_PROFILE = 'FETCH_PROFILE';
 export const CREATE_PROFILE = 'CREATE_PROFILE';
@@ -26,6 +28,22 @@ export const LINK_PARTICIPANTS_TO_ACITIVTY = 'LINK_PARTICIPANTS_TO_ACITIVTY';
 export const FETCH_ACTIVITY = 'FETCH_ACTIVITY';
 export const FETCH_ATTENDED_ACTIVITIES = 'FETCH__ATTENDED_ACTIVITIES';
 export const FETCH_ALL_PARTICIPANTS = 'FETCH_ALL_PARTICIPANTS';
+
+export function createLoginProfile(props) {
+  const request = axios.post(LOGIN_URL);
+  return {
+    type: CREATE_LOGIN_PROFILE,
+    payload: request
+  }
+}
+
+export function updateLoginProfile(props) {
+  const request = axios.put(LOGIN_URL+props.loginid);
+  return {
+    type: UPDATE_LOGIN_PROFILE,
+    payload: request
+  }
+}
 
 export function fetchRoster() {
    const request = axios.get(PROFILES_URL);

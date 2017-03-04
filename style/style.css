@@ -1,3 +1,7 @@
+/*
+font-family: 'Roboto', sans-serif;
+*/
+
 .display {
   display: inline-block;
 }
@@ -5,11 +9,49 @@
   display: none;
 }
 body {
+  background: black;
+}
+.ui .container {
+
   background-image: url('./../images/Tent-Night-Sky.jpg');
   background-position: left;
   background-size: cover;
   background-repeat: no-repeat;
+  padding-top: 100px;
+  padding-left: 15px;
 }
-.ui .container {
-  background-color: #FF6F00;
+.ui.basic.segment {
+  max-height: 600px;
+  overflow-x: scroll;
+}
+ui.header {
+  margin: 0;
+
+}
+h1.ui.header:first-child {
+  font-family: 'Merriweather', serif;
+  font-size: 3em;
+  font-weight:bold;
+  color: #FF6F00;
+  margin: -3.5rem 0 -3rem 0;
+}
+h2.ui.header {
+  font-family: 'Merriweather', serif;
+  font-size: 5em;
+  font-weight:bold;
+  color: #FF6F00;
+}
+h3.ui.header {
+  font-family: 'Merriweather', serif;
+  font-size: 1.5em;
+  font-weight:bold;
+  color: #FF6F00;
+  margin-top: -0.7rem;
+}
+ui.header.last-child{
+  margin-top: -1rem;
+}
+.google-map {
+  width: 200px;
+  height: 200px;
 }

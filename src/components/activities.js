@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import GoogleMap from './google_map';
+import { Grid, Image } from 'semantic-ui-react';
 import { fetchAllAttendedActivities, fetchAllParticipants } from './../actions/action_index';
 
 const
@@ -17,26 +18,22 @@ class Activities extends Component {
     this.selectActivity = this.selectActivity.bind(this);
   }
   componentWillMount() {
-    this.props.fetchAllAttendedActivities().then((response) => {
-      console.log('fetchAllAttendedActivities: ',response);
-    });
-    // this.props.fetchAllParticipants();
+    this.props.fetchAllAttendedActivities();
   }
 
   renderList(elem, currentActivity) {
     const youth = [], adults = [];
     let scout = '', leader = '';
 
-
     return filteredActivityList.map((activity) => {
       if (activity.actid === currentActivity) {
-        if (elem === 'youth' && activity.firstname) {
+        if (elem === 'youth' && !activity.adult) {
           scout = `${activity.firstname} ${activity.lastname}`;
           return (
             <li key={activity.actid + activity.profileid + activity.firstname}>
               {scout}
             </li>)
-        } else if (elem === 'adults' && activity.firstname){
+        } else if (elem === 'adults' && activity.adult){
           leader = `${activity.firstname} ${activity.lastname}`;
           return (
             <li key={activity.actid + activity.profileid + activity.firstname}>
@@ -68,19 +65,31 @@ class Activities extends Component {
     })
     return filteredActivityList.map((activity) => {
      let { lat, lng } = activity;
-     console.log(lat, Number(lng), '<-- lat, lng');
       return (
-        <div className="activity" key={activity.date}>
-           Date: {activity.date} <br />
-           Campsite: {activity.site} <GoogleMap lng={Number(lng)} lat={Number(lat)} zoom={8} /> <br />
-           Notes: {activity.notes} <br />
-           Scouts Attending:
+        <Grid divided='vertically' key={activity.date}>
+          <Grid.Row columns={4}>
+            <Grid.Column>
+              Date: {activity.date} <br />
+              Campsite: {activity.site} <br />
+              Notes: {activity.notes} <br />
+            </Grid.Column>
+            <Grid.Column>
+              Scouts Attending:
+                <ul className="participants">
+                  {this.renderList('youth', activity.actid)}
+                </ul><br />
+            </Grid.Column>
+            <Grid.Column>
+             Adults Attending:
               <ul className="participants">
-              {this.renderList('youth', activity.actid)} </ul><br />
-           Adults Attending:
-              <ul className="participants">
-              {this.renderList('adults', activity.actid)} </ul><hr />
-        </div>
+                {this.renderList('adults', activity.actid)}
+              </ul>
+            </Grid.Column>
+            <Grid.Column>
+              <GoogleMap lng={Number(lng)} lat={Number(lat)} zoom={8} /> <br />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       )
    })
   }
@@ -88,22 +97,17 @@ class Activities extends Component {
   render() {
     return(
       <div className="activity-list">
-
         <select
           name='Activity'
           value={this.state.Activity}
           onChange={this.selectActivity} >
-
           <option value='all'>All Activities</option>
           <option value='campout'>Campouts</option>
           <option value='activity'>Activities</option>
           <option value='service'>Service Projects</option>
           <option value='summer_camp'>Summer Camp</option>
-
         </select>
-
         {this.renderActivities()}
-
       </div>
     );
   }

@@ -21,7 +21,7 @@ class Posts extends Component {
     return this.props.posts.map((post) => {
       return (
         <List key={post.blogid}>
-        <List.Content key={post.blogid}>
+        <List.Content>
             <List.Header> Title: {post.title} <br /> </List.Header>
             <List.Description> Tags: {post.tags} <br /> </List.Description>
             <List.Description> Post:  <div dangerouslySetInnerHTML={{__html:post.content}} /> </List.Description>
@@ -32,11 +32,16 @@ class Posts extends Component {
     })
   }
 
+  _goToNewPost() {
+    console.log('_goToNewPost')
+    browserHistory.push('/newpost')
+  }
+
   render() {
     return(
       <div>
-        <Button orange onClick={browserHistory.push('/newpost')}>
-          New Post
+        <Button color='orange' floated='right' onClick={this._goToNewPost.bind(this)}>
+          Add New Post
         </Button>
         {this.renderPosts()}
       </div>

@@ -1,9 +1,11 @@
-import Auth0Lock from 'auth0-lock'
-import { browserHistory } from 'react-router'
-
-import { EventEmitter } from 'events'
-import { isTokenExpired } from './jwtHelper'
-import { clientId, domain } from './../../config'
+import Auth0Lock from 'auth0-lock';
+import { browserHistory } from 'react-router';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { EventEmitter } from 'events';
+import { isTokenExpired } from './jwtHelper';
+import { clientId, domain } from './../../config';
+import { createProfile } from './../containers/profile_creator';
 
 const options = {
   primaryColor: "#FF6F00",
@@ -42,6 +44,25 @@ export default class AuthService extends EventEmitter {
       } else {
         console.log('Auth0 profile: ', profile);
         this.setProfile(profile)
+// trying to add stores via Provider
+        // const INITIAL_STATE = {
+        //   age: profile.age_range,
+        //   clientid: profile.clientID,
+        //   date: profile.created_at,
+        //   lastname: profile.family_name,
+        //   firstname: profile.given_name,
+        //   picture_sm: profile.picture,
+        //   picture_lg: profile.picture_large
+        // }
+        // const store = createStore(INITIAL_STATE);
+        // return (
+        //   <Provider store={store(INITIAL_STATE)}>
+        //     {this.props.createProfile(store)}
+        //   </Provider>
+        // )
+
+
+        this.props.createProfile(profile);
       }
     })
   }

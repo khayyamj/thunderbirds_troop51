@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import { submitMessage } from './../actions/action_index';
+import { Form, Button} from 'semantic-ui-react';
 
 const FIELDS = {
   name: {
@@ -46,13 +47,13 @@ class ContactUs extends Component {
     const { handleSubmit } = this.props;
     return(
       <div>
-         <form
+         <Form
             className="contact-form"
             onSubmit={handleSubmit(this.props.submitMessage)}>
             <h3>Contact Us</h3>
             {_.map(FIELDS, this.renderField.bind(this))}
             <button type='submit' className='nav-btn'>Submit</button>
-         </form>
+         </Form>
       </div>
     );
   }

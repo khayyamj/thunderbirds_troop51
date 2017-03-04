@@ -1,40 +1,47 @@
 const app = require('./server.js');
 const db = app.get('db');
 
+db.init.create_login_registration_table([], function(err, results) {
+  if(err) {
+    console.error(err);
+  } else {
+    // console.log('Initialized Login Registration Table');
+  }
+})
 db.init.create_profile_table([], function(err, results){
-   if(err) {
-      console.error(err);
-   } else {
-      // console.log('Initialized Profile Table');
-   }
+  if(err) {
+    console.error(err);
+  } else {
+    // console.log('Initialized Profile Table');
+  }
 })
 db.init.create_transactions_table([], function(err, results){
-   if(err) {
-      console.error(err);
-   } else {
-      // console.log('Initialized Accounts Table');
-   }
+  if(err) {
+    console.error(err);
+  } else {
+    // console.log('Initialized Accounts Table');
+  }
 })
 db.init.create_activities_table([], function(err, results){
-   if(err) {
-      console.error(err);
-   } else {
-      // console.log('Initialized Activities Table');
-   }
+  if(err) {
+    console.error(err);
+  } else {
+    // console.log('Initialized Activities Table');
+  }
 })
 db.init.create_participants_table([], function(err, results){
-   if(err) {
-      console.error(err);
-   } else {
-      // console.log('Initialized Participants Table');
-   }
+  if(err) {
+    console.error(err);
+  } else {
+    // console.log('Initialized Participants Table');
+  }
 })
 db.init.create_ranks_table([], function(err, results){
-   if(err) {
-      console.error(err);
-   } else {
-      // console.log('Initialized Ranks Table');
-   }
+  if(err) {
+    console.error(err);
+  } else {
+    // console.log('Initialized Ranks Table');
+  }
 })
 db.init.create_blog([], function(err, results) {
   if (err) {
@@ -59,6 +66,29 @@ db.init.create_blogtags([], function(err, results) {
 })
 
 module.exports = {
+
+  registerUser: function(req, res, next) {
+    const b = req.body;
+    db.create_login_registration([b.loginid, b.age, b.clientid, b.date, b.lastname, b.firstname, b.picture_sm, b.picture_lg], function(err, table) {
+      if (err) {
+        console.log('registerUser: ', err);
+        return res.send(400).send(err);
+      }
+      return res.status(200).json(table);
+    })
+  },
+
+  updateUser: function(req, res, next) {
+    const loginid = req.params.loginid,
+          b = req.body;
+    db.update_login_registration([loginid, b.age, b.clientid, b.date, b.lastname, b.firstname, b.picture_sm, b.picture_lg], function(err, table) {
+      if (err) {
+        console.log('registerUser: ', err);
+        return res.send(400).send(err);
+      }
+      return res.status(200).json(table);
+    })
+  },
 
   fullRoster: function(req, res, next) {
     db.get_roster([], function(err, table){

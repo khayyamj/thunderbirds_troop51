@@ -1,15 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes as T } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import { Button, Icon } from 'semantic-ui-react'
+import AuthService from './../utils/AuthService';
+import { Button, Icon } from 'semantic-ui-react';
 
-class NavBar extends Component {
+export class NavBar extends Component {
+  static propTypes = {
+    location: T.object,
+    auth: T.instanceOf(AuthService)
+  }
+
    renderLinks() {
       return this.props.NavLinks.map((navLink) => {
          return (
             <Link to={navLink.address} key={navLink.link}>
-              <Button animated color='orange'>
+              <Button animated animated='fade' color='orange'>
                 <Button.Content hidden>{navLink.link} </Button.Content>
                 <Button.Content visible>
                   <Icon name={navLink.icon} />
@@ -21,6 +27,7 @@ class NavBar extends Component {
    }
 
   render() {
+    const { auth } = this.props
     return(
       <div className="navbar">
          <ul className="navigation">
