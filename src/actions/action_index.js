@@ -102,6 +102,7 @@ export function createTransaction(props) {
 }
 
 export function createPost(props) {
+  console.log('createPost props ->', props)
   const request = axios.post(BLOG_URL, props);
   return {
     type: CREATE_POST,

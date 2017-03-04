@@ -11,7 +11,7 @@ import Roster from './containers/roster';
 import About from './components/about';
 import Activities from './components/activities';
 import Login from './components/login';
-import Blog from './components/blog';
+import Posts from './components/blog';
 import Contact from './components/contact';
 import Handbook from './components/handbook';
 import Dinner from './components/dinner';
@@ -48,7 +48,7 @@ export default (
       <Route path="/roster" component={Roster} />
       <Route path="/about" component={About} />
       <Route path="/activities" component={Activities} />
-      <Route path="/blog" component={Blog} />
+      <Route path="/posts" component={Posts} />
       <Route path="/newpost" component={NewBlogPost} />
       <Route path="/contact" component={Contact} />
       <Route path="/handbook" component={Handbook} />

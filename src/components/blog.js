@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { fetchPosts } from './../actions/action_index';
-import { List } from 'semantic-ui-react';
+import { List, Button } from 'semantic-ui-react';
+import { browserHistory } from 'react-router';
+
 
 class Posts extends Component {
   constructor(props) {
@@ -33,6 +35,9 @@ class Posts extends Component {
   render() {
     return(
       <div>
+        <Button orange onClick={browserHistory.push('/newpost')}>
+          New Post
+        </Button>
         {this.renderPosts()}
       </div>
     );

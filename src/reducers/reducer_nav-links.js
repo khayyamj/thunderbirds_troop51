@@ -1,8 +1,8 @@
 export default function() {
    return [
          {
-            link: 'Blog',
-            address: '/blog',
+            link: 'Posts',
+            address: '/posts',
             icon: 'browser',
             permission: 0
          },

@@ -5,9 +5,9 @@
   display: none;
 }
 body {
-  background-image: url('./../images/images/thunderbird.png');
+  background-image: url('./../images/Tent-Night-Sky.jpg');
   background-position: left;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 .ui .container {
