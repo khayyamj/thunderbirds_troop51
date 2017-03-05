@@ -32,8 +32,8 @@ export default class App extends Component {
             <Sidebar.Pushable as={Segment}>
               <Sidebar
                   as={Menu}
-                  animation='push'
-                  width='thin'
+                  animation='slide out'
+                  width='wide'
                   direction='right'
                   visible={visible}
                   icon='labeled'

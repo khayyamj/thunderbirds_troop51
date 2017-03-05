@@ -35,26 +35,26 @@ const requireAuth = (nextState, replace) => {
 export default (
    <Route path="/" component={App} auth={auth}>
       <IndexRoute component={Home} />
-      <IndexRedirect to="/home" />
+      <IndexRedirect to="/login" />
 
       <Route path="/login" component={Login} />
       <Route path="/home" component={Home} />
-      <Route path="/profile_create" component={ProfileCreate} />
-      <Route path="/profile/:profileid" component={Profile} />
+      <Route path="/profile_create" component={ProfileCreate} onEnter={requireAuth}/>
+      <Route path="/profile/:profileid" component={Profile} onEnter={requireAuth}/>
       <Route path="/calendar" component={Calendar} />
       <Route path="/summer-camp" component={SummerCamp} />
       <Route path="/advancement" component={Advancement} />
 
-      <Route path="/roster" component={Roster} />
+      <Route path="/roster" component={Roster} onEnter={requireAuth}/>
       <Route path="/about" component={About} />
       <Route path="/activities" component={Activities} />
       <Route path="/posts" component={Posts} />
-      <Route path="/newpost" component={NewBlogPost} />
+      <Route path="/newpost" component={NewBlogPost} onEnter={requireAuth}/>
       <Route path="/contact" component={Contact} />
       <Route path="/handbook" component={Handbook} />
       <Route path="/dinner" component={Dinner} />
-      <Route path="/account/:profileid" component={Account} />
-      <Route path="/admin" component={Admin} />
+      <Route path="/account/:profileid" component={Account} onEnter={requireAuth}/>
+      <Route path="/admin" component={Admin} onEnter={requireAuth}/>
 
    </Route>
   );

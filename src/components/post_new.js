@@ -157,21 +157,13 @@ class BlogEditor extends Component {
     this.setState({ content: content, date_published: date })
     if(this.state.title.length > 3 && this.state.tags.length && this.state.content != "<p><br></p>" && this.state.content) {
       valid = true;
-
-      console.log('publishPost valid: ', valid)
       if (!valid) {
         return 'Complete Post Form'
       }
       const
-        // postDetails = {
-        //   title: this.state.title,
-        //   content: this.state.content,
-        //   date_published: this.state.date_published
-        // },
         currentTags = this.props.tags,
         newTags = [],
         blogTags = {};
-
       let newBlogId = 0;
 
       // post blog content to db

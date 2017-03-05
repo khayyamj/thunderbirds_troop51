@@ -7,6 +7,8 @@ const ACTIVITIES_URL = `http://localhost:${CONFIG.PORT}/api/activities/`;
 const TRANSACTIONS_URL = `http://localhost:${CONFIG.PORT}/api/transactions/`;
 const BLOG_URL = `http://localhost:${CONFIG.PORT}/api/blog/`;
 
+export const LOGGEDIN = 'LOGGEDIN';
+export const LOGGEDOUT = 'LOGGEDOUT';
 export const CREATE_LOGIN_PROFILE = 'CREATE_LOGIN_PROFILE';
 export const UPDATE_LOGIN_PROFILE = 'UPDATE_LOGIN_PROFILE';
 export const FETCH_ROSTER = 'FETCH_ROSTER';
@@ -28,6 +30,22 @@ export const LINK_PARTICIPANTS_TO_ACITIVTY = 'LINK_PARTICIPANTS_TO_ACITIVTY';
 export const FETCH_ACTIVITY = 'FETCH_ACTIVITY';
 export const FETCH_ATTENDED_ACTIVITIES = 'FETCH__ATTENDED_ACTIVITIES';
 export const FETCH_ALL_PARTICIPANTS = 'FETCH_ALL_PARTICIPANTS';
+
+export function loggedIn() {
+  console.log('loggedIn function -->')
+  return {
+    type: LOGGEDIN,
+    payload: true
+  }
+}
+
+export function loggedOut() {
+  console.log('loggedOut function -->')
+  return {
+    type: LOGGEDOUT,
+    payload: false
+  }
+}
 
 export function createLoginProfile(props) {
   const request = axios.post(LOGIN_URL);

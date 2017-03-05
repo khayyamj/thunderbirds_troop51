@@ -36,33 +36,15 @@ export default class AuthService extends EventEmitter {
     // Saves the user token
     this.setToken(authResult.idToken)
     // navigate to the home route
-    browserHistory.replace('/home')
+    browserHistory.replace('/login')
     // Async loads the user profile data
     this.lock.getProfile(authResult.idToken, (error, profile) => {
       if (error) {
         console.error('Error loading the Profile', error)
       } else {
         console.log('Auth0 profile: ', profile);
+  // ======================================================== //
         this.setProfile(profile)
-// trying to add stores via Provider
-        // const INITIAL_STATE = {
-        //   age: profile.age_range,
-        //   clientid: profile.clientID,
-        //   date: profile.created_at,
-        //   lastname: profile.family_name,
-        //   firstname: profile.given_name,
-        //   picture_sm: profile.picture,
-        //   picture_lg: profile.picture_large
-        // }
-        // const store = createStore(INITIAL_STATE);
-        // return (
-        //   <Provider store={store(INITIAL_STATE)}>
-        //     {this.props.createProfile(store)}
-        //   </Provider>
-        // )
-
-
-        this.props.createProfile(profile);
       }
     })
   }
