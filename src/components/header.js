@@ -21,7 +21,7 @@ class HeaderBanner extends Component {
             </Link>
           </Grid.Column>
           <Grid.Column width={12}>
-            <Header as='h1'>Welcome to BSA</Header><br />
+            <Header as='h1' id='site_title'>Welcome to BSA</Header><br />
             <Header as='h2'>Troop 51</Header>
             <Header as='h3'>Over 100 Years of Scouting</Header>
           </Grid.Column>

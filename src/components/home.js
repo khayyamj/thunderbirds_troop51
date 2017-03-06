@@ -59,6 +59,7 @@ class Home extends Component {
                 as='a' size='large'
                 centered
                 href='https://www.facebook.com/Troop-51-of-Provo-Utah-108463195857584/'
+                shape='rounded'
                 />
               </Grid.Column>
           </Grid.Row>
@@ -73,8 +74,8 @@ class Home extends Component {
               <Link to={'/activities'}> Recent Activities </Link> <br />
               <Link to={'/calendar'}> Calendar </Link> <br />
               <Link to={'/roster'}> Roster </Link> <br />
-              <Link to={'/about'}> ABout Troop 51 </Link> <br />
-              <Link to={'/contact'}> Meeting Contact Us </Link>
+              <Link to={'/about'}> About Troop 51 </Link> <br />
+              <Link to={'/contact'}> Contact Us </Link>
               </Header>
             </Grid.Column>
             <Grid.Column width={8} centered>
@@ -85,7 +86,7 @@ class Home extends Component {
             <a href="http://www.utahscouts.org/" target="_blank">Council Website</a> <br />
             <a href="http://www.utahscouts.org/OpenRosters/View_Homepage.aspx?orgkey=1196" target="_blank">District Website</a> <br />
             <a href="https://www.scoutbook.com/mobile/" target="_blank">Scoutbook</a> <br />
-            <a href="http://meritbadge.org/wiki/index.php/Merit_Badge_Worksheets" targer="_blank">Merit Badge Worksheets</a> <br />
+            <a href="http://meritbadge.org/wiki/index.php/Merit_Badge_Worksheets" target="_blank">Merit Badge Worksheets</a> <br />
             </Header>
             </Grid.Column>
             <Grid.Column width={5}>

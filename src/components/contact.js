@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import { submitMessage } from './../actions/action_index';
 import { Form, Button} from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
+import GoggleMaps from './google_map';
 
 const FIELDS = {
   name: {
@@ -51,9 +53,30 @@ class ContactUs extends Component {
             className="contact-form"
             onSubmit={handleSubmit(this.props.submitMessage)}>
             <h3>Contact Us</h3>
-            {_.map(FIELDS, this.renderField.bind(this))}
-            <button type='submit' className='nav-btn'>Submit</button>
+            {_.map(FIELDS, this.renderField.bind(this))} <br />
+            <Button type='submit' color='orange'>Submit</Button>
          </Form>
+         <br />
+         <Grid>
+          <Grid.Row columns={3}>
+            <Grid.Column>
+              <p> Scoutmaster: </p>
+              <p> Kevin Keaton <br />
+                Phone: (801) 687-2725 <br />
+                Email: <a href="mailto:keatonkevin@hotmail.com"> KeatonKevin@hotmail.com </a> </p>
+            </Grid.Column>
+            <Grid.Column>
+              <p> Troop Meets: </p>
+              <p> Thursdays, 7:00 - 8:00 p.m. <br/>
+                Provo Elk's Lodge <br />
+                1000 S. University Ave. <br />
+                Provo, UT 84601</p>
+            </Grid.Column>
+            <Grid.Column>
+              <GoggleMaps lat={40.220291} lng={-111.660466} zoom={12}/>
+            </Grid.Column>
+          </Grid.Row>
+         </Grid>
       </div>
     );
   }

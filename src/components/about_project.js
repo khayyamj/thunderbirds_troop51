@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import { Header, List } from 'semantic-ui-react';
+import { Header, List, Container } from 'semantic-ui-react';
 
-class AboutProject extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+export default class AboutProject extends Component {
   render() {
     return(
       <div>
@@ -21,15 +17,32 @@ class AboutProject extends Component {
           <List.Item>Google Maps API </List.Item>
           <List.Item>Mobile Responsive </List.Item>
           <List.Item> Also used:
-            <List.list>
-              <List.Item>Registered Domain </List.Item>
-              <List.Item>Authentication with Auth0 </List.Item>
-              <List.Item>Semantic UI for React </List.Item>
-            </List.list>
+          <List.List>
+            <List.Item>Registered Domain </List.Item>
+            <List.Item>Authentication with Auth0 </List.Item>
+            <List.Item>Semantic UI for React </List.Item>
+          </List.List>
           </List.Item>
         </List>
+        <Header as='h1'>
+          Thank you to DevMountain!
+        </Header>
+        <Header as='h3'>
+          <br /><br />
+          DM-18 Mentors:
+        </Header>
+          <List>
+            <List.Item>Joe Blank</List.Item>
+            <List.Item>Stephen Brinkworth</List.Item>
+            <List.Item>Matt French</List.Item>
+          </List>
+
       </div>
     );
   }
 }
-export default AboutProject;
+<List.List>
+  <List.Item>Registered Domain </List.Item>
+  <List.Item>Authentication with Auth0 </List.Item>
+  <List.Item>Semantic UI for React </List.Item>
+</List.List>

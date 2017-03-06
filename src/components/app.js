@@ -28,12 +28,16 @@ export default class App extends Component {
        <Container>
           <HeaderBanner />
           <div className="main-body">
-            <Button onClick={this.toggleVisibility}>Menu</Button>
+            <Button
+              onClick={this.toggleVisibility}
+              color='orange'>
+              Menu
+            </Button>
             <Sidebar.Pushable as={Segment}>
               <Sidebar
                   as={Menu}
                   animation='slide out'
-                  width='vey thin'
+                  width='thin'
                   direction='left'
                   visible={visible}
                   icon='labeled'

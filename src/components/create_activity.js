@@ -46,7 +46,7 @@ class CreateActivity extends Component {
   renderField(fieldConfig, field) {
     const fieldHelper = this.props.fields[field];
     return (
-      <div key={fieldConfig.label}>
+      <div key={fieldConfig.label}> <br />
          <label>{fieldConfig.label}</label>
          <input type={fieldConfig.type} className='form-input' {...fieldHelper} />
          {fieldHelper.touched ? fieldHelper.error : ''}
@@ -66,7 +66,7 @@ class CreateActivity extends Component {
       profiles.map((profile) => {
         if (profile.active) {
           return (
-            <div key={profile.profileid}>
+            <div key={profile.profileid}> <br />
               {this.toggleButton(profile)}
               {profile.firstname} {profile.lastname}
             </div>
@@ -101,10 +101,10 @@ class CreateActivity extends Component {
       <div className={this.props.actProps.displayActClass}>
          <Form
             className="contact-form"
-            onSubmit={handleSubmit(this._submitActivity)}>
+            onSubmit={handleSubmit(this._submitActivity)}> <br />
             <h3>New Activity</h3>
             {_.map(FIELDS, this.renderField.bind(this))}
-            {this.renderRoster()}
+            {this.renderRoster()} <br />
             <Button
               type='submit'
               className='nav-btn'>
