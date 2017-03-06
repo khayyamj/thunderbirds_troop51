@@ -1,4 +1,4 @@
-SELECT Blog.title, Blog.content, BlogTags.tags
+SELECT Blog.title, Blog.content, BlogTags.tags, Blog.date_published, Blog.blogid
 FROM Blog
 JOIN BlogTagsConnection
   ON Blog.blogid = BlogTagsConnection.blogid

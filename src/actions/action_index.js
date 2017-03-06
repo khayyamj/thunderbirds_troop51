@@ -129,7 +129,6 @@ export function fetchAccountTransactions(props) {
 }
 
 export function createTransaction(props) {
-  console.log('****************  Submitting transaction url: ', TRANSACTIONS_URL, 'Props: ', props);
   const request = axios.post(TRANSACTIONS_URL, props);
   return {
     type: CREATE_TRANSACTION,
@@ -138,7 +137,6 @@ export function createTransaction(props) {
 }
 
 export function createPost(props) {
-  console.log('createPost props ->', props)
   const request = axios.post(BLOG_URL, props);
   return {
     type: CREATE_POST,
@@ -195,7 +193,6 @@ export function deletePost(id) {
 }
 
 export function createActivity(props) {
-  console.log('createActivity with ', props);
   const request = axios.post(ACTIVITIES_URL, props);
   return {
     type: CREATE_ACTIVITY,
@@ -229,7 +226,6 @@ export function fetchAllAttendedActivities() {
 }
 
 export function fetchAllParticipants() {
-  console.log('fetchAllParticipants called, URL:', `${ACTIVITIES_URL}participants`);
   const request = axios.get(`${ACTIVITIES_URL}participants`)
   return {
     type: FETCH_ALL_PARTICIPANTS,

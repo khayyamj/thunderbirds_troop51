@@ -1,1 +1,2 @@
 SELECT * FROM Activities
+ORDERED BY date DESC

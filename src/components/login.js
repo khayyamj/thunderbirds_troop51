@@ -13,15 +13,11 @@ const { clientId, domain } = config();
 const auth = new AuthService(clientId, domain);
 const requireAuth = (nextState, replace) => {
   if (!auth.loggedIn()) {
-    // this.props.loggedOut()
     login = false;
   } else {
-    // this.props.loggedIn()
     login = true;
   }
 }
-
-
 
 export class Login extends React.Component {
   static propTypes = {
@@ -29,21 +25,18 @@ export class Login extends React.Component {
     auth: T.instanceOf(AuthService)
   }
   changeStatus() {
-    // login  this.props.loggedIn() : this.props.loggedOut();
-    console.log('checkLogin function')
     login ? this.props.loggedIn() : this.props.loggedOut();
   }
 
   logout() {
     this.props.auth.logout();
     this.setState({ logout: true, login: false })
-    console.log('User logged out');
   }
 
   render() {
     const { auth } = this.props
     requireAuth()
-    console.log('*** ', login, ' & ',this.props.login.login,' ***')
+    console.log(login, this.props.login.login)
     login != this.props.login.login ? this.changeStatus() : 'continue';
     return (
       <div style={{textAlign: 'center'}}>

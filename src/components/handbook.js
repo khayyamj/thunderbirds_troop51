@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Header } from 'semantic-ui-react';
 import About from './../handbook/about51';
 import ScoutingValues from './../handbook/scouting_values';
 import ReligiousAffiliation from './../handbook/religious_affiliation';
@@ -22,21 +23,19 @@ class Handbook extends Component {
   render() {
     return(
       <div>
-      Troop Handbook <br />
-      <img src='https://img.clipartfox.com/bdce4bc657c1b2e3e1740bdf42944e3e_free-books-clip-art-pictures-clipart-book_600-310.png' style={{height: 250}} />
-      <About />
-      <ScoutingValues />
-      <ReligiousAffiliation />
-      <InternetPolicy />
-      <Advancement />
-      <Uniform />
-      <TroopMeetings />
-      <TroopCalendar />
-      <TroopLeadership />
-      <OutdoorProgram />
-      <Finances />
-      <ScoutEquipment />
-      <Discipline />
+        <Header as='h1' textAlign='center'>Troop Handbook</Header> <br />
+        <ScoutingValues />
+        <ReligiousAffiliation />
+        <InternetPolicy />
+        <Advancement />
+        <Uniform />
+        <TroopMeetings />
+        <TroopCalendar />
+        <TroopLeadership />
+        <OutdoorProgram />
+        <Finances />
+        <ScoutEquipment />
+        <Discipline />
       </div>
     );
   }

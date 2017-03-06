@@ -5,7 +5,8 @@ import { Sidebar, Segment, Button, Menu, Image, Icon, Header, Container } from '
 
 import HeaderBanner from './header';
 import NavBar from './navbar';
-import SideBarContent from './sidebar'
+import SideBarContent from './sidebar';
+import Footer from './footer';
 
 export default class App extends Component {
   static contextTypes = {
@@ -26,20 +27,18 @@ export default class App extends Component {
     return (
        <Container>
           <HeaderBanner />
-          <NavBar />
           <div className="main-body">
-            <Button floated='right' onClick={this.toggleVisibility}>Menu</Button>
+            <Button onClick={this.toggleVisibility}>Menu</Button>
             <Sidebar.Pushable as={Segment}>
               <Sidebar
                   as={Menu}
                   animation='slide out'
-                  width='wide'
-                  direction='right'
+                  width='vey thin'
+                  direction='left'
                   visible={visible}
                   icon='labeled'
-                  vertical
-                  inverted>
-                <SideBarContent />
+                  vertical >
+                <NavBar />
               </Sidebar>
               <Sidebar.Pusher>
                 <Segment basic>
@@ -47,6 +46,7 @@ export default class App extends Component {
                 </Segment>
               </Sidebar.Pusher>
             </Sidebar.Pushable>
+            <Footer />
           </div>
        </Container>
     );

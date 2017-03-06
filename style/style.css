@@ -21,7 +21,7 @@ body {
   padding-left: 15px;
 }
 .ui.basic.segment {
-  max-height: 600px;
+  height: 600px;
   overflow-x: scroll;
 }
 ui.header {
@@ -33,13 +33,13 @@ h1.ui.header:first-child {
   font-size: 3em;
   font-weight:bold;
   color: #FF6F00;
-  margin: -3.5rem 0 -3rem 0;
 }
 h2.ui.header {
   font-family: 'Merriweather', serif;
   font-size: 5em;
   font-weight:bold;
   color: #FF6F00;
+  margin-top: -.45em;
 }
 h3.ui.header {
   font-family: 'Merriweather', serif;
@@ -48,10 +48,21 @@ h3.ui.header {
   color: #FF6F00;
   margin-top: -0.7rem;
 }
+.subtitle {
+  font-family: 'Merriweather', serif;
+  font-size: 0.5em;
+
+}
 ui.header.last-child{
   margin-top: -1rem;
 }
 .google-map {
   width: 200px;
   height: 200px;
+}
+.ui.thin.left.sidebar {
+  width: 100px;
+}
+.navigation {
+  padding: 0 5px;
 }

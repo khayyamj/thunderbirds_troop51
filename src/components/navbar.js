@@ -5,19 +5,6 @@ import {bindActionCreators} from 'redux';
 import AuthService from './../utils/AuthService';
 import { Button, Icon } from 'semantic-ui-react';
 
-import config from './../../config';
-
-let login = false;
-const { clientId, domain } = config();
-const auth = new AuthService(clientId, domain);
-const requireAuth = (nextState, replace) => {
-  if (!auth.loggedIn()) {
-    login = false;
-  } else {
-    login = true;
-  }
-}
-
 export class NavBar extends Component {
   static propTypes = {
     location: T.object,
@@ -40,9 +27,6 @@ export class NavBar extends Component {
    }
 
   render() {
-    const { auth } = this.props;
-    requireAuth();
-    console.log('NavBar login status: ', this.props.login)
     return(
       <div className="navbar">
          <ul className="navigation">

@@ -35,12 +35,6 @@ export default function() {
             address: '/contact',
             icon: 'comment',
             permission: 0
-         },
-         {
-            link: 'Login',
-            address: '/login',
-            icon: 'sign in',
-            permission: 0
          }
       ]
 }
