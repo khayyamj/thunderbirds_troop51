@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
+import TransactionForm from './../containers/transaction_form';
 
 class AllTransactionsView extends Component {
   constructor(props) {
@@ -55,8 +56,9 @@ class AllTransactionsView extends Component {
   render() {
     return(
       <div className={this.props.transProps.displayTransClass}>
-        <Grid>
-            {this.renderTransactionList()}
+        <Grid> 
+          <TransactionForm /> <br />
+          {this.renderTransactionList()}
         </Grid>
       </div>
     );

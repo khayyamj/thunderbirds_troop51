@@ -1,7 +1,7 @@
 // needs object with roster profiles and display class
 
 import React, { Component } from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Button } from 'semantic-ui-react';
 
 class RosterAdmin extends Component {
   constructor(props) {
@@ -13,6 +13,9 @@ class RosterAdmin extends Component {
       this.props.passedProps.profiles.map((profile) => {
         return (
           <Grid.Row key={profile.profileid}>
+            <Grid.Column width={1}>
+              <Button color='orange' size='mini'>Edit</Button>
+            </Grid.Column>
             <Grid.Column width={2}>
               {profile.firstname}
             </Grid.Column>
