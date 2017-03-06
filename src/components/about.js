@@ -19,6 +19,12 @@ class About extends Component {
          <Button color='orange'>
           <Link to='/handbook'> Troop Handbook </Link>
         </Button>
+        <Button color='orange'>
+         <Link to='/eaglescouts'> Eagle Scouts </Link>
+       </Button>
+       <Button color='orange'>
+        <Link to='/scoutmasters'> Scoutmasters </Link>
+      </Button>
       </div>
     );
   }

@@ -21,6 +21,8 @@ import Account from './containers/account'
 import config from './../config';
 import Admin from './containers/admin';
 import AboutProject from './components/about_project';
+import ListEagles from './components/list_eagles';
+import Scoutmasters from './components/list_scoutmasters';
 
 const { clientId, domain } = config();
 
@@ -57,6 +59,8 @@ export default (
       <Route path="/account/:profileid" component={Account} onEnter={requireAuth} />
       <Route path="/admin" component={Admin} onEnter={requireAuth} />
       <Route path="/about_project" component={AboutProject} />
+      <Route path="/eaglescouts" component={ListEagles} />
+      <Route path="/scoutmasters" component={Scoutmasters} />
 
    </Route>
   );
