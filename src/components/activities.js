@@ -18,7 +18,9 @@ class Activities extends Component {
     this.selectActivity = this.selectActivity.bind(this);
   }
   componentWillMount() {
-    this.props.fetchAllAttendedActivities();
+    this.props.fetchAllAttendedActivities().then((response) => {
+      console.log('fetchAllAttendedActivities response: ', response.payload.data);
+    });
   }
 
   renderList(elem, currentActivity) {
@@ -95,18 +97,10 @@ class Activities extends Component {
   }
 
   render() {
+    console.log('this.props.activities', this.props.activities)
     return(
       <div className="activity-list">
-        <select
-          name='Activity'
-          value={this.state.Activity}
-          onChange={this.selectActivity} >
-          <option value='all'>All Activities</option>
-          <option value='campout'>Campouts</option>
-          <option value='activity'>Activities</option>
-          <option value='service'>Service Projects</option>
-          <option value='summer_camp'>Summer Camp</option>
-        </select>
+
         {this.renderActivities()}
       </div>
     );
@@ -120,3 +114,14 @@ const mapDispatchToProps = function(dispatch) {
   return bindActionCreators({ fetchAllAttendedActivities, fetchAllParticipants }, dispatch);
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Activities);
+
+// <select
+//   name='Activity'
+//   value={this.state.Activity}
+//   onChange={this.selectActivity} >
+//   <option value='all'>All Activities</option>
+//   <option value='campout'>Campouts</option>
+//   <option value='activity'>Activities</option>
+//   <option value='service'>Service Projects</option>
+//   <option value='summer_camp'>Summer Camp</option>
+// </select>

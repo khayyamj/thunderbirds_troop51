@@ -164,6 +164,7 @@ module.exports = {
          console.error('allAttendedActivities: ', err);
          return res.status(400).send(err);
        }
+       console.log('allAttendedActivities', table)
        return res.status(200).json(table);
      })
    },

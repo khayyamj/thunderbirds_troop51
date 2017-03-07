@@ -10,6 +10,7 @@ import config from './../../config';
 
 let login = false;
 const { clientId, domain } = config();
+console.log('login :', login)
 const auth = new AuthService(clientId, domain);
 const requireAuth = (nextState, replace) => {
   if (!auth.loggedIn()) {
