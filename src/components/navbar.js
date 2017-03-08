@@ -1,24 +1,47 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes as T } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
+import AuthService from './../utils/AuthService';
+import { Button, Icon } from 'semantic-ui-react';
 
-class NavBar extends Component {
+export class NavBar extends Component {
+  static propTypes = {
+    location: T.object,
+    auth: T.instanceOf(AuthService),
+    profile: T.object
+  }
+
    renderLinks() {
       return this.props.NavLinks.map((navLink) => {
          return (
-            <Link to={navLink.address} className="nav-btn" key={navLink.link}>
-               <li>{navLink.link}</li>
+            <Link to={navLink.address} key={navLink.link}>
+              <Button animated animated='fade' color='orange'>
+                <Button.Content hidden>{navLink.link} </Button.Content>
+                <Button.Content visible>
+                  <Icon name={navLink.icon} />
+                </Button.Content>
+              </Button>
             </Link>
          )
       });
    }
 
   render() {
+    const { profile } = this.props;
     return(
       <div className="navbar">
          <ul className="navigation">
             {this.renderLinks()}
+
+            <Link to='/login'>
+              <Button animated animated='fade' color={this.props.login ? 'red' : 'green'}>
+                <Button.Content hidden>{this.props.login ? 'Logout' : 'Login'} </Button.Content>
+                <Button.Content visible>
+                  <Icon name={this.props.login ? 'sign out' : 'sign in'} />
+                </Button.Content>
+              </Button>
+            </Link>
 
          </ul>
       </div>
@@ -27,7 +50,8 @@ class NavBar extends Component {
 }
 const mapStateToProps = function(state) {
    return {
-      NavLinks: state.navLinks
+      NavLinks: state.navLinks,
+      login: state.login.login
    }
 }
 

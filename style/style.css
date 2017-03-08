@@ -1,174 +1,71 @@
-.container {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  background-image: url('./../images/Tent-Night-Sky.jpg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-.body{
+/*
+font-family: 'Roboto', sans-serif;
+*/
 
-}
 .display {
   display: inline-block;
 }
 .noDisplay {
   display: none;
 }
-.profileDisplay {
-  display: inline-block;
+body {
+  background: black;
 }
-.profileNoDisplay {
-  display: none;
+.ui .container {
+
+  background-image: url('./../images/Tent-Night-Sky.jpg');
+  background-position: left;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-top: 100px;
+  padding-left: 15px;
 }
-.button {
-  width: 75px;
-  height: auto;
-  border-radius: 10px;
-  background-color: #FF6F00;
-  cursor: pointer;
+.ui.basic.segment {
+  height: 600px;
+  overflow-x: scroll;
 }
-.BlogPostButton {
-  background-color: blue;
+ui.header {
+  margin: 0;
+
 }
-.Header {
-   display: flex;
-   justify-content: space-between;
-   width: 100%;
-   background-color: #FF6F00;
+h1.ui.header:first-child {
+  font-family: 'Merriweather', serif;
+  font-size: 3em;
+  font-weight:bold;
+  color: #FF6F00;
 }
-.Header .logo {
-   width: 175px;
-   height: 150px;
-   padding: 0;
-   margin-left: 10px;
+h2.ui.header {
+  font-family: 'Merriweather', serif;
+  font-size: 5em;
+  font-weight:bold;
+  color: #FF6F00;
+  margin-top: -.45em;
 }
-.Header .headline {
-   font-size: 50px;
-   font-weight: bold;
-   color: #2709B2;
-   text-align: center;
+h3.ui.header {
+  font-family: 'Merriweather', serif;
+  font-size: 1.5em;
+  font-weight:bold;
+  color: #FF6F00;
+  margin-top: -0.05rem;
 }
-.Header .headline .title {
-   font-size: 30px;
+#site_title {
+  margin-top: -1.35em;
 }
-.Header .social-media-icons {
-   width: 100px;
+.subtitle {
+  font-family: 'Merriweather', serif;
+  font-size: 0.5em;
+
 }
-.Admin-dashboard {
-  display: flex;
-  justify-content: space-around;
-}
-.navbar {
-   background-color: #092fb2;
-   height: 50px;
-   width: 100%;
-   color: #FF6F00;
-}
-.navigation {
-   list-style-type: none;
-   display: flex;
-   justify-content: flex-end;
-   align-items: flex-start;
-}
-.navigation > li {
-   display: inline;
-}
-.nav-btn {
-   width: auto;
-   /*min-width: 75px;*/
-   height: 25px;
-   border-radius: 10px;
-   background-color: #FF6F00;
-   color: black;
-   padding: 0px 5px;
-   margin: 5px 2px;
-   text-align: center;
-}
-.nav-btn:hover {
-   background-color: #B25812;
-   cursor: pointer;
-   text-decoration: none;
-}
-.main-body {
-   width: 100%;
-   display: flex;
-   background-color: #999;
-}
-.main-body .left {
-   height: 400px;
-   width: auto;
-   flex-grow: 1;
-}
-.main-body .right {
-   width: 200px;
-}
-.campout .participants {
-   margin: 0 5px;
-   list-style-type: none;
-   display: flex;
-   justify-content: space-between;
+ui.header.last-child{
+  margin-top: -1rem;
 }
 .google-map {
-   height: 200px;
-   width: 200px;
-}
-#content {
-   width: 480px;
-   margin: 0 auto;
-}
-.editor {
-   border: 1px solid grey;
-   padding: 6px;
-   min-height: 250px;
-}
-.editor .area {
-  margin: 10;
-}
-.blog-window {
-  width: 100%;
-  min-height: 300px;
-}
-.myToolbar {
-   background-color: white;
-}
-.has-danger {
-  border: 2px solid red;
-}
-.text-help {
-  color: red;
-}
-.profile-header {
-  width: 100%;
-}
-.account {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  padding: 10px;
-}
-.profile-header {
-  width: 100%;
+  width: 200px;
   height: 200px;
-  display: flex;
 }
-.profile-img {
-  width: 180px;
-  height: 180px;
+.ui.thin.left.sidebar {
+  width: 100px;
 }
-.profile-name {
-  padding: 5px 20px;
-}
-.profile-name .name {
-  font-size: 30px;
-  font-weight: bold;
-}
-@media (min-width: 544px)
-.container {
-    max-width: 576px;
-}
-@media (min-width: 768px)
-.container {
-  max-width: 720px;
+.navigation {
+  padding: 0 5px;
 }

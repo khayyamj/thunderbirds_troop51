@@ -1,6 +1,8 @@
 // needs object with transactions and display class
 
 import React, { Component } from 'react';
+import { Grid } from 'semantic-ui-react';
+import TransactionForm from './../containers/transaction_form';
 
 class AllTransactionsView extends Component {
   constructor(props) {
@@ -14,29 +16,38 @@ class AllTransactionsView extends Component {
     console.log(transactions)
     transactions.map((profile, i) => { // create filtered array of active profiles
       profile.active && profiles.indexOf(profile.profileid) === -1 ? profiles.push(profile.profileid) : console.log('Profile Not Active')
-      console.log('Profiles: ', profiles);
     })
-console.log('<--------- finished filtering active members');
 
     return(
       profiles.map((profile) => { // map over filtered array of active members
         let tArray = [];
         transactions.map((transaction) => {
-          console.log('profileid: ',profile,'transaction: ', transaction.profileid);
           if(transaction.profileid == profile) {
             tArray.push(transaction);
-            console.log('Transaction added to array', tArray)
           }
         })
         return tArray.map((t, i) => {
-          console.log('tArray map', i)
           return (
-            <div key={t.transactionid}>
-                {i}->
-                {t.firstname} {t.lastname}
-                {t.date} {t.amount} {t.activity} {t.notes}
-
-            </div>
+            <Grid.Row key={t.transactionid}>
+                <Grid.Column width={2}>
+                  {t.firstname}
+                </Grid.Column>
+                <Grid.Column width={2}>
+                  {t.lastname}
+                </Grid.Column>
+                <Grid.Column width={3}>
+                  {t.date}
+                </Grid.Column>
+                <Grid.Column width={2}>
+                  {t.amount}
+                </Grid.Column>
+                <Grid.Column width={2}>
+                  {t.activity}
+                </Grid.Column>
+                <Grid.Column width={5}>
+                  {t.notes}
+                </Grid.Column>
+            </Grid.Row>
           )
         })
       })
@@ -45,7 +56,10 @@ console.log('<--------- finished filtering active members');
   render() {
     return(
       <div className={this.props.transProps.displayTransClass}>
-        {this.renderTransactionList()}
+        <Grid> 
+          <TransactionForm /> <br />
+          {this.renderTransactionList()}
+        </Grid>
       </div>
     );
   }

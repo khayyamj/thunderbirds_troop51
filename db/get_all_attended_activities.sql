@@ -4,3 +4,4 @@ JOIN Participants
   ON Activities.actid = Participants.actid
 JOIN Profiles
   ON Participants.profileid = Profiles.profileid
+ORDER BY Activities.date DESC

@@ -1,12 +1,17 @@
 import axios from 'axios';
 import CONFIG from './../../server/config';
 
+const LOGIN_URL=`http://localhost:${CONFIG.PORT}/api/login/`;
 const PROFILES_URL = `http://localhost:${CONFIG.PORT}/api/profiles/`;
 const ACTIVITIES_URL = `http://localhost:${CONFIG.PORT}/api/activities/`;
 const TRANSACTIONS_URL = `http://localhost:${CONFIG.PORT}/api/transactions/`;
 const BLOG_URL = `http://localhost:${CONFIG.PORT}/api/blog/`;
 
-
+export const LOGGEDIN = 'LOGGEDIN';
+export const LOGGEDOUT = 'LOGGEDOUT';
+export const FETCH_USER_PROFILES = 'FETCH_USER_PROFILES';
+export const CREATE_LOGIN_PROFILE = 'CREATE_LOGIN_PROFILE';
+export const UPDATE_LOGIN_PROFILE = 'UPDATE_LOGIN_PROFILE';
 export const FETCH_ROSTER = 'FETCH_ROSTER';
 export const FETCH_PROFILE = 'FETCH_PROFILE';
 export const CREATE_PROFILE = 'CREATE_PROFILE';
@@ -26,6 +31,44 @@ export const LINK_PARTICIPANTS_TO_ACITIVTY = 'LINK_PARTICIPANTS_TO_ACITIVTY';
 export const FETCH_ACTIVITY = 'FETCH_ACTIVITY';
 export const FETCH_ATTENDED_ACTIVITIES = 'FETCH__ATTENDED_ACTIVITIES';
 export const FETCH_ALL_PARTICIPANTS = 'FETCH_ALL_PARTICIPANTS';
+
+export function loggedIn() {
+  return {
+    type: LOGGEDIN,
+    payload: true
+  }
+}
+
+export function loggedOut() {
+  return {
+    type: LOGGEDOUT,
+    payload: false
+  }
+}
+
+export function getUserProfiles(props) {
+  const request = axios.get(LOGIN_URL);
+  return {
+    type: FETCH_USER_PROFILES,
+    payload: request
+  }
+}
+
+export function createLoginProfile(props) {
+  const request = axios.post(LOGIN_URL);
+  return {
+    type: CREATE_LOGIN_PROFILE,
+    payload: request
+  }
+}
+
+export function updateLoginProfile(props) {
+  const request = axios.put(LOGIN_URL+props.loginid);
+  return {
+    type: UPDATE_LOGIN_PROFILE,
+    payload: request
+  }
+}
 
 export function fetchRoster() {
    const request = axios.get(PROFILES_URL);
@@ -93,7 +136,6 @@ export function fetchAccountTransactions(props) {
 }
 
 export function createTransaction(props) {
-  console.log('****************  Submitting transaction url: ', TRANSACTIONS_URL, 'Props: ', props);
   const request = axios.post(TRANSACTIONS_URL, props);
   return {
     type: CREATE_TRANSACTION,
@@ -158,7 +200,6 @@ export function deletePost(id) {
 }
 
 export function createActivity(props) {
-  console.log('createActivity with ', props);
   const request = axios.post(ACTIVITIES_URL, props);
   return {
     type: CREATE_ACTIVITY,
@@ -192,7 +233,6 @@ export function fetchAllAttendedActivities() {
 }
 
 export function fetchAllParticipants() {
-  console.log('fetchAllParticipants called, URL:', `${ACTIVITIES_URL}participants`);
   const request = axios.get(`${ACTIVITIES_URL}participants`)
   return {
     type: FETCH_ALL_PARTICIPANTS,

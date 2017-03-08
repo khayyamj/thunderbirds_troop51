@@ -7,8 +7,12 @@ import type {EditorValue} from './RichTextEditor';
 import { createPost, fetchTags, createTags, mergeBlogTags } from './../actions/action_index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { IntlMixin, FormattedDate } from 'React-intl';
+import { Button } from 'semantic-ui-react';
+import { browserHistory } from 'react-router';
 
-
+let date = '';
+let valid = false;
 
 type Props = {};
 type State = {
@@ -30,9 +34,10 @@ class BlogEditor extends Component {
       readOnly: false,
       title: '',
       tags: [],
-      content: '',
+      content: false,
       display: 'noDisplay',
-      authorid: 0
+      authorid: 0,
+      date_published: ''
     };
     this.handleButtonSave = this.handleButtonSave.bind(this);
     this.titleChange = this.titleChange.bind(this);
@@ -42,7 +47,17 @@ class BlogEditor extends Component {
 
   componentWillMount() {
     this.props.fetchTags();
-    console.log('Fetching Tags...')
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth()+1; //January is 0!
+    let yyyy = today.getFullYear();
+    if(dd<10) {
+        dd='0'+dd;
+    }
+    if(mm<10) {
+        mm='0'+mm;
+    }
+    date = dd+'/'+mm+'/'+yyyy;
   }
 
 
@@ -75,13 +90,15 @@ class BlogEditor extends Component {
         <div>
           <input
             type = 'text'
+            size = '93'
             value = {this.state.title}
             placeholder = 'Post Headline'
             onChange = {this.titleChange}
+
           />
         </div>
 
-          <div className="area">
+          <div className="area" style={{minHeight: '250', maxHeight: '400', overflow: 'scroll'}}>
             <RichTextEditor
               value={value}
               onChange={this._onChange}
@@ -92,10 +109,10 @@ class BlogEditor extends Component {
               readOnly={this.state.readOnly}
             />
           </div>
-          <button onClick={this.handleButtonSave}>Validate</button>
           <div>
             <input
               type = 'text'
+              size = '93'
               value = {this.state.tags}
               placeholder = 'Tags (separate with comma)'
               onChange = {this.tagChange}
@@ -113,13 +130,14 @@ class BlogEditor extends Component {
             /> <br />
           </div>
           <div>
-            <button
-              className="BlogPostButton"
-              className={this.state.display}
-              onClick={this.publishPost}
-            >
-              Submit Post
-            </button>
+            { this.state.content ?
+              <Button positive onClick={this.publishPost}>
+                Submit Post
+              </Button> :
+              <Button negative onClick={this.publishPost}>
+                Validate Post
+              </Button>
+            }
           </div>
 
       </div>
@@ -131,92 +149,95 @@ class BlogEditor extends Component {
   }
 
   handleButtonSave() {
-    const content = this.state.value.toString('html');
-    this.setState({ content: content })
-    if(this.state.title.length > 3 && this.state.tags.length && this.state.content != '') {
-      this.setState({ display: 'display'})
-    }
+
   }
 
   publishPost(event) {
-    const
-      postDetails = {
+    console.log('moved handleButtonSave valid: ', valid);
+    console.log('date updated ->', this.state.date_published);
+    const content = this.state.value.toString('html');
+    this.setState({ content: content, date_published: date })
+    if(this.state.title.length > 3 && this.state.tags.length && this.state.content != "<p><br></p>" && this.state.content) {
+      valid = true;
+      if (!valid) {
+        return 'Complete Post Form'
+      }
+      const
+        currentTags = this.props.tags,
+        newTags = [],
+        blogTags = {};
+      let newBlogId = 0;
+
+      // post blog content to db
+      const blogObject = {
         title: this.state.title,
-        content: this.state.content
-      },
-      currentTags = this.props.tags,
-      newTags = [],
-      blogTags = {};
+        content: this.state.content,
+        date_published: this.state.date_published
+      }
+      this.props.createPost(blogObject)
+      .then((response) => {
 
-    let newBlogId = 0;
+      // get new blog id back
+        newBlogId = response.payload.data.blogid;
+      })
+      .then((response) => {
 
-    // post blog content to db
-    const blogObject = {
-      title: this.state.title,
-      content: this.state.content
-    }
-    this.props.createPost(blogObject)
-    .then((response) => {
-
-    // get new blog id back
-      newBlogId = response.payload.data.blogid;
-    })
-    .then((response) => {
-
-    // check the current list of tags and see if any new tags included
-      for (let btag of this.state.tags) {
-        let match = false;
-        for (let ctag of currentTags) {
-          if (btag.toLowerCase().trim() == ctag.tags.toLowerCase()) {
-            match = true;
-            break;
-          }
-        }
-        if (match === false) {
-          if (btag.trim()) {
-            let title = btag.toLowerCase()
-            let tagObject = {
-              title: title
+      // check the current list of tags and see if any new tags included
+        for (let btag of this.state.tags) {
+          let match = false;
+          for (let ctag of currentTags) {
+            if (btag.toLowerCase().trim() == ctag.tags.toLowerCase()) {
+              match = true;
+              break;
             }
-            this.props.createTags(tagObject)
-            .then((response) => {
-            })
+          }
+          if (match === false) {
+            if (btag.trim()) {
+              let title = btag.toLowerCase()
+              let tagObject = {
+                title: title
+              }
+              this.props.createTags(tagObject)
+              .then((response) => {
+              })
+            }
           }
         }
-      }
-    })
-    .then((response) => {
+      })
+      .then((response) => {
 
-    // get all used tags with their id's
-      let index = this.props.tags.length + 1;
-      for (let btag of this.state.tags) {
-        let match = false;
-        for (let ctag of this.props.tags) {
-          if (btag.toLowerCase().trim() === ctag.tags) {
-            match = true;
-            blogTags[ctag.tags] = ctag.tagid
-            break;
+      // get all used tags with their id's
+        let index = this.props.tags.length + 1;
+        for (let btag of this.state.tags) {
+          let match = false;
+          for (let ctag of this.props.tags) {
+            if (btag.toLowerCase().trim() === ctag.tags) {
+              match = true;
+              blogTags[ctag.tags] = ctag.tagid
+              break;
+            }
+          }
+          if (match === false) {
+            let title = btag.toLowerCase().trim()
+            blogTags[title] = index++
           }
         }
-        if (match === false) {
-          let title = btag.toLowerCase().trim()
-          blogTags[title] = index++
+      })
+      .then((response) => {
+      // create new blog-tag connection entries
+        for (let connectTag in blogTags) {
+          let mergeObject = {
+            tagid: blogTags[connectTag],
+            blogid: newBlogId
+          }
+          this.props.mergeBlogTags(mergeObject)
+            .then((response) => {
+              browserHistory.push('/posts')
+              return response;
+            })
         }
-      }
-    })
-    .then((response) => {
-    // create new blog-tag connection entries
-      for (let connectTag in blogTags) {
-        let mergeObject = {
-          tagid: blogTags[connectTag],
-          blogid: newBlogId
-        }
-        this.props.mergeBlogTags(mergeObject)
-          .then((response) => {
-            return response;
-          })
-      }
-    })
+      })
+    }
   }
   // ===============================================
   // inherited functions

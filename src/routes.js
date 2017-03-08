@@ -11,7 +11,7 @@ import Roster from './containers/roster';
 import About from './components/about';
 import Activities from './components/activities';
 import Login from './components/login';
-import Blog from './components/blog';
+import Posts from './components/blog';
 import Contact from './components/contact';
 import Handbook from './components/handbook';
 import Dinner from './components/dinner';
@@ -19,7 +19,10 @@ import NewBlogPost from './components/post_new';
 import Home from './components/home';
 import Account from './containers/account'
 import config from './../config';
-import Admin from './containers/admin'
+import Admin from './containers/admin';
+import AboutProject from './components/about_project';
+import ListEagles from './components/list_eagles';
+import Scoutmasters from './components/list_scoutmasters';
 
 const { clientId, domain } = config();
 
@@ -39,25 +42,25 @@ export default (
 
       <Route path="/login" component={Login} />
       <Route path="/home" component={Home} />
-      <Route path="/profile_create" component={ProfileCreate} />
-      <Route path="/profile/:profileid" component={Profile} />
+      <Route path="/profile_create" component={ProfileCreate} onEnter={requireAuth} />
+      <Route path="/profile/:profileid" component={Profile} onEnter={requireAuth} />
       <Route path="/calendar" component={Calendar} />
       <Route path="/summer-camp" component={SummerCamp} />
       <Route path="/advancement" component={Advancement} />
 
-      <Route path="/roster" component={Roster} />
+      <Route path="/roster" component={Roster} onEnter={requireAuth} />
       <Route path="/about" component={About} />
       <Route path="/activities" component={Activities} />
-      <Route path="/blog" component={Blog} />
-      <Route path="/newpost" component={NewBlogPost} />
+      <Route path="/posts" component={Posts} />
+      <Route path="/newpost" component={NewBlogPost} onEnter={requireAuth} />
       <Route path="/contact" component={Contact} />
       <Route path="/handbook" component={Handbook} />
       <Route path="/dinner" component={Dinner} />
-      <Route path="/account/:profileid" component={Account} />
-      <Route path="/admin" component={Admin} />
+      <Route path="/account/:profileid" component={Account} onEnter={requireAuth} />
+      <Route path="/admin" component={Admin} onEnter={requireAuth} />
+      <Route path="/about_project" component={AboutProject} />
+      <Route path="/eaglescouts" component={ListEagles} />
+      <Route path="/scoutmasters" component={Scoutmasters} />
 
    </Route>
   );
-
-      // <Route path="/login" component={Login} onEnter={requireAuth} />
-      // <Route path="/roster" component={Roster} onEnter={requireAuth} />

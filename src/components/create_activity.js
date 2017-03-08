@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { reduxForm } from 'redux-form';
 import { createActivity, linkParticipantstoActivity } from './../actions/action_index';
+import { Button, Form } from 'semantic-ui-react';
 
 const FIELDS = {
   type: {
@@ -45,7 +46,7 @@ class CreateActivity extends Component {
   renderField(fieldConfig, field) {
     const fieldHelper = this.props.fields[field];
     return (
-      <div key={fieldConfig.label}>
+      <div key={fieldConfig.label}> <br />
          <label>{fieldConfig.label}</label>
          <input type={fieldConfig.type} className='form-input' {...fieldHelper} />
          {fieldHelper.touched ? fieldHelper.error : ''}
@@ -65,7 +66,7 @@ class CreateActivity extends Component {
       profiles.map((profile) => {
         if (profile.active) {
           return (
-            <div key={profile.profileid}>
+            <div key={profile.profileid}> <br />
               {this.toggleButton(profile)}
               {profile.firstname} {profile.lastname}
             </div>
@@ -84,13 +85,13 @@ class CreateActivity extends Component {
       pObj[going.profileid] = false;
     }
     return (
-        <button
+        <Button
           className=''
           value={going.profileid}
           onClick={this._onSelect}
           style={{cursor: 'pointer'}}>
           {pObj[going.profileid] ? 'Remove' : 'Attended'}
-        </button>
+        </Button>
       )
   }
 
@@ -98,18 +99,18 @@ class CreateActivity extends Component {
     const { handleSubmit } = this.props;
     return(
       <div className={this.props.actProps.displayActClass}>
-         <form
+         <Form
             className="contact-form"
-            onSubmit={handleSubmit(this._submitActivity)}>
+            onSubmit={handleSubmit(this._submitActivity)}> <br />
             <h3>New Activity</h3>
             {_.map(FIELDS, this.renderField.bind(this))}
-            {this.renderRoster()}
-            <button
+            {this.renderRoster()} <br />
+            <Button
               type='submit'
               className='nav-btn'>
               Submit
-            </button>
-         </form>
+            </Button>
+         </Form>
       </div>
     );
   }

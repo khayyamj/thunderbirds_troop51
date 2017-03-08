@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import RosterAdmin from './../components/admin_profileView';
 import AllTransactionsView from './../components/admin_transactionView';
 import CreateActivity from './../components/create_activity';
+import { Button } from 'semantic-ui-react';
 
 let profileToggleShow = false;
 let transToggleShow = false;
@@ -18,11 +19,11 @@ class Admin extends Component {
     super(props);
     this.state = {
       profileText: 'Edit Profiles',
-      displayProfClass: 'profileNoDisplay',
+      displayProfClass: 'noDisplay',
       transText: 'Add Transactions',
-      displayTransClass: 'profileNoDisplay',
+      displayTransClass: 'noDisplay',
       actText: 'Add Activity',
-      displayActClass: 'profileNoDisplay'
+      displayActClass: 'noDisplay'
     };
     this.listProfiles = this.listProfiles.bind(this);
     this.listTransactions = this.listTransactions.bind(this);
@@ -39,16 +40,16 @@ class Admin extends Component {
     if (profileToggleShow === true) {
       this.setState({
         profileText: 'Hide Profiles',
-        displayProfClass: 'profileDisplay',
+        displayProfClass: 'display',
         transText: 'Add Transactions',
-        displayTransClass: 'profileNoDisplay',
+        displayTransClass: 'noDisplay',
         actText: 'Add Activity',
-        displayActClass: 'profileNoDisplay'
+        displayActClass: 'noDisplay'
       })
     } else {
       this.setState({
         profileText: 'Edit Profiles',
-        displayProfClass: 'profileNoDisplay'
+        displayProfClass: 'noDisplay'
       })
     }
   }
@@ -57,16 +58,16 @@ class Admin extends Component {
     if (transToggleShow === true) {
       this.setState({
         transText: 'Hide Transactions',
-        displayTransClass: 'profileDisplay',
+        displayTransClass: 'display',
         profileText: 'Edit Profiles',
-        displayProfClass: 'profileNoDisplay',
+        displayProfClass: 'noDisplay',
         actText: 'Add Activity',
-        displayActClass: 'profileNoDisplay'
+        displayActClass: 'noDisplay'
       })
     } else {
       this.setState({
         transText: 'Add Transactions',
-        displayTransClass: 'profileNoDisplay'
+        displayTransClass: 'noDisplay'
       })
     }
   }
@@ -76,16 +77,16 @@ class Admin extends Component {
     if (actToggleShow === true) {
       this.setState({
         actText: 'Hide Activities',
-        displayActClass: 'profileDisplay',
+        displayActClass: 'display',
         profileText: 'Edit Profiles',
-        displayProfClass: 'profileNoDisplay',
+        displayProfClass: 'noDisplay',
         transText: 'Add Transactions',
-        displayTransClass: 'profileNoDisplay'
+        displayTransClass: 'noDisplay'
       })
     } else {
       this.setState({
         actText: 'Add Activity',
-        displayActClass: 'profileNoDisplay'
+        displayActClass: 'noDisplay'
       })
     }
   }
@@ -106,9 +107,9 @@ class Admin extends Component {
     return(
       <div>
         <div className="Admin-dashboard">
-          <button className="button" onClick={this.listProfiles}> {this.state.profileText} </button>
-          <button className="button" onClick={this.listTransactions}> {this.state.transText} </button>
-          <button className="button" onClick={this.addActivity}> {this.state.actText} </button>
+          <Button onClick={this.listProfiles}> {this.state.profileText} </Button>
+          <Button onClick={this.listTransactions}> {this.state.transText} </Button>
+          <Button onClick={this.addActivity}> {this.state.actText} </Button>
         </div>
         <RosterAdmin
           passedProps={profileProps}

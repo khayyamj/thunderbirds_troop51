@@ -1,9 +1,11 @@
-import Auth0Lock from 'auth0-lock'
-import { browserHistory } from 'react-router'
-
-import { EventEmitter } from 'events'
-import { isTokenExpired } from './jwtHelper'
-import { clientId, domain } from './../../config'
+import Auth0Lock from 'auth0-lock';
+import { browserHistory } from 'react-router';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { EventEmitter } from 'events';
+import { isTokenExpired } from './jwtHelper';
+import { clientId, domain } from './../../config';
+import { createProfile } from './../containers/profile_creator';
 
 const options = {
   primaryColor: "#FF6F00",
@@ -34,14 +36,16 @@ export default class AuthService extends EventEmitter {
     // Saves the user token
     this.setToken(authResult.idToken)
     // navigate to the home route
-    browserHistory.replace('/home')
+    browserHistory.replace('/login')
     // Async loads the user profile data
     this.lock.getProfile(authResult.idToken, (error, profile) => {
       if (error) {
         console.error('Error loading the Profile', error)
       } else {
-        console.log('Auth0 profile: ', profile);
-        this.setProfile(profile)
+
+  // ======================================================== //
+        this.setProfile(profile);
+        console.log('Login profile: ', profile);
 
       }
     })

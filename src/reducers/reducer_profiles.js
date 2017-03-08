@@ -1,6 +1,6 @@
 import { FETCH_ROSTER, CREATE_PROFILE, FETCH_PROFILE } from './../actions/action_index'
 
-export const INITIAL_STATE = { roster: [], profile: null };
+export const INITIAL_STATE = { roster: [], profile: null, user: [] };
 
 export default function(state = INITIAL_STATE, action) {
    switch (action.type) {

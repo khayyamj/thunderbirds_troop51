@@ -35,6 +35,9 @@ var mainCtrl = require('./mainCtrl');
 
 
 // TABLE ENDPOINTS
+app.get('/api/login', mainCtrl.getAllUsers)
+app.post('/api/login', mainCtrl.registerUser);
+app.put('/api/login/:loginid', mainCtrl.updateUser);
 
 // PROFILES
 app.get('/api/profiles', mainCtrl.fullRoster);

@@ -50,6 +50,7 @@ class TransactionForm extends Component {
     const { fields: {profileid, amount, notes, date, activity, actid, accounting}, handleSubmit} = this.props;
     return(
       <div>
+      <br />
       <form className="transaction-form" onSubmit={handleSubmit(this.onSubmit)}>
         <div className="account-transaction">
           <div className={`form-group ${date.touched && date.invalid ? 'has-danger' : ''}`}>

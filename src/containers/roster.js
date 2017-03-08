@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { Link } from 'react-router';
+import { List } from 'semantic-ui-react';
 import { fetchRoster } from './../actions/action_index';
 
 
@@ -15,13 +16,17 @@ class Roster extends Component {
       return <div>Loading Roster...</div>;
     }
      return this.props.profiles.roster.map((profile) => {
+       console.log('profile', profile)
         return (
-            <li key={profile.profileid} className="profile-item">
-               Name: {profile.nickname}
-               <Link className='nav-btn' to={'/profile/' + profile.profileid}> view </Link> <br />
-               City: {profile.city} <br />
-               Email: {profile.email} <hr />
-            </li>
+          <List divided>
+            <List.Item key={profile.profileid} className="profile-item">
+              <Link className='nav-btn' to={'/profile/' + profile.profileid}> view </Link>
+              Name: {profile.nickname}
+
+              City: {profile.city} <br />
+              Email: {profile.email} <hr />
+            </List.Item>
+          </List>
          )
      })
   }

@@ -1,17 +1,23 @@
 import React, { Component, PropTypes as T } from 'react';
 import { Jumbotron } from 'react-bootstrap';
+import { Sidebar, Segment, Button, Menu, Image, Icon, Header, Container } from 'semantic-ui-react'
 
 
-import Header from './header';
+import HeaderBanner from './header';
 import NavBar from './navbar';
-import SideBar from './sidebar'
+import SideBarContent from './sidebar';
+import Footer from './footer';
 
 export default class App extends Component {
   static contextTypes = {
     router: T.object
   }
 
+  state = { visible: false }
+  toggleVisibility = () => this.setState({ visible: !this.state.visible })
+
  render() {
+   const { visible } = this.state
    let children = null;
    if (this.props.children) {
      children = React.cloneElement(this.props.children, {
@@ -19,14 +25,34 @@ export default class App extends Component {
     })
   }
     return (
-       <div className="body">
-          <Header />
-          <NavBar />
+       <Container>
+          <HeaderBanner />
           <div className="main-body">
-             <div className="left">{children}</div>
-             <SideBar />
+            <Button
+              onClick={this.toggleVisibility}
+              color='orange'>
+              Menu
+            </Button>
+            <Sidebar.Pushable as={Segment}>
+              <Sidebar
+                  as={Menu}
+                  animation='slide out'
+                  width='thin'
+                  direction='left'
+                  visible={visible}
+                  icon='labeled'
+                  vertical >
+                <NavBar />
+              </Sidebar>
+              <Sidebar.Pusher>
+                <Segment basic>
+                  {children}
+                </Segment>
+              </Sidebar.Pusher>
+            </Sidebar.Pushable>
+            <Footer />
           </div>
-       </div>
+       </Container>
     );
    }
 }
