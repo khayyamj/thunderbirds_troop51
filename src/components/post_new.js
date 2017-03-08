@@ -58,7 +58,6 @@ class BlogEditor extends Component {
         mm='0'+mm;
     }
     date = dd+'/'+mm+'/'+yyyy;
-    console.log('Date: ', date);
   }
 
 
@@ -91,13 +90,15 @@ class BlogEditor extends Component {
         <div>
           <input
             type = 'text'
+            size = '93'
             value = {this.state.title}
             placeholder = 'Post Headline'
             onChange = {this.titleChange}
+
           />
         </div>
 
-          <div className="area">
+          <div className="area" style={{minHeight: '250', maxHeight: '400', overflow: 'scroll'}}>
             <RichTextEditor
               value={value}
               onChange={this._onChange}
@@ -111,6 +112,7 @@ class BlogEditor extends Component {
           <div>
             <input
               type = 'text'
+              size = '93'
               value = {this.state.tags}
               placeholder = 'Tags (separate with comma)'
               onChange = {this.tagChange}

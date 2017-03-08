@@ -5,6 +5,7 @@
   "main": "./server/server.js",
   "repository": "https://github.com/khayyamj/thunderbirds_troop51",
   "scripts": {
+    "build": "webpack",
     "start": "concurrently \"nodemon server/server.js\" \"node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors\"",
     "test": "mocha --compilers js:babel-core/register --require ./test/test.js --recursive ./test",
     "test:watch": "npm run test -- --watch"

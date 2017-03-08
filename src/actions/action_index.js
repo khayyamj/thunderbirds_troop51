@@ -9,6 +9,7 @@ const BLOG_URL = `http://localhost:${CONFIG.PORT}/api/blog/`;
 
 export const LOGGEDIN = 'LOGGEDIN';
 export const LOGGEDOUT = 'LOGGEDOUT';
+export const FETCH_USER_PROFILES = 'FETCH_USER_PROFILES';
 export const CREATE_LOGIN_PROFILE = 'CREATE_LOGIN_PROFILE';
 export const UPDATE_LOGIN_PROFILE = 'UPDATE_LOGIN_PROFILE';
 export const FETCH_ROSTER = 'FETCH_ROSTER';
@@ -32,7 +33,6 @@ export const FETCH_ATTENDED_ACTIVITIES = 'FETCH__ATTENDED_ACTIVITIES';
 export const FETCH_ALL_PARTICIPANTS = 'FETCH_ALL_PARTICIPANTS';
 
 export function loggedIn() {
-  console.log('loggedIn function -->')
   return {
     type: LOGGEDIN,
     payload: true
@@ -40,10 +40,17 @@ export function loggedIn() {
 }
 
 export function loggedOut() {
-  console.log('loggedOut function -->')
   return {
     type: LOGGEDOUT,
     payload: false
+  }
+}
+
+export function getUserProfiles(props) {
+  const request = axios.get(LOGIN_URL);
+  return {
+    type: FETCH_USER_PROFILES,
+    payload: request
   }
 }
 

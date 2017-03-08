@@ -8,7 +8,8 @@ import { Button, Icon } from 'semantic-ui-react';
 export class NavBar extends Component {
   static propTypes = {
     location: T.object,
-    auth: T.instanceOf(AuthService)
+    auth: T.instanceOf(AuthService),
+    profile: T.object
   }
 
    renderLinks() {
@@ -27,6 +28,7 @@ export class NavBar extends Component {
    }
 
   render() {
+    const { profile } = this.props;
     return(
       <div className="navbar">
          <ul className="navigation">

@@ -6,5 +6,6 @@ CREATE TABLE IF NOT EXISTS Login (
    lastname   VARCHAR(25),
    firstname  VARCHAR(25),
    picture_sm VARCHAR(200),
-   picture_lg VARCHAR(200)
+   picture_lg VARCHAR(200),
+   email      VARCHAR(50)
    )

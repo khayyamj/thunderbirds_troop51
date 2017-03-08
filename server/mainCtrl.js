@@ -67,12 +67,22 @@ db.init.create_blogtags([], function(err, results) {
 
 module.exports = {
 
+  getAllUsers: function(req, res, next) {
+    db.get_users([], function(err, table) {
+      if(err) {
+        console.error('getAllUsers: ', err);
+        return res.status(400).send(err);
+      }
+      return res.status(200).json(table);
+    })
+  },
+
   registerUser: function(req, res, next) {
     const b = req.body;
     db.create_login_registration([b.loginid, b.age, b.clientid, b.date, b.lastname, b.firstname, b.picture_sm, b.picture_lg], function(err, table) {
       if (err) {
         console.log('registerUser: ', err);
-        return res.send(400).send(err);
+        return res.status(400).send(err);
       }
       return res.status(200).json(table);
     })
@@ -84,7 +94,7 @@ module.exports = {
     db.update_login_registration([loginid, b.age, b.clientid, b.date, b.lastname, b.firstname, b.picture_sm, b.picture_lg], function(err, table) {
       if (err) {
         console.log('registerUser: ', err);
-        return res.send(400).send(err);
+        return res.status(400).send(err);
       }
       return res.status(200).json(table);
     })
@@ -94,7 +104,7 @@ module.exports = {
     db.get_roster([], function(err, table){
        if (err) {
           console.error('roster: ', err);
-          return res.send(400).send(err);
+          return res.status(400).send(err);
        }
        return res.status(200).json(table)
     });
