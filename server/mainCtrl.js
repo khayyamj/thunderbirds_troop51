@@ -174,7 +174,6 @@ module.exports = {
          console.error('allAttendedActivities: ', err);
          return res.status(400).send(err);
        }
-       console.log('allAttendedActivities', table)
        return res.status(200).json(table);
      })
    },
@@ -183,7 +182,7 @@ module.exports = {
      console.log('allParticipants function called');
      db.get_all_participants([], function(err, table) {
        if(err) {
-         console.log('allParticipants: ', err);
+         console.error('allParticipants: ', err);
          return res.status(400).send(err);
        }
        return res. status(200).json(table);
