@@ -6,7 +6,8 @@ import { Link } from 'react-router';
 import { Button } from 'semantic-ui-react';
 import { fetchProfile} from './../actions/action_index';
 import RosterList from './../components/roster_list';
-import { UpdateProfile, AddTransaction, AddActivity} from './../components/admin_forms';
+import { UpdateProfile, AddTransaction} from './../components/admin_forms';
+import AddActivity from './../components/Add_activity';
 import AdminNav from './../components/admin_nav';
 
 export default class AdminView extends Component {
