@@ -19,7 +19,7 @@ export default class AddActivity extends Component {
       handbook: false,
       orangeneckerchief: false,
       thunderbirdneckerchief: false,
-      adult: false,
+      adult: true,
       active: true
     };
     this.handleChange = this.handleChange.bind(this);
@@ -28,7 +28,6 @@ export default class AddActivity extends Component {
   }
 
   handleChange(event) {
-    console.log(event.target.name,event.target.value)
     const value = event.target.name;
     this.setState({ [value]: event.target.value})
   }
@@ -38,7 +37,7 @@ export default class AddActivity extends Component {
     event.preventDefault();
   }
   render() {
-    console.log('render-->', this.props);
+    // console.log('render-->', this.props);
     if (!this.props.view) {
       return <div></div>
     }
@@ -155,56 +154,57 @@ export default class AddActivity extends Component {
               </label>
             </Form.Field>
           </Form.Group>
-          <Form.Group>
+          <Form.Group widths='equal'>
             <Checkbox
               toggle
+              type='checkbox'
               name='handbook'
               label='Read Handbook'
-              value={this.state.handbook}
+              checked={this.state.handbook}
               onChange={this.handleCheckbox}
-            />
+            /><br />
             <Checkbox
               toggle
               name='orangeneckerchief'
               label='Orange Neckerchief'
-              value={this.state.orangeneckerchief}
+              checked={this.state.orangeneckerchief}
               onChange={this.handleCheckbox}
-            />
+            /><br />
             <Checkbox
               toggle
+              type='checkbox'
               name='thunderbirdneckerchief'
               label='T-bird Neckerchief'
-              value={this.state.thunderbirdneckerchief}
+              checked={this.state.thunderbirdneckerchief}
               onChange={this.handleCheckbox}
-            />
+            /><br />
             <Checkbox
               toggle
+              type='checkbox'
               name='adult'
               label='Adult'
-              value={this.state.adult}
+              checked={this.state.adult}
               onChange={this.handleCheckbox}
-            />
+            /><br />
             <Checkbox
               toggle
+              type='checkbox'
               name='active'
               label='Active'
-              value='active'
+              checked={this.state.active}
               onChange={this.handleCheckbox}
-            />
+            /><br />
           </Form.Group>
           <Button type='submit' value='Submit'>Submit</Button>
         </Form>
       </div>
     )
   }
-  handleCheckbox(event) {
-    console.log('handleCheckbox: ', event.target.name)
-    const T = this.state[event.target.name];
-    console.log(event.target.name + ' value: ', this.state[event.target.name])
-    // if (event.target.name = 'handbook') {
-      T ? !T : T;
-      this.setState({ [event.target.name]: T})
-    // }
-    console.log('End handleCheckbox: ',event.target.name, T);
+  handleCheckbox(event, data) {
+    console.log('handleCheckbox: ', data)
+    const key = data.name;
+    const value = data.checked;
+    console.log([key] + ' value: ', value)
+      this.setState({ [key]: value})
   }
 }
