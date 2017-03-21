@@ -20,6 +20,7 @@ import Home from './components/home';
 import Account from './containers/account'
 import config from './../config';
 import Admin from './containers/admin';
+import Admin2 from './containers/Admin_view';
 import AboutProject from './components/about_project';
 import ListEagles from './components/list_eagles';
 import Scoutmasters from './components/list_scoutmasters';
@@ -58,6 +59,7 @@ export default (
       <Route path="/dinner" component={Dinner} />
       <Route path="/account/:profileid" component={Account} onEnter={requireAuth} />
       <Route path="/admin" component={Admin} onEnter={requireAuth} />
+      <Route path='admin2' component={Admin2} />
       <Route path="/about_project" component={AboutProject} />
       <Route path="/eaglescouts" component={ListEagles} />
       <Route path="/scoutmasters" component={Scoutmasters} />
