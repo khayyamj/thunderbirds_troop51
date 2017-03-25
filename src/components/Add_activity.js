@@ -1,5 +1,6 @@
 import React, { Component } from 'React';
 import { Form, Button, Radio } from 'semantic-ui-react';
+import { createActivity } from './../actions/action_index.js'
 
 const participants = [];
 
@@ -18,17 +19,14 @@ export default class AddActivity extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
-    // console.log(event.target.name,event.target.value)
+  handleChange(event,data) {
     const value = event.target.name;
-
     this.setState({ [value]: event.target.value})
-    // console.log('this.state: ', this.state);
   }
 
   handleSubmit(event) {
-    // console.log('handleSubmit: ', this.state);
     event.preventDefault();
+    this.props.createActivity(this.state);
   }
   render() {
     if (!this.props.view) {
@@ -38,7 +36,7 @@ export default class AddActivity extends Component {
       <div>
         Add Activity
         <Form onSubmit={this.handleSubmit}>
-          <select name='activity' value={this.state.activity} onClick={this.handleChange}>
+          <select name='activity' default={this.state.activity} onMouseLeave={this.handleChange}>
             <option value='camping'>Camping</option>
             <option value='service'>Service</option>
             <option value='activity'>Activity</option>

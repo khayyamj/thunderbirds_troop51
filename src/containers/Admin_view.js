@@ -29,6 +29,7 @@ export default class AdminView extends Component {
   }
 
   render() {
+    console.log('Admin_view-->', this.state.roster);
     return (
       <div>
         <AdminNav toggle={this.toggleView}/>
@@ -57,9 +58,10 @@ export default class AdminView extends Component {
   }
 
   componentDidMount() {
-    return axios.get('http://localhost:3333/api/profiles').then(profiles => {
-      // console.log('Admin_view: ', profiles.data);
-      this.setState( { roster: profiles.data});
+    return axios.get('http://localhost:3333/api/profiles')
+      .then(profiles => {
+        console.log('Admin_view: ', profiles.data);
+        this.setState( { roster: profiles.data} );
     })
   }
 
@@ -80,6 +82,6 @@ export default class AdminView extends Component {
   }
   selectProfile(e) {
     this.setState({ profileid: [e.target.innerHTML]})
-    console.log('selectProfile: ', e.target)
+    console.log('selectProfile: ', e.target.innerHTML);
   }
 }
