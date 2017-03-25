@@ -2,29 +2,10 @@ import React from 'react';
 import { Icon } from 'semantic-ui-react';
 
 export default function (props) {
-  return (
-    <div>
-    Scouts:
-    {scouts} <hr />
-    Adults:
-    {adults}
-    </div>
-  )
+  // console.log('roster_list-->', props.roster);
 
-  const adults = props.roster.map(scouter => {
-    if (scouter.adult) {
-      return (
-        <div
-          key={scouter.profileid}
-          name={scouter.profileid}
-          onClick={props.selectProfile}>
-          <Icon name='male' />
-          {scouter.profileid} {scouter.firstname}
-          {console.log('Adult name value: ',name)}
-        </div>
-      )
-    }
-  }),
+
+  const
     scouts = props.roster.map(scouter => {
       if (!scouter.adult) {
         return (
@@ -33,10 +14,31 @@ export default function (props) {
             name={scouter.profileid}
             onClick={props.selectProfile}>
             <Icon name='child' />
-            {scouter.firstname}
+            {scouter.firstname} {scouter.lastname}
             </div>
+        )
+      }
+    }),
+    adults = props.roster.map(scouter => {
+      if (scouter.adult) {
+        return (
+          <div
+            key={scouter.profileid}
+            name={scouter.profileid}
+            onClick={props.selectProfile}>
+            <Icon name='male' />
+            {scouter.firstname} {scouter.lastname}
+          </div>
         )
       }
     });
 
+    return (
+      <div>
+      Scouts:
+      {scouts} <hr />
+      Adults:
+      {adults}
+      </div>
+    )
 }

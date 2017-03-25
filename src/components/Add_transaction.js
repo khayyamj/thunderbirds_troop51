@@ -9,7 +9,8 @@ export default class AddTransaction extends Component {
       accounting: 'debit',
       amount: '',
       activity: '',
-      notes: ''
+      notes: '',
+      profileid: null
     }
 
     this.handleChange = this.handleChange.bind(this);
