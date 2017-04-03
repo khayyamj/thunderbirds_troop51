@@ -80,8 +80,9 @@ export default class AdminView extends Component {
     }
     console.log('toggleView function: ', e.target.name, toggle)
   }
-  selectProfile(e) {
-    this.setState({ profileid: [e.target.innerHTML]})
-    console.log('selectProfile: ', e.target.innerHTML);
+  selectProfile(e,id) {
+    console.log('selectProfile: ', id);
+    this.setState({ profileid: [id]})
+
   }
 }
