@@ -2,7 +2,7 @@ import React, { Component } from 'React';
 import { Form, Button, Radio } from 'semantic-ui-react';
 import { createActivity } from './../actions/action_index.js'
 
-const participants = [];
+const scoutParticipants = [], leaderParticipants = [];
 
 export default class AddActivity extends Component {
   constructor(props) {
@@ -13,10 +13,37 @@ export default class AddActivity extends Component {
       lat: '',
       lng: '',
       date: '',
-      notes: ''
+      notes: '',
+      scoutsAttending: [],
+      leadersAttending: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.removeName = this.removeName.bind(this);
+  }
+
+  // const boys = scoutParticipants.map(boy => {
+  //     return (
+  //       <div className='name-button' key={boy.profileid} onClick={this.removeName}>
+  //         {boy.firstname} {boy.lastname}
+  //       </div>
+  //     )
+  //   }),
+  // const leaders = leaderParticipants.map(leader => {
+  //     return (
+  //       <div className='name-button' key={leader.profileid} onClick={this.removeName}>
+  //         {leader.firstname} {leader.lastname}
+  //       </div>
+  //     )
+  //   });
+
+  componentWillReceiveProps(nextProps) {
+    console.log('Add_activity: ',nextProps.scout.profileid, nextProps.scout.profileid === undefined);
+    if (nextProps.scout.profileid === undefined) {return null}
+    nextProps.scout.adult ? leaderParticipants.push(nextProps.scout) :
+      scoutParticipants.push(nextProps.scout);
+    console.log('Scouts: ', scoutParticipants, ' Leaders: ', leaderParticipants);
+
   }
 
   handleChange(event,data) {
@@ -28,6 +55,7 @@ export default class AddActivity extends Component {
     event.preventDefault();
     this.props.createActivity(this.state);
   }
+
   render() {
     if (!this.props.view) {
       return <div></div>
@@ -89,9 +117,24 @@ export default class AddActivity extends Component {
               onChange={this.handleChange}/>
             </label>
           </Form.Field>
+          <div>
+            <h2>Scouts Attending:</h2>
+            {boys}
+          </div>
+          <div>
+            <h2>Leaders Attending:</h2>
+            {leaders}
+          </div>
           <Button type='submit' value='Submit'>Submit</Button>
         </Form>
       </div>
     )
+  }  // end render function
+
+
+
+  removeName(participant) {
+    console.log('removeName: ', participant);
   }
-}
+
+} // end exported component

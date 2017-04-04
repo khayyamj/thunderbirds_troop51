@@ -20,11 +20,26 @@ export default class AddActivity extends Component {
       orangeneckerchief: false,
       thunderbirdneckerchief: false,
       adult: true,
-      active: true
+      active: true,
+      scout: {}
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCheckbox = this.handleCheckbox.bind(this);
+  }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log('shouldComponentUpdate: ', nextProps.scout, nextState);
+  //   if (this.props.scout === {}) {return false}
+  //   if (nextProps.scout != this.state.scout) {
+  //     return true;
+  //   } else {return false;}
+  // }
+  componentWillReceiveProps(nextProps) {
+    console.log('Update_profile --> componentWillReceiveProps: ', nextProps.scout);
+    for (var prop in nextProps.scout) {
+      this.setState({ [prop] : nextProps.scout[prop] })
+    }
   }
 
   handleChange(event) {

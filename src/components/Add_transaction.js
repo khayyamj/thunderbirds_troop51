@@ -10,11 +10,20 @@ export default class AddTransaction extends Component {
       amount: '',
       activity: '',
       notes: '',
-      profileid: null
+      profileid: null,
+      firstname: '',
+      lastname: ''
     }
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('Add_transaction --> componentWillReceiveProps: ', nextProps.scout);
+    this.setState({ profileid: nextProps.scout.profileid});
+    this.setState({ firstname: nextProps.scout.firstname });
+    this.setState({ lastname: nextProps.scout.lastname });
   }
 
   handleChange(e) {
@@ -35,6 +44,32 @@ export default class AddTransaction extends Component {
       <div>
         Add Transaction
         <Form onSubmit={this.handleSubmit}>
+          <Form.Group widths='equal'>
+            <Form.Field>
+              <input
+                type='profileid'
+                name='profileid'
+                placeholder='Profile ID:'
+                value={this.state.profileid}
+                onChange={this.handleChange} />
+            </Form.Field>
+            <Form.Field>
+              <input
+                type='firstname'
+                name='firstname'
+                placeholder='First Name'
+                value={this.state.firstname}
+                onChange={this.handleChange} />
+            </Form.Field>
+            <Form.Field>
+              <input
+                type='lastname'
+                name='lastname'
+                placeholder='Last Name'
+                value={this.state.lastname}
+                onChange={this.handleChange} />
+            </Form.Field>
+          </Form.Group>
           <Form.Field>
             <label>
               <input

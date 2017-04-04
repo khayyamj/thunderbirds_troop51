@@ -11,7 +11,7 @@ import UpdateProfile from './../components/Update_profile';
 import AddActivity from './../components/Add_activity';
 import AdminNav from './../components/admin_nav';
 
-let toggle = false;
+let toggle = false, scout={};
 
 export default class AdminView extends Component {
   constructor(props) {
@@ -22,7 +22,8 @@ export default class AdminView extends Component {
       profileid: '',
       profileView: false,
       transactionsView: false,
-      activityView: false
+      activityView: false,
+      scout: {}
     }
     this.toggleView = this.toggleView.bind(this);
     this.selectProfile = this.selectProfile.bind(this);
@@ -33,12 +34,19 @@ export default class AdminView extends Component {
     return (
       <div>
         <AdminNav toggle={this.toggleView}/>
-        <UpdateProfile view={this.state.profileView}/>
-        <AddTransaction view={this.state.transactionsView}/>
-        <AddActivity view={this.state.activityView}/>
+        <UpdateProfile
+          view={this.state.profileView}
+          scout={this.state.scout} />
+        <AddTransaction
+          view={this.state.transactionsView}
+          scout={this.state.scout}/>
+        <AddActivity
+          view={this.state.activityView}
+          scout={this.state.scout}/>
         <RosterList
           roster={this.state.roster}
           selectProfile={this.selectProfile}/>
+        <p>This is a scout test --> {this.state.scout.profileid} -  {this.state.scout.firstname}</p>
       </div>
     )
   }
@@ -81,8 +89,12 @@ export default class AdminView extends Component {
     console.log('toggleView function: ', e.target.name, toggle)
   }
   selectProfile(e,id) {
-    console.log('selectProfile: ', id);
     this.setState({ profileid: [id]})
-
+    for (var person in this.state.roster) {
+      if (this.state.roster[person].profileid === id) {
+        scout = this.state.roster[person];
+        this.setState({ scout: scout });
+      }
+    }
   }
 }
