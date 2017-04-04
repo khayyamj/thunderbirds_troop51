@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { createTransaction } from './../actions/action_index.js';
 
-export default class AddTransaction extends Component {
+class AddTransaction extends Component {
   constructor(props) {
     super(props);
     this.state = {
       date: '',
       accounting: 'debit',
       amount: '',
-      activity: '',
+      activity: 'dues',
       notes: '',
       profileid: null,
       firstname: '',
@@ -29,18 +32,40 @@ export default class AddTransaction extends Component {
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value })
-    console.log('handleChange -->', e.target.name, e.target.value)
+    // console.log('handleChange -->', e.target.name, e.target.value)
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log('handleSubmit: ', this.state);
+    // console.log('handleSubmit: ', this.state);
+    let transactionObj = {
+      date: this.state.date,
+      profileid: this.state.profileid,
+      amount: this.state.amount,
+      accounting: this.state.accounting,
+      activity: this.state.activity,
+      actid: null,
+      notes: this.state.notes
+    }
+    // console.log('Submit transaction obj: ', transactionObj);
+    this.props.createTransaction(transactionObj);
+    this.setState({
+      date: '',
+      accounting: 'debit',
+      amount: '',
+      activity: '',
+      notes: '',
+      profileid: null,
+      firstname: '',
+      lastname: ''
+    })
   }
 
   render() {
     if (!this.props.view) {
       return <div></div>
     }
+    // console.log('Add_transaction state: ',this.state)
     return (
       <div>
         Add Transaction
@@ -85,7 +110,7 @@ export default class AddTransaction extends Component {
               <select
                 name='accounting'
                 value={this.state.accounting}
-                onClick={this.handleChange}>
+                onChange={this.handleChange}>
                 <option value='credit'>Credit (+) </option>
                 <option value='debit'>Debit (-)</option>
               </select>
@@ -100,7 +125,7 @@ export default class AddTransaction extends Component {
                   onChange={this.handleChange} />
             </Form.Field>
             <Form.Field>
-              <select name='activity' value={this.state.activity} onClick={this.handleChange}>
+              <select name='activity' value={this.state.activity} onChange={this.handleChange}>
                 <option value='dues'>Dues</option>
                 <option value='camping'>Camping</option>
                 <option value='service'>Service</option>
@@ -127,3 +152,7 @@ export default class AddTransaction extends Component {
   }
 
 }
+const mapDispatchToProps = function(dispatch) {
+  return bindActionCreators({ createTransaction }, dispatch);
+}
+export default connect (null, mapDispatchToProps)(AddTransaction);

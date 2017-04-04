@@ -1,10 +1,15 @@
 import React, { Component } from 'React';
 import { Form, Button, Checkbox } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { updateProfile, createProfile, fetchRoster } from './../actions/action_index.js';
 
-export default class AddActivity extends Component {
+
+class UpdateProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: null,
       firstname: '',
       nickname: '',
       lastname: '',
@@ -19,7 +24,7 @@ export default class AddActivity extends Component {
       handbook: false,
       orangeneckerchief: false,
       thunderbirdneckerchief: false,
-      adult: true,
+      adult: false,
       active: true,
       scout: {}
     };
@@ -38,6 +43,7 @@ export default class AddActivity extends Component {
   componentWillReceiveProps(nextProps) {
     // console.log('Update_profile --> componentWillReceiveProps: ', nextProps.scout);
     if (nextProps.view === false) {return null;}
+    console.log('Add_transaction nextProps: ',nextProps.scout);
     for (var prop in nextProps.scout) {
       this.setState({ [prop] : nextProps.scout[prop] })
     }
@@ -51,15 +57,70 @@ export default class AddActivity extends Component {
   handleSubmit(event) {
     console.log('handleSubmit: ', this.state);
     event.preventDefault();
+    const profileObj = {
+      id: this.state.profileid,
+      firstname: this.state.firstname,
+      lastname: this.state.lastname,
+      nickname: this.state.nickname,
+      address: this.state.address,
+      city: this.state.city,
+      state: this.state.state,
+      zip: this.state.zip,
+      email: this.state.email,
+      cellphone: this.state.cellphone,
+      homephone: this.state.homephone,
+      birthday: this.state.birthday,
+      handbook: this.state.handbook,
+      orangeneckerchief: this.state.orangeneckerchief,
+      thunderbirdneckerchief: this.state.thunderbirdneckerchief,
+      active: this.state.active,
+      adult: this.state.adult
+    }
+    console.log('submit profileObj-->', profileObj);
+    console.log('checking profileObj ', profileObj.id);
+    if (profileObj.id) {
+      this.props.updateProfile(profileObj)
+        .then(response => this.props.fetchRoster())
+
+    } else {
+      this.props.createProfile(profileObj)
+        .then(response => this.props.fetchRoster())
+
+    }
+    this.resetForm();
   }
+
+  resetForm() {
+    this.setState({
+      id: null,
+      firstname: '',
+      nickname: '',
+      lastname: '',
+      address: '',
+      city: '',
+      state: '',
+      zip: '',
+      email: '',
+      cellphone: '',
+      homephone: '',
+      birthday: '',
+      handbook: false,
+      orangeneckerchief: false,
+      thunderbirdneckerchief: false,
+      adult: false,
+      active: true,
+      scout: {}
+    });
+  }
+
   render() {
-    // console.log('render-->', this.props);
+    console.log('Update_profile state (render)-->', this.state);
     if (!this.props.view) {
       return <div></div>
     }
     return (
       <div>
-        Update Profile
+        Add / Update Profile
         <Form onSubmit={this.handleSubmit}>
           <Form.Group widths='equal'>
             <Form.Field>
@@ -87,6 +148,14 @@ export default class AddActivity extends Component {
                 placeholder='Last Name'
                 value={this.state.lastname}
                 onChange={this.handleChange}/>
+              </label>
+            </Form.Field>
+            <Form.Field>
+              <label>
+              <input
+                name='profileid'
+                placeholder='id'
+                value={this.state.profileid}/>
               </label>
             </Form.Field>
           </Form.Group>
@@ -212,7 +281,9 @@ export default class AddActivity extends Component {
             /><br />
           </Form.Group>
           <Button type='submit' value='Submit'>Submit</Button>
+
         </Form>
+        <Button onClick={this.resetForm}>Reset Form</Button>
       </div>
     )
   }
@@ -224,3 +295,7 @@ export default class AddActivity extends Component {
       this.setState({ [key]: value})
   }
 }
+const mapDispatchToProps = function(dispatch) {
+  return bindActionCreators({ updateProfile, createProfile, fetchRoster }, dispatch);
+}
+export default connect (null, mapDispatchToProps)(UpdateProfile);

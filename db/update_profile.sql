@@ -10,7 +10,15 @@ SET
    zip = COALESCE($9, zip),
    cellphone = COALESCE($10, cellphone),
    homephone = COALESCE($11, homephone),
-   birthday = COALESCE($12, birthday)
+   birthday = COALESCE($12, birthday),
+   imageUrl = COALESCE($13, imageUrl),
+   position = COALESCE($14, position),
+   permissions = COALESCE($15, permissions),
+   handbook = COALESCE($16, handbook),
+   orangeneckerchief = COALESCE($17, orangeneckerchief),
+   thunderbirdneckerchief = COALESCE($18, thunderbirdneckerchief),
+   active = COALESCE($19, active),
+   adult = COALESCE($20, adult)
 
 WHERE profileid = $1
 RETURNING *;

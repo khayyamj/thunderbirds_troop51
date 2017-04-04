@@ -138,7 +138,8 @@ module.exports = {
    updateProfile: function(req, res, next) {
       const id = parseInt(req.params.id);
       const body = req.body;
-      db.update_profile([id, body.firstname, body.lastname, body.nickname, body.email, body.address, body.city, body.state, body.zip, body.cellphone, body.homephone, body.birthday], function(err,table) {
+      console.log('mainCtrl updateProfile: ', body);
+      db.update_profile([id, body.firstname, body.lastname, body.nickname, body.email, body.address, body.city, body.state, body.zip, body.cellphone, body.homephone, body.birthday, body.imageUrl, body.position, body.permissions, body.handbook, body.orangeneckerchief, body.thunderbirdneckerchief, body.active, body.adult], function(err,table) {
          if (err) {
             console.error('update: ', err);
             return res.status(400).send(err);

@@ -15,6 +15,7 @@ export const UPDATE_LOGIN_PROFILE = 'UPDATE_LOGIN_PROFILE';
 export const FETCH_ROSTER = 'FETCH_ROSTER';
 export const FETCH_PROFILE = 'FETCH_PROFILE';
 export const CREATE_PROFILE = 'CREATE_PROFILE';
+export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 export const FETCH_TRANSACTIONS = 'FETCH_TRANSACTIONS';
 export const FETCH_ALL_TRANSACTIONS = 'FETCH_ALL_TRANSACTIONS';
 export const CREATE_TRANSACTION = 'CREATE_TRANSACTION';
@@ -71,6 +72,7 @@ export function updateLoginProfile(props) {
 }
 
 export function fetchRoster() {
+  console.log('Fetching Roster -->');
    const request = axios.get(PROFILES_URL);
    return {
       type: FETCH_ROSTER,
@@ -95,7 +97,9 @@ export function createProfile(props) {
 }
 
 export function updateProfile(props) {
-   const request = axios.put(PROFILES_URL + props);
+  console.log('updateProfile props: ', props);
+  console.log('url-->', PROFILES_URL+props.id);
+   const request = axios.put(PROFILES_URL+props.id,  props);
    return {
       type: UPDATE_PROFILE,
       payload: request
@@ -200,7 +204,6 @@ export function deletePost(id) {
 }
 
 export function createActivity(props) {
-  console.log('createActivity with props: ',props)
   const request = axios.post(ACTIVITIES_URL, props);
   return {
     type: CREATE_ACTIVITY,
@@ -209,10 +212,7 @@ export function createActivity(props) {
 }
 
 export function linkParticipantstoActivity(props) {
-
   const actid = props.actid, profileid = props.profileid;
-    console.log('linkParticipantstoActivity props: ', actid, profileid);
-    console.log('url: ', `${ACTIVITIES_URL}/${actid}/${profileid}`);
   const request = axios.post(`${ACTIVITIES_URL}${actid}/${profileid}`);
   return {
     type: LINK_PARTICIPANTS_TO_ACITIVTY,
