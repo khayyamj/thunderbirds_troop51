@@ -30,7 +30,7 @@ export default class AdminView extends Component {
   }
 
   render() {
-    console.log('Admin_view-->', this.state.roster);
+    // console.log('Admin_view-->', this.state.roster);
     return (
       <div>
         <AdminNav toggle={this.toggleView}/>

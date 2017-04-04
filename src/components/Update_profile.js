@@ -36,7 +36,8 @@ export default class AddActivity extends Component {
   //   } else {return false;}
   // }
   componentWillReceiveProps(nextProps) {
-    console.log('Update_profile --> componentWillReceiveProps: ', nextProps.scout);
+    // console.log('Update_profile --> componentWillReceiveProps: ', nextProps.scout);
+    if (nextProps.view === false) {return null;}
     for (var prop in nextProps.scout) {
       this.setState({ [prop] : nextProps.scout[prop] })
     }

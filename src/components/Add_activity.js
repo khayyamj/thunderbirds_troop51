@@ -1,10 +1,12 @@
 import React, { Component } from 'React';
+import { connect } from 'react-redux';
 import { Form, Button, Radio } from 'semantic-ui-react';
-import { createActivity } from './../actions/action_index.js'
+import { bindActionCreators } from 'redux';
+import { createActivity, linkParticipantstoActivity } from './../actions/action_index.js'
 
 const scoutParticipants = [], leaderParticipants = [];
 
-export default class AddActivity extends Component {
+class AddActivity extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,24 +24,11 @@ export default class AddActivity extends Component {
     this.removeName = this.removeName.bind(this);
   }
 
-  // const boys = scoutParticipants.map(boy => {
-  //     return (
-  //       <div className='name-button' key={boy.profileid} onClick={this.removeName}>
-  //         {boy.firstname} {boy.lastname}
-  //       </div>
-  //     )
-  //   }),
-  // const leaders = leaderParticipants.map(leader => {
-  //     return (
-  //       <div className='name-button' key={leader.profileid} onClick={this.removeName}>
-  //         {leader.firstname} {leader.lastname}
-  //       </div>
-  //     )
-  //   });
+
 
   componentWillReceiveProps(nextProps) {
-    console.log('Add_activity: ',nextProps.scout.profileid, nextProps.scout.profileid === undefined);
-    if (nextProps.scout.profileid === undefined) {return null}
+    // console.log('Add_activity: ',nextProps.scout.profileid, nextProps.scout.profileid === undefined);
+    if (nextProps.scout.profileid === undefined || nextProps.view === false) {return null}
     nextProps.scout.adult ? leaderParticipants.push(nextProps.scout) :
       scoutParticipants.push(nextProps.scout);
     console.log('Scouts: ', scoutParticipants, ' Leaders: ', leaderParticipants);
@@ -53,13 +42,58 @@ export default class AddActivity extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.createActivity(this.state);
+    let activityObj = {
+      type: this.state.activity,
+      date: this.state.date,
+      site: this.state.site,
+      lat: this.state.lat,
+      lng: this.state.lng,
+      notes: this.state.notes
+    }
+    console.log('handleSubmit object: ', activityObj);
+    this.props.createActivity(activityObj)
+      .then((response) => {
+        console.log('createActivity response: ',response.payload.data);
+        const actid = response.payload.data.actid;
+        scoutParticipants.map(scout => {
+          let linkObj = {
+            actid: actid,
+            profileid: scout.profileid
+          }
+          console.log('linkObj: ', linkObj)
+          this.props.linkParticipantstoActivity(linkObj)
+        })
+        leaderParticipants.map(leader => {
+          let linkObj = {
+            actid: actid,
+            profileid: leader.profileid
+          }
+          this.props.linkParticipantstoActivity(linkObj)
+        })
+      })
   }
 
   render() {
     if (!this.props.view) {
       return <div></div>
     }
+    const boys = scoutParticipants.map(boy => {
+        // console.log('boy: ', boy);
+
+        return (
+          <div className='name-button' key={boy.profileid} onClick={this.removeName}>
+            {boy.firstname} {boy.lastname}
+          </div>
+        )
+      });
+    const leaders = leaderParticipants.map(leader => {
+        // console.log('leader: ', leader)
+        return (
+          <div className='name-button' key={leader.profileid} onClick={this.removeName}>
+            {leader.firstname} {leader.lastname}
+          </div>
+        )
+      });
     return (
       <div>
         Add Activity
@@ -138,3 +172,7 @@ export default class AddActivity extends Component {
   }
 
 } // end exported component
+const mapDispatchToProps = function (dispatch) {
+  return bindActionCreators({ createActivity, linkParticipantstoActivity }, dispatch);
+}
+export default connect(null, mapDispatchToProps)(AddActivity);

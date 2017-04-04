@@ -20,7 +20,8 @@ export default class AddTransaction extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('Add_transaction --> componentWillReceiveProps: ', nextProps.scout);
+    // console.log('Add_transaction --> componentWillReceiveProps: ', nextProps.scout);
+    if (nextProps.view === false) {return null;}
     this.setState({ profileid: nextProps.scout.profileid});
     this.setState({ firstname: nextProps.scout.firstname });
     this.setState({ lastname: nextProps.scout.lastname });

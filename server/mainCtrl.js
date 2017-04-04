@@ -215,6 +215,7 @@ module.exports = {
    linkParticipants: function(req, res, next) {
      const actid = req.params.actid,
             profileid = req.params.profileid;
+            console.log('mainCtrl-->',actid, profileid)
      db.create_link_participants_activity([actid, profileid], function(err, table) {
        if (err) {
          console.error('linkParticipants: ', err);

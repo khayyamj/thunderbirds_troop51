@@ -200,6 +200,7 @@ export function deletePost(id) {
 }
 
 export function createActivity(props) {
+  console.log('createActivity with props: ',props)
   const request = axios.post(ACTIVITIES_URL, props);
   return {
     type: CREATE_ACTIVITY,
@@ -208,7 +209,10 @@ export function createActivity(props) {
 }
 
 export function linkParticipantstoActivity(props) {
-  const actid = props[0], profileid = props[1];
+
+  const actid = props.actid, profileid = props.profileid;
+    console.log('linkParticipantstoActivity props: ', actid, profileid);
+    console.log('url: ', `${ACTIVITIES_URL}/${actid}/${profileid}`);
   const request = axios.post(`${ACTIVITIES_URL}${actid}/${profileid}`);
   return {
     type: LINK_PARTICIPANTS_TO_ACITIVTY,
