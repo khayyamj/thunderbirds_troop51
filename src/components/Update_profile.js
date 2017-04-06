@@ -9,7 +9,7 @@ class UpdateProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: null,
+      profileid: null,
       firstname: '',
       nickname: '',
       lastname: '',
@@ -31,6 +31,7 @@ class UpdateProfile extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCheckbox = this.handleCheckbox.bind(this);
+    this.resetForm = this.resetForm.bind(this);
   }
 
   // shouldComponentUpdate(nextProps, nextState) {
@@ -43,7 +44,7 @@ class UpdateProfile extends Component {
   componentWillReceiveProps(nextProps) {
     // console.log('Update_profile --> componentWillReceiveProps: ', nextProps.scout);
     if (nextProps.view === false) {return null;}
-    console.log('Add_transaction nextProps: ',nextProps.scout);
+    console.log('Add_transaction---> nextProps: ',nextProps.scout);
     for (var prop in nextProps.scout) {
       this.setState({ [prop] : nextProps.scout[prop] })
     }
@@ -87,13 +88,16 @@ class UpdateProfile extends Component {
         .then(response => this.props.fetchRoster())
 
     }
+    this.setState({ profileid: null });
     this.resetForm();
+    this.props.reset();
   }
 
   resetForm() {
-    console.log('resetForm...');
+    console.log('resetForm...', this.props);
+    this.props.reset();
     this.setState({
-      id: null,
+      profileid: null,
       firstname: '',
       nickname: '',
       lastname: '',
@@ -112,10 +116,11 @@ class UpdateProfile extends Component {
       active: true,
       scout: {}
     });
+
   }
 
   render() {
-    console.log('Update_profile state (render)-->', this.state);
+    console.log('Update_profile state (render)-->', this.state.id);
     if (!this.props.view) {
       return <div></div>
     }

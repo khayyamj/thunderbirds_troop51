@@ -27,6 +27,7 @@ export default class AdminView extends Component {
     }
     this.toggleView = this.toggleView.bind(this);
     this.selectProfile = this.selectProfile.bind(this);
+    this.resetScout = this.resetScout.bind(this);
   }
 
   render() {
@@ -36,7 +37,8 @@ export default class AdminView extends Component {
         <AdminNav toggle={this.toggleView}/>
         <UpdateProfile
           view={this.state.profileView}
-          scout={this.state.scout} />
+          scout={this.state.scout}
+          reset={this.resetScout}/>
         <AddTransaction
           view={this.state.transactionsView}
           scout={this.state.scout}/>
@@ -96,5 +98,10 @@ export default class AdminView extends Component {
         this.setState({ scout: scout });
       }
     }
+  }
+
+  resetScout() {
+    console.log('Admin_view --> resetScout');
+    this.setState({ scout: {} })
   }
 }
