@@ -91,6 +91,7 @@ class UpdateProfile extends Component {
   }
 
   resetForm() {
+    console.log('resetForm...');
     this.setState({
       id: null,
       firstname: '',
