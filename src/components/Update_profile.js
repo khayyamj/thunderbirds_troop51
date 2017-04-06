@@ -56,7 +56,7 @@ class UpdateProfile extends Component {
   }
 
   handleSubmit(event) {
-    console.log('handleSubmit: ', this.state);
+    // console.log('handleSubmit: ', this.state);
     event.preventDefault();
     const profileObj = {
       id: this.state.profileid,
@@ -77,13 +77,15 @@ class UpdateProfile extends Component {
       active: this.state.active,
       adult: this.state.adult
     }
-    console.log('submit profileObj-->', profileObj);
-    console.log('checking profileObj ', profileObj.id);
+    // console.log('submit profileObj-->', profileObj);
+    // console.log('checking profileObj ', profileObj.id);
     if (profileObj.id) {
+      console.log('updating profile ', profileObj.id + " - ", profileObj.firstname, profileObj.lastname)
       this.props.updateProfile(profileObj)
         .then(response => this.props.fetchRoster())
 
     } else {
+      console.log('adding profile ', profileObj.firstname, profileObj.lastname)
       this.props.createProfile(profileObj)
         .then(response => this.props.fetchRoster())
 
@@ -91,10 +93,12 @@ class UpdateProfile extends Component {
     this.setState({ profileid: null });
     this.resetForm();
     this.props.reset();
+    this.props.reloadRoster();
+    console.log('Update_profile--> Reloading Roster function called...')
   }
 
   resetForm() {
-    console.log('resetForm...', this.props);
+    // console.log('resetForm...', this.props);
     this.props.reset();
     this.setState({
       profileid: null,
@@ -120,7 +124,7 @@ class UpdateProfile extends Component {
   }
 
   render() {
-    console.log('Update_profile state (render)-->', this.state.id);
+    // console.log('Update_profile state (render)-->', this.state.id);
     if (!this.props.view) {
       return <div></div>
     }

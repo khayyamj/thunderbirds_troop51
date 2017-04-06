@@ -125,7 +125,7 @@ module.exports = {
 
    createProfile: function(req, res, next) {
       const body = req.body;
-      db.create_profile([body.firstname, body.lastname, body.nickname, body.email, body.address, body.city, body.state, body.zip, body.cellphone, body.homephone, body.birthday], function(err,table) {
+      db.create_profile([body.firstname, body.lastname, body.nickname, body.email, body.address, body.city, body.state, body.zip, body.cellphone, body.homephone, body.birthday, body.imageUrl, body.position, body.permissions, body.handbook, body.orangeneckerchief, body.thunderbirdneckerchief, body.active, body.adult], function(err,table) {
          if (err) {
             console.error('create: ', err);
             return res.status(400).send(err);

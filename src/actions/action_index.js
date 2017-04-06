@@ -72,8 +72,8 @@ export function updateLoginProfile(props) {
 }
 
 export function fetchRoster() {
-  console.log('Fetching Roster -->');
    const request = axios.get(PROFILES_URL);
+   console.log('action_index: Fetching Roster ');
    return {
       type: FETCH_ROSTER,
       payload: request
@@ -97,8 +97,6 @@ export function createProfile(props) {
 }
 
 export function updateProfile(props) {
-  console.log('updateProfile props: ', props);
-  console.log('url-->', PROFILES_URL+props.id);
    const request = axios.put(PROFILES_URL+props.id,  props);
    return {
       type: UPDATE_PROFILE,

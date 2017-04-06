@@ -28,6 +28,7 @@ export default class AdminView extends Component {
     this.toggleView = this.toggleView.bind(this);
     this.selectProfile = this.selectProfile.bind(this);
     this.resetScout = this.resetScout.bind(this);
+    this.reloadRoster = this.reloadRoster.bind(this);
   }
 
   render() {
@@ -38,7 +39,8 @@ export default class AdminView extends Component {
         <UpdateProfile
           view={this.state.profileView}
           scout={this.state.scout}
-          reset={this.resetScout}/>
+          reset={this.resetScout}
+          reloadRoster = {this.reloadRoster}/>
         <AddTransaction
           view={this.state.transactionsView}
           scout={this.state.scout}/>
@@ -70,7 +72,7 @@ export default class AdminView extends Component {
   componentDidMount() {
     return axios.get('http://localhost:3333/api/profiles')
       .then(profiles => {
-        console.log('Admin_view: ', profiles.data);
+        // console.log('Admin_view: ', profiles.data);
         this.setState( { roster: profiles.data} );
     })
   }
@@ -101,7 +103,15 @@ export default class AdminView extends Component {
   }
 
   resetScout() {
-    console.log('Admin_view --> resetScout');
+    // console.log('Admin_view --> resetScout');
     this.setState({ scout: {} })
+  }
+  reloadRoster() {
+    console.log('Admin_view--> reloadingRoster function <--')
+    return axios.get('http://localhost:3333/api/profiles')
+      .then(profiles => {
+        console.log('Admin_view: Reloading roster-->', profiles.data);
+        this.setState( { roster: profiles.data} );
+    })
   }
 }
