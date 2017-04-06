@@ -47,7 +47,7 @@ class Activities extends Component {
   }
 
   selectActivity(event) {
-    console.log('activities--> selectActivity:', event.target.value);
+    // console.log('activities--> selectActivity:', event.target.value);
      this.setState({ Activity: event.target.value });
    }
 
@@ -56,11 +56,11 @@ class Activities extends Component {
       filter = this.state.Activity,
       oneTime = [],
       filteredActivityList = [];
-    console.log('activites--> renderActivities filter: ', filter);
-    console.log('activites--> renderActivities activities: ', this.props.activities);
+    // console.log('activites--> renderActivities filter: ', filter);
+    // console.log('activites--> renderActivities activities: ', this.props.activities);
     this.props.activities.all.map((activity, i) => {
-      console.log('activites--> renderActivities oneTime.indexOf(activity.actid): ', oneTime.indexOf(activity.actid), activity.type)
-      if (oneTime.indexOf(activity.actid) > 0){
+      // console.log('activites--> renderActivities oneTime.indexOf(activity.actid): ', oneTime.indexOf(activity.actid), activity.type)
+      if (oneTime.indexOf(activity.actid) > 0){ //check if an activity was only done once
         return filteredActivityList;
       }
       if (filter === 'all') {
@@ -72,7 +72,7 @@ class Activities extends Component {
       oneTime.push(activity);
       return filteredActivityList;
     })
-    console.log('activities--> filteredActivityList: ', filteredActivityList);
+    // console.log('activities--> filteredActivityList: ', filteredActivityList);
     return filteredActivityList.map((activity) => {
      let { lat, lng } = activity;
       return (
