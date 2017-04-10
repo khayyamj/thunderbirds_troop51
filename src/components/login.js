@@ -2,7 +2,7 @@ import React, { PropTypes as T } from 'react'
 import {ButtonToolbar } from 'react-bootstrap'
 import { Button, Icon, Header } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { loggedIn, loggedOut, getUserProfiles } from './../actions/action_index';
+import { loggedIn, loggedOut, getUserProfiles, createLoginProfile, updateLoginProfile } from './../actions/action_index';
 import { bindActionCreators } from 'redux';
 
 import AuthService from './../utils/AuthService';
@@ -16,24 +16,41 @@ export class Login extends React.Component {
   constructor(){
     super();
 
-    this.state = {};
+    this.state = {
+      login: false,
+      userProfileLoaded: false
+    };
     localStorage.getItem('id_token') ? token = true : token = false;
+    // this.addToLoginTable = this.addToLoginTable.bind(this);
   }
-  componentWillMount() {
-    this.props.getUserProfiles();
+  componentDidMount() {
+    this.props.getUserProfiles()
+      .then(response => {
+        console.log('componentDidMount data: ',response.payload);
+        localStorage.getItem('id_token') ? token = true : token = false;
+        token ? this.addToLoginTable() : 'do nothing';
+      });
+
+  }
+
+  componentWillUpdate(nextProps = []) {
+    console.log('componentWillUpdate...', nextProps);
+    token === true && this.state.userProfileLoaded === false ? this.addToLoginTable() : 'do nothing';
   }
 
   logout() {
     localStorage.removeItem('id_token');
     localStorage.removeItem('profile');
     this.props.loggedOut();
-    login = false; token = false;
+    this.setState({ login : false }); token = false;
   }
 
   render() {
     const { auth } = this.props;
-    token === login ? 'match' : this.loginStatus();
-    console.log('login profile->', JSON.parse(localStorage.getItem('profile')));
+    console.log('render token: ', token, 'login: ', this.state.login, 'match: ', token === this.state.login);
+    token === this.state.login ? 'match' : this.loginStatus();
+
+    console.log('login profile (render)->', JSON.parse(localStorage.getItem('profile')));
     return (
       <div style={{textAlign: 'center'}}>
         <Header centered>
@@ -60,39 +77,47 @@ export class Login extends React.Component {
   }
 
   loginStatus() {
+    console.log('login--> loginStatus function');
+    this.setState({ login: !login });
     localStorage.getItem('id_token') ? this.props.loggedIn() : this.props.loggedOut();
-    login = !login;
+
     // this.props.user ? token = true : this.props.setUserProfile(JSON.parse(localStorage.getItem('profile')));
-    if (!this.props.user) {
-      this.addToLoginTable();
-    }
+    // console.log('loginStatus check: ', userProfilesLoaded, localStorage.getItem('id_token'))
+    // if (userProfilesLoaded && localStorage.getItem('id_token')) {
+    //   console.log('addToLoginTable function');
+    //   this.addToLoginTable();
+    // }
   }
 
   addToLoginTable() {
-    const profile = JSON.parse(localStorage.getItem('profile'));
-    const loginProfile = {
-      age: profile.age_range,
-      clientId: profile.clientID,
-      date: profile.created_at,
-      lastname: profile.family_name,
-      firstname: profile.given_name,
-      pic_sm: profile.picture,
-      pic_lg: profile.picture_large,
-      email: profile.email_verified || null
-    }
-    if (!this.state.user.email.indexOf(profile.email)) {
-      console.log('login table under construction...')
-    }
+    const localProfile = JSON.parse(localStorage.getItem('profile')),
+      profileIndex = this.props.users.indexOf(localProfile.clientID);
+    console.log('users: ', this.props.users);
+    console.log('indexOf: ', profileIndex);
+    let loginProfileObj = {
+      age: localProfile.age_range.min,
+      clientid: localProfile.clientID,
+      date: localProfile.created_at,
+      lastname: localProfile.family_name,
+      firstname: localProfile.given_name,
+      picture_sm: localProfile.picture,
+      picture_lg: localProfile.picture_large,
+      email: localProfile.email || null,
+      lastLogin: localProfile.updated_at
+    };
+    let index = this.props.users.users.indexOf(loginProfileObj.clientid)
+    console.log('ClientId index: ', index);
   }
 
 }
 function mapStateToProps (state) {
   return {
     login: state.login,
-    user: state.users.user
+    user: state.users.user,
+    users: state.users.users
   }
 }
 const mapDispatchToProps = function (dispatch) {
-  return bindActionCreators({ loggedIn, loggedOut, getUserProfiles }, dispatch);
+  return bindActionCreators({ loggedIn, loggedOut, getUserProfiles, createLoginProfile, updateLoginProfile }, dispatch);
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

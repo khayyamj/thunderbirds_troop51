@@ -47,7 +47,7 @@ export function loggedOut() {
   }
 }
 
-export function getUserProfiles(props) {
+export function getUserProfiles() {
   const request = axios.get(LOGIN_URL);
   return {
     type: FETCH_USER_PROFILES,
@@ -56,6 +56,7 @@ export function getUserProfiles(props) {
 }
 
 export function createLoginProfile(props) {
+  console.log('createLoginProfile props: ', props);
   const request = axios.post(LOGIN_URL);
   return {
     type: CREATE_LOGIN_PROFILE,
@@ -64,7 +65,8 @@ export function createLoginProfile(props) {
 }
 
 export function updateLoginProfile(props) {
-  const request = axios.put(LOGIN_URL+props.loginid);
+  console.log('updateLoginProfile props: ', props);
+  const request = axios.put(LOGIN_URL+props.loginid, props);
   return {
     type: UPDATE_LOGIN_PROFILE,
     payload: request
