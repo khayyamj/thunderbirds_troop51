@@ -9,7 +9,9 @@ import AuthService from './../utils/AuthService';
 import config from './../../config';
 
 let login = false,
-    token = false;
+    token = false,
+    stopLoop = 0,
+    userProfileLoaded = false;
 
 
 export class Login extends React.Component {
@@ -18,24 +20,47 @@ export class Login extends React.Component {
 
     this.state = {
       login: false,
-      userProfileLoaded: false
+      profIndex: null,
+      clientid: null
     };
     localStorage.getItem('id_token') ? token = true : token = false;
-    // this.addToLoginTable = this.addToLoginTable.bind(this);
+
   }
-  componentDidMount() {
+  componentWillMount() {
     this.props.getUserProfiles()
       .then(response => {
-        console.log('componentDidMount data: ',response.payload);
+        console.log('componentWillMount data: ',response.payload.data);
         localStorage.getItem('id_token') ? token = true : token = false;
         token ? this.addToLoginTable() : 'do nothing';
       });
-
+    console.log('componentWillMount token: ', token);
+    if (token) {
+      this.props.loggedIn()
+      console.log('componentWillMount client data: ', JSON.parse(localStorage.getItem('profile')))
+      this.setState({ clientid: JSON.parse(localStorage.getItem('profile')).clientID })
+    } else {
+      this.props.loggedOut();
+    }
   }
 
   componentWillUpdate(nextProps = []) {
+
     console.log('componentWillUpdate...', nextProps);
-    token === true && this.state.userProfileLoaded === false ? this.addToLoginTable() : 'do nothing';
+    if (stopLoop >= 10) {return null}; // end loop, no updates;
+    localStorage.getItem('id_token') ? token = true : token = false;
+    if (!token || nextProps.users.length === 0) {
+      console.log('ending cycle componentWillUpdate');
+      return null
+    } // no token means nothing to update;
+    stopLoop++;
+    console.log('nextProps.users: ', nextProps.users, 'clientid: ', this.state.clientid);
+    let temp = nextProps.users.find(user => user.clientid == this.state.clientid);
+    console.log('temp index: ', temp);
+    if (this.state.profIndex === temp.loginid) {return null} // already updated - don't update state again;
+    this.setState({ profIndex: temp.loginid})
+    userProfileLoaded === false && temp ? this.updateLoginTable(temp.loginid) : console.log('userProfileLoaded: ', userProfileLoaded, 'temp ', temp);
+    userProfileLoaded === false ? this.addToLoginTable() : console.log('do nothing');
+     console.log(stopLoop,' - componentWillUpdate interation');
   }
 
   logout() {
@@ -47,10 +72,7 @@ export class Login extends React.Component {
 
   render() {
     const { auth } = this.props;
-    console.log('render token: ', token, 'login: ', this.state.login, 'match: ', token === this.state.login);
-    token === this.state.login ? 'match' : this.loginStatus();
-
-    console.log('login profile (render)->', JSON.parse(localStorage.getItem('profile')));
+    token === this.state.login ? console.log('token match: ', token) : this.loginStatus();
     return (
       <div style={{textAlign: 'center'}}>
         <Header centered>
@@ -80,23 +102,14 @@ export class Login extends React.Component {
     console.log('login--> loginStatus function');
     this.setState({ login: !login });
     localStorage.getItem('id_token') ? this.props.loggedIn() : this.props.loggedOut();
-
-    // this.props.user ? token = true : this.props.setUserProfile(JSON.parse(localStorage.getItem('profile')));
-    // console.log('loginStatus check: ', userProfilesLoaded, localStorage.getItem('id_token'))
-    // if (userProfilesLoaded && localStorage.getItem('id_token')) {
-    //   console.log('addToLoginTable function');
-    //   this.addToLoginTable();
-    // }
   }
 
   addToLoginTable() {
-    const localProfile = JSON.parse(localStorage.getItem('profile')),
-      profileIndex = this.props.users.indexOf(localProfile.clientID);
-    console.log('users: ', this.props.users);
-    console.log('indexOf: ', profileIndex);
+    if (userProfileLoaded) {return 'completed'}
+    console.log('addToLoginTable...');
+    let localProfile = JSON.parse(localStorage.getItem('profile'))
     let loginProfileObj = {
-      age: localProfile.age_range.min,
-      clientid: localProfile.clientID,
+      clientid: this.state.clientid,
       date: localProfile.created_at,
       lastname: localProfile.family_name,
       firstname: localProfile.given_name,
@@ -105,8 +118,31 @@ export class Login extends React.Component {
       email: localProfile.email || null,
       lastLogin: localProfile.updated_at
     };
-    let index = this.props.users.users.indexOf(loginProfileObj.clientid)
-    console.log('ClientId index: ', index);
+    console.log('loginProfileObj: ', loginProfileObj);
+    this.props.createLoginProfile(loginProfileObj)
+      userProfileLoaded = true;
+      console.log('userProfileLoaded status updated')
+  }
+  updateLoginTable(id){
+    if (userProfileLoaded) {return 'completed'}
+    console.log('updateLoginTable...', id);
+    let localProfile = JSON.parse(localStorage.getItem('profile'));
+    console.log('updateLoginTable localProfile: ', localProfile);
+    let loginProfileObj = {
+      loginid: id,
+      clientid: this.state.clientid,
+      date: localProfile.created_at,
+      lastname: localProfile.family_name,
+      firstname: localProfile.given_name,
+      picture_sm: localProfile.picture,
+      picture_lg: localProfile.picture_large,
+      email: localProfile.email || null,
+      lastLogin: localProfile.updated_at
+    };
+    console.log('loginProfileObj: ', loginProfileObj);
+    this.props.updateLoginProfile(loginProfileObj)
+      userProfileLoaded = true;
+      console.log('userProfileLoaded status updated')
   }
 
 }

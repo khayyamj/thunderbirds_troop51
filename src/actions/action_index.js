@@ -34,6 +34,7 @@ export const FETCH_ATTENDED_ACTIVITIES = 'FETCH__ATTENDED_ACTIVITIES';
 export const FETCH_ALL_PARTICIPANTS = 'FETCH_ALL_PARTICIPANTS';
 
 export function loggedIn() {
+  console.log('action_index--> loggedIn Function - true');
   return {
     type: LOGGEDIN,
     payload: true
@@ -48,6 +49,7 @@ export function loggedOut() {
 }
 
 export function getUserProfiles() {
+  console.log('action_index--> get user profiles...');
   const request = axios.get(LOGIN_URL);
   return {
     type: FETCH_USER_PROFILES,
@@ -57,7 +59,7 @@ export function getUserProfiles() {
 
 export function createLoginProfile(props) {
   console.log('createLoginProfile props: ', props);
-  const request = axios.post(LOGIN_URL);
+  const request = axios.post(LOGIN_URL, props);
   return {
     type: CREATE_LOGIN_PROFILE,
     payload: request
