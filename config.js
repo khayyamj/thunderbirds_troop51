@@ -1,7 +1,7 @@
 export default function () {
    return {
-    SECRET: '6InAe8q3CAufcmhzTlFr4TfZw5gToDPgLLvlimJ7gW6lK9SRbJBok4b0ra6B2lM8',
-    clientId: 'LKt9y60BcDeJhgdyHJPfL6xYzpMEGsaH',
+    SECRET: 'PwsIQRWtP6PxYWDj6UG-L3Ft5uLtSH_5Tw0fqlKDEJ5ofS7ziSa30Z2gHPogUr1g',
+    clientId: 'a12EoL4Fk3ssQTn3OOqgECGddGK7q4dE',
     domain: 'khayyam.auth0.com'
    }
 }
