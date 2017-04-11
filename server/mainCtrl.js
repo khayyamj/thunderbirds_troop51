@@ -203,6 +203,17 @@ module.exports = {
       });
    },
 
+   activityParticipants: function(req, res, next) {
+     const actid = parseInt(req.params.actid);
+     db.get_activity_participants([actid], function(err, table) {
+       if (err) {
+         console.error('activityParticipants: ', err);
+         return res.status(400).json(err);
+       }
+       return res.status(200).json(table);
+     })
+   }
+
    createActivity: function (req, res, next) {
      const activity = req.body
      db.create_activity([activity.type,activity.date,activity.site,activity.lat,activity.lng,activity.notes], function(err, table) {

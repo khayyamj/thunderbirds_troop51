@@ -50,17 +50,18 @@ class AddActivity extends Component {
       lng: this.state.lng,
       notes: this.state.notes
     }
-    console.log('handleSubmit object: ', activityObj);
+    // console.log('handleSubmit object: ', activityObj);
     this.props.createActivity(activityObj)
       .then((response) => {
-        console.log('createActivity response: ',response.payload.data);
+        // console.log('createActivity response: ',response.payload.data);
         const actid = response.payload.data.actid;
+        console.log('Activity id: ', actid);
         scoutParticipants.map(scout => {
           let linkObj = {
             actid: actid,
             profileid: scout.profileid
           }
-          console.log('linkObj: ', linkObj)
+          // console.log('linkObj: ', linkObj)
           this.props.linkParticipantstoActivity(linkObj)
         })
         leaderParticipants.map(leader => {
@@ -70,6 +71,19 @@ class AddActivity extends Component {
           }
           this.props.linkParticipantstoActivity(linkObj)
         })
+        alert(`${activityObj.type} activity on ${activityObj.date} has been recorded`);
+        scoutParticipants.splice(0,scoutParticipants.length);
+        leaderParticipants.splice(0,leaderParticipants.length);
+        this.setState({
+          activity: '',
+          site: '',
+          lat: '',
+          lng: '',
+          date: '',
+          notes: '',
+          scoutsAttending: [],
+          leadersAttending: []
+        });
       })
   }
 

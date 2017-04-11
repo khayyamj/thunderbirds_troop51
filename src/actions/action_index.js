@@ -214,6 +214,7 @@ export function createActivity(props) {
 }
 
 export function linkParticipantstoActivity(props) {
+  console.log('linkParticipantstoActivity props: ', props);
   const actid = props.actid, profileid = props.profileid;
   const request = axios.post(`${ACTIVITIES_URL}${actid}/${profileid}`);
   return {
