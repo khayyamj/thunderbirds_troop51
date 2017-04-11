@@ -48,7 +48,7 @@ export class Login extends React.Component {
     console.log('componentWillUpdate...', nextProps);
     if (stopLoop >= 10) {return null}; // end loop, no updates;
     localStorage.getItem('id_token') ? token = true : token = false;
-    if (!token || nextProps.users.length === 0) {
+    if (!token || nextProps.users.length === 0 || !this.state.clientid) {
       console.log('ending cycle componentWillUpdate');
       return null
     } // no token means nothing to update;
@@ -102,6 +102,7 @@ export class Login extends React.Component {
     console.log('login--> loginStatus function');
     this.setState({ login: !login });
     localStorage.getItem('id_token') ? this.props.loggedIn() : this.props.loggedOut();
+    this.setState({ clientid: JSON.parse(localStorage.getItem('profile')).clientID })
   }
 
   addToLoginTable() {
