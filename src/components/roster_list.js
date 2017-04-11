@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon } from 'semantic-ui-react';
 
 export default function (props) {
-  // console.log('roster_list-->', props.roster);
+  console.log('roster_list-->', props.roster);
   const
     scouts = props.roster.map(scouter => {
       if (!scouter.adult) {

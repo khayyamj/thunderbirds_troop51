@@ -106,6 +106,7 @@ export default class AdminView extends Component {
     // console.log('Admin_view --> resetScout');
     this.setState({ scout: {} })
   }
+  
   reloadRoster() {
     console.log('Admin_view--> reloadingRoster function <--')
     return axios.get('http://localhost:3333/api/profiles')

@@ -49,6 +49,7 @@ class AddTransaction extends Component {
     }
     // console.log('Submit transaction obj: ', transactionObj);
     this.props.createTransaction(transactionObj);
+    alert('Transaction added for ' + this.state.firstname);
     this.setState({
       date: '',
       accounting: 'debit',
