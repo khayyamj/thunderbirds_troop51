@@ -79,7 +79,8 @@ module.exports = {
 
   registerUser: function(req, res, next) {
     const b = req.body;
-    db.create_login_registration([b.loginid, b.age, b.clientid, b.date, b.lastname, b.firstname, b.picture_sm, b.picture_lg], function(err, table) {
+    console.log('registerUser--> body: ', b);
+    db.create_login_registration([b.age, b.clientid, b.date, b.lastname, b.firstname, b.picture_sm, b.picture_lg, b.email, b.lastlogin], function(err, table) {
       if (err) {
         console.log('registerUser: ', err);
         return res.status(400).send(err);
@@ -91,7 +92,7 @@ module.exports = {
   updateUser: function(req, res, next) {
     const loginid = req.params.loginid,
           b = req.body;
-    db.update_login_registration([loginid, b.age, b.clientid, b.date, b.lastname, b.firstname, b.picture_sm, b.picture_lg], function(err, table) {
+    db.update_login_registration([loginid, b.age, b.clientid, b.date, b.lastname, b.firstname, b.picture_sm, b.picture_lg, b.email, b.lastLogin], function(err, table) {
       if (err) {
         console.log('registerUser: ', err);
         return res.status(400).send(err);
@@ -201,6 +202,17 @@ module.exports = {
          return res.status(200).json(table[0]);
       });
    },
+
+   activityParticipants: function(req, res, next) {
+     const actid = parseInt(req.params.actid);
+     db.get_activity_participants([actid], function(err, table) {
+       if (err) {
+         console.error('activityParticipants: ', err);
+         return res.status(400).json(err);
+       }
+       return res.status(200).json(table);
+     })
+   }
 
    createActivity: function (req, res, next) {
      const activity = req.body

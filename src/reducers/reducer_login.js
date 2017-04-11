@@ -8,7 +8,6 @@ export default function(state = INITIAL_STATE, action) {
       return {...state, login: true};
     case LOGGEDOUT:
       return {...state, login: false};
-
     default:
       return state;
   }

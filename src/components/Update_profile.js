@@ -82,18 +82,18 @@ class UpdateProfile extends Component {
     if (profileObj.id) {
       console.log('updating profile ', profileObj.id + " - ", profileObj.firstname, profileObj.lastname)
       this.props.updateProfile(profileObj)
-        .then(response => this.props.fetchRoster())
-
+        .then(response => this.props.fetchRoster());
+      alert(`Profile for ${profileObj.firstname} has been updated`);
     } else {
       console.log('adding profile ', profileObj.firstname, profileObj.lastname)
       this.props.createProfile(profileObj)
         .then(response => this.props.fetchRoster())
-
+      alert(`Profile for ${profileObj.firstname} has been created`);
     }
     this.setState({ profileid: null });
     this.resetForm();
     this.props.reset();
-    this.props.reloadRoster();
+    setTimeout(this.props.reloadRoster,1000);
     console.log('Update_profile--> Reloading Roster function called...')
   }
 

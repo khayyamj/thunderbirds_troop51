@@ -14,31 +14,31 @@ class Activities extends Component {
   constructor(props) {
     super(props);
     this.state = { Activity: 'all'};
-    console.log('activities--> constructor Activity filter: ', this.state.Activity)
+    // console.log('activities--> constructor Activity filter: ', this.state.Activity)
     this.selectActivity = this.selectActivity.bind(this);
   }
   componentWillMount() {
-    this.props.fetchAllAttendedActivities().then((response) => {
-      console.log('fetchAllAttendedActivities response: ', response.payload.data);
-    });
+    this.props.fetchAllAttendedActivities();
   }
 
   renderList(elem, currentActivity) {
     const youth = [], adults = [];
+    let everyone = this.props.activities.all || [];
     let scout = '', leader = '';
-
-    return filteredActivityList.map((activity) => {
+    // console.log('renderList function--> ', elem, currentActivity);
+    return everyone.map(activity => {
+      // console.log('renderlist function activity--> ', activity);
       if (activity.actid === currentActivity) {
         if (elem === 'youth' && !activity.adult) {
           scout = `${activity.firstname} ${activity.lastname}`;
           return (
-            <li key={activity.actid + activity.profileid + activity.firstname}>
+            <li key={activity.date + activity.actid + activity.profileid + activity.firstname}>
               {scout}
             </li>)
         } else if (elem === 'adults' && activity.adult){
           leader = `${activity.firstname} ${activity.lastname}`;
           return (
-            <li key={activity.actid + activity.profileid + activity.firstname}>
+            <li key={activity.date + activity.actid + activity.profileid + activity.firstname}>
               {leader}
             </li>)
         }
@@ -46,8 +46,7 @@ class Activities extends Component {
     })
   }
 
-  selectActivity(event) {
-    // console.log('activities--> selectActivity:', event.target.value);
+  selectActivity(event) {  // set activity filter
      this.setState({ Activity: event.target.value });
    }
 
@@ -56,10 +55,9 @@ class Activities extends Component {
       filter = this.state.Activity,
       oneTime = [],
       filteredActivityList = [];
-    // console.log('activites--> renderActivities filter: ', filter);
-    // console.log('activites--> renderActivities activities: ', this.props.activities);
     this.props.activities.all.map((activity, i) => {
-      // console.log('activites--> renderActivities oneTime.indexOf(activity.actid): ', oneTime.indexOf(activity.actid), activity.type)
+      // filter list of activites by type
+      if (filteredActivityList.find(act => act.actid === activity.actid )) { return filteredActivityList }
       if (oneTime.indexOf(activity.actid) > 0){ //check if an activity was only done once
         return filteredActivityList;
       }
@@ -72,7 +70,7 @@ class Activities extends Component {
       oneTime.push(activity);
       return filteredActivityList;
     })
-    // console.log('activities--> filteredActivityList: ', filteredActivityList);
+    // console.log('filteredActivityList: ', filteredActivityList);
     return filteredActivityList.map((activity) => {
      let { lat, lng } = activity;
       return (
@@ -115,7 +113,7 @@ class Activities extends Component {
   }
 
   render() {
-    // console.log('this.props.activities', this.props.activities)
+    // console.log('this.props.activities', this.props.activities.all)
     return(
       <div className="activity-list">
         <form

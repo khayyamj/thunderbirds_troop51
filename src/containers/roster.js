@@ -16,26 +16,40 @@ class Roster extends Component {
       return <div>Loading Roster...</div>;
     }
      return this.props.profiles.roster.map((profile) => {
-       console.log('profile', profile)
+       console.log('roster--> profile', profile)
         return (
-          <List divided>
-            <List.Item key={profile.profileid} className="profile-item">
-              <Link className='nav-btn' to={'/profile/' + profile.profileid}> view </Link>
-              Name: {profile.nickname}
+          <div key={profile.profileid} className="profile-individual">
+            <div className='profile-information'>
+            <h3> {profile.nickname ? profile.nickname : profile.firstname} </h3> <br />
+            <h4> Name: {profile.firstname} {profile.lastname}</h4><br />
+            <p className='profile-information-details'> Address: {profile.address}, {profile.city} {profile.state} </p>
+            <p className='profile-information-details'> Phone: {profile.homephone}, Cell: {profile.cellphone ? profile.cellphone : 'none'}</p>
+            <p className='profile-information-details'> Email: {profile.email}</p>
+            </div>
+            <div className='profile-image'>
+              <img src='./images/blank_profile.jpg'></img>
+            </div>
+            <hr />
+          </div>
 
-              City: {profile.city} <br />
-              Email: {profile.email} <hr />
-            </List.Item>
-          </List>
+          // <List divided>
+          //   <List.Item key={profile.profileid} className="profile-item">
+          //     <Link className='nav-btn' to={'/profile/' + profile.profileid}> view </Link>
+          //     Name: {profile.nickname}
+          //
+          //     City: {profile.city} <br />
+          //     Email: {profile.email} <hr />
+          //   </List.Item>
+          // </List>
          )
      })
   }
 
   render() {
      return(
-        <ul className="roster-list">
+        <div className="roster-list">
            {this.renderList()}
-        </ul>
+        </div>
      )
   }
 }

@@ -34,6 +34,7 @@ export const FETCH_ATTENDED_ACTIVITIES = 'FETCH__ATTENDED_ACTIVITIES';
 export const FETCH_ALL_PARTICIPANTS = 'FETCH_ALL_PARTICIPANTS';
 
 export function loggedIn() {
+  console.log('action_index--> loggedIn Function - true');
   return {
     type: LOGGEDIN,
     payload: true
@@ -47,7 +48,8 @@ export function loggedOut() {
   }
 }
 
-export function getUserProfiles(props) {
+export function getUserProfiles() {
+  console.log('action_index--> get user profiles...');
   const request = axios.get(LOGIN_URL);
   return {
     type: FETCH_USER_PROFILES,
@@ -56,7 +58,8 @@ export function getUserProfiles(props) {
 }
 
 export function createLoginProfile(props) {
-  const request = axios.post(LOGIN_URL);
+  console.log('createLoginProfile props: ', props);
+  const request = axios.post(LOGIN_URL, props);
   return {
     type: CREATE_LOGIN_PROFILE,
     payload: request
@@ -64,7 +67,8 @@ export function createLoginProfile(props) {
 }
 
 export function updateLoginProfile(props) {
-  const request = axios.put(LOGIN_URL+props.loginid);
+  console.log('updateLoginProfile props: ', props);
+  const request = axios.put(LOGIN_URL+props.loginid, props);
   return {
     type: UPDATE_LOGIN_PROFILE,
     payload: request
@@ -210,6 +214,7 @@ export function createActivity(props) {
 }
 
 export function linkParticipantstoActivity(props) {
+  console.log('linkParticipantstoActivity props: ', props);
   const actid = props.actid, profileid = props.profileid;
   const request = axios.post(`${ACTIVITIES_URL}${actid}/${profileid}`);
   return {

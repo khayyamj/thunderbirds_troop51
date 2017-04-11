@@ -7,6 +7,8 @@ SET
    firstname = COALESCE($6, firstname),
    picture_sm = COALESCE($7, picture_sm),
    picture_lg = COALESCE($8, picture_lg),
+   email = COALESCE($9, email),
+   lastlogin = COALESCE($10, lastlogin)
 
 WHERE loginid = $1
 RETURNING *;
