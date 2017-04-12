@@ -10,34 +10,44 @@ module.exports = {
     './src/index.js'
   ],
   output: {
-    path: 'dist',
-    publicPath: '/',
+    path: path.resolve(__dirname,'dist'),
+    // publicPath: '/',
     filename: 'bundle.js'
   },
   devtool: "source-map",
   module: {
     rules: [
+      // {
+      //   test: /\.js$/,
+      //   enforce: "pre",
+      //   loader: "jshint-loader"
+      // },
       {
         test: /\.js$/,
-        enforce: "pre",
-        loader: "jshint-loader"
-      },
-      {
         exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['react', 'es2015', 'stage-1']
-        }
+        use: 'babel-loader'
+        // ,
+        // query: {
+        //   presets: ['react', 'es2015', 'stage-1']
+        // }
      },
      {
        test: /\.css$/,
        exclude: /node_modules/,
-       loader: "style-loader!css-loader"
+       use: ExtractTextPlugin.extract({
+         fallback: "style-loader",
+         use: "css-loader",
+         publicPath: "/dist"
+       })
      },
      {
         test: /\.scss$/,
         exclude: /node_modules/,
-        loader: "style-loader!css-loader!sass-loader"
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: ["css-loader","sass-loader"],
+          publicPath: "/dist"
+        })
      },
    ]
   },
@@ -50,11 +60,11 @@ module.exports = {
         new HtmlWebpackPlugin({
           title: 'Troop 51 Thunderbirds',
           hash: true,
-          template: 'index.html', // Load a custom template
+          template: './index.html', // Load a custom template
         }),
-        new UglifyJSPlugin({
-          sourceMap: true
-        }),
+        // new UglifyJSPlugin({
+        //   sourceMap: true
+        // }),
         new ExtractTextPlugin({
           filename: "bundle.css",
           disable: false,
@@ -66,6 +76,11 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    contentBase: './'
+    // contentBase: './'
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    stats: "errors-only",
+    open: true,
+    port: 3000
   }
 };

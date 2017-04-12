@@ -38,7 +38,7 @@
     "style-loader": "^0.13.1",
     "uglifyjs-webpack-plugin": "^0.4.2",
     "webpack": "^2.2.0",
-    "webpack-dev-server": "^1.14.0"
+    "webpack-dev-server": "^2.2.0"
   },
   "dependencies": {
     "auth0-lock": "^10.11.0",
