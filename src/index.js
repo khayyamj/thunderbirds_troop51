@@ -9,6 +9,10 @@ import ReduxPromise from 'redux-promise';
 import App from './components/app';
 import reducers from './reducers';
 
+// require('./../style/style.css');
+// require('./../style/backup.css');
+// require('./../style/style.scss');
+
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
 ReactDOM.render(

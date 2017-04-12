@@ -212,7 +212,7 @@ module.exports = {
        }
        return res.status(200).json(table);
      })
-   }
+   },
 
    createActivity: function (req, res, next) {
      const activity = req.body

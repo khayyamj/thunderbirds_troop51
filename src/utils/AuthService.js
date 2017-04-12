@@ -45,7 +45,7 @@ export default class AuthService extends EventEmitter {
 
   // ======================================================== //
         this.setProfile(profile);
-        console.log('Login profile: ', profile);
+        // console.log('Login profile: ', profile);
 
       }
     })
