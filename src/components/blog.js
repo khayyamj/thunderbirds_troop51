@@ -40,7 +40,7 @@ class Posts extends Component {
         return (
           <List key={post.blogid}>
           <List.Content>
-              <List.Header> Title: <span style={{ fontSize: '1.5em', fontWeight:'bold'}}>{post.title}</span> <br /> </List.Header>
+              <List.Header><span style={{ fontSize: '1.5em', fontWeight:'bold'}} className="blog-post-title">{post.title}</span></List.Header>
               <List.Description> Date: {post.date_published}</List.Description>
               <List.Description> Tags: {this.getTags(post)} <br /> </List.Description>
               <List.Description> Post:  <div dangerouslySetInnerHTML={{__html:post.content}} /> </List.Description>
