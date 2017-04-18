@@ -2,6 +2,7 @@
 
 /* Global styling */
 
+/* Main Container styling */
 
 /* roster.js */
 .roster-list {
@@ -10,18 +11,25 @@
 .profile-individual {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  flex-flow: row;
+
 }
 .profile-information {
+  text-align: left;
+  flex-grow: 1;
   h3 {
-    text-align: left;
     font-size: 3rem;
   }
   h4 {
-    text-align: right;
     font-size: 2rem;
   }
   .profile-information-details {
 
   }
+}
+.profile-name {
+  color: #FF6F00;
+}
+.profile-image {
+  flex-grow: 1;
 }

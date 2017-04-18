@@ -20,18 +20,17 @@ class Roster extends Component {
         return (
           <div key={profile.profileid} className="profile-individual">
             <div className='profile-information'>
-            <h3> {profile.nickname ? profile.nickname : profile.firstname} </h3> <br />
-            <h4> Name: {profile.firstname} {profile.lastname}</h4><br />
-            <p className='profile-information-details'> Address: {profile.address}, {profile.city} {profile.state} </p>
-            <p className='profile-information-details'> Phone: {profile.homephone}, Cell: {profile.cellphone ? profile.cellphone : 'none'}</p>
-            <p className='profile-information-details'> Email: {profile.email}</p>
+              <h3> <span className="profile-name">{profile.nickname ? profile.nickname : profile.firstname} </span></h3> <br />
+              <h4> Name: {profile.firstname} {profile.lastname}</h4><br />
+              <p className='profile-information-details'> Address: {profile.address}, {profile.city} {profile.state} </p>
+              <p className='profile-information-details'> Phone: {profile.homephone}, Cell: {profile.cellphone ? profile.cellphone : 'none'}</p>
+              <p className='profile-information-details'> Email: {profile.email}</p>
             </div>
             <div className='profile-image'>
               <img src='./images/blank_profile.jpg'></img>
             </div>
-            <hr />
-          </div>
 
+          </div>
           // <List divided>
           //   <List.Item key={profile.profileid} className="profile-item">
           //     <Link className='nav-btn' to={'/profile/' + profile.profileid}> view </Link>

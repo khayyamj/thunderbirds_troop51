@@ -1,5 +1,5 @@
-import React from 'react';
-import { PropTypes as T } from 'prop-types';
+import React, { PropTypes as T } from 'react';
+// import { PropTypes as T } from 'prop-types';
 import {ButtonToolbar } from 'react-bootstrap';
 import { Button, Icon, Header } from 'semantic-ui-react';
 import { connect } from 'react-redux';

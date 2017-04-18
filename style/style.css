@@ -1,6 +1,14 @@
 /*
 font-family: 'Roboto', sans-serif;
 */
+div.ui.container.main {
+  background-color: #FF6F00;
+  width: 100vw;
+  background-image: url('./../images/Tent-Night-Sky.jpg');
+  background-position: left;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 
 .display {
   display: inline-block;
@@ -12,11 +20,6 @@ body {
   background: black;
 }
 .ui .container {
-
-  background-image: url('./../images/Tent-Night-Sky.jpg');
-  background-position: left;
-  background-size: cover;
-  background-repeat: no-repeat;
   padding-top: 100px;
   padding-left: 15px;
 }
