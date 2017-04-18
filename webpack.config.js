@@ -5,6 +5,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
+var isProd = process.env.NODE_ENV === "production"; // true or false
+var cssDev = ['style-loader','css-loader','sass-loader'];
+var cssProd = ExtractTextPlugin.extract({
+      fallback: "style-loader",
+      use: ["css-loader", "sass-loader"],
+      publicPath: "/dist"
+    });
+var cssConfig = isProd ? cssProd : cssDev;
+
 module.exports = {
   entry: [
     './src/index.js'
@@ -23,31 +32,19 @@ module.exports = {
       //   loader: "jshint-loader"
       // },
       {
-        test: /\.js$/,
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        use: 'file-loader?images/name=[name].[ext]&outputPath=images/'
+      },
+      { test: /\.js$/,
         exclude: /node_modules/,
-        use: 'babel-loader'
-        // ,
-        // query: {
-        //   presets: ['react', 'es2015', 'stage-1']
-        // }
+        loader: "babel-loader",
+        query: {
+          presets: ['es2015','react','stage-2']
+        }
      },
      {
-       test: /\.css$/,
-       exclude: /node_modules/,
-       use: ExtractTextPlugin.extract({
-         fallback: "style-loader",
-         use: "css-loader",
-         publicPath: "/dist"
-       })
-     },
-     {
-        test: /\.scss$/,
-        exclude: /node_modules/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: ["css-loader","sass-loader"],
-          publicPath: "/dist"
-        })
+       test: /\.(scss|css)$/i,
+       use: cssConfig
      },
    ]
   },
@@ -67,18 +64,21 @@ module.exports = {
         // }),
         new ExtractTextPlugin({
           filename: "bundle.css",
-          disable: false,
-          allChunks: true
-        })
+          disable: !isProd,
+          // allChunks: true // not included in other file
+        }),
+        // new webpack.HotModuleReplacementPlugin(),
+        // new webpack.NamedModulesPlugin()
    ],
   resolve: {
     extensions: ['.js', '.jsx']
   },
   devServer: {
-    historyApiFallback: true,
+    historyApiFallback: true, // not included in other file
     // contentBase: './'
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
+    // hot: true,
     stats: "errors-only",
     open: true,
     port: 3000

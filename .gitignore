@@ -6,3 +6,4 @@ bundle.js
 .jshintrc
 webpack-production.config.js
 dist
+backup-package.json

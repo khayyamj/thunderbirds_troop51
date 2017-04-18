@@ -1,5 +1,6 @@
-import React, { PropTypes as T } from 'react'
-import {ButtonToolbar } from 'react-bootstrap'
+import React from 'react';
+import { PropTypes as T } from 'prop-types';
+import {ButtonToolbar } from 'react-bootstrap';
 import { Button, Icon, Header } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { loggedIn, loggedOut, getUserProfiles, createLoginProfile, updateLoginProfile } from './../actions/action_index';

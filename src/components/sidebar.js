@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GoogleMap from './google_map';
-export default class SideBar extends Component {
 
+export default class SideBar extends Component {
   render() {
    const url = 'http://www.pngall.com/wp-content/uploads/2016/10/Calendar-PNG-HD.png',
          lat = 40.2203,

@@ -1,13 +1,13 @@
 /* @flow */
-import React, {Component} from 'react';
-import RichTextEditor, {createEmptyValue} from 'react-rte';
-import {convertToRaw} from 'draft-js';
+import React, { Component } from 'react';
+import RichTextEditor, { createEmptyValue } from 'react-rte';
+import { convertToRaw } from 'draft-js';
 import autobind from 'class-autobind';
-import type {EditorValue} from './RichTextEditor';
+import type { EditorValue } from './RichTextEditor';
 import { createPost, fetchTags, createTags, mergeBlogTags } from './../actions/action_index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { IntlMixin, FormattedDate } from 'React-intl';
+import { IntlMixin, FormattedDate } from 'react-intl';
 import { Button } from 'semantic-ui-react';
 import { browserHistory } from 'react-router';
 
