@@ -73,7 +73,7 @@ export class Login extends React.Component {
             console.log("New profile to add to login table...")
             this.addToLoginTable()
             .then((response) => {
-              console.log("addToLoginTable ", response)
+              console.log("addToLoginTable ", response);
             })
           }
           else {console.log("don't need to add to login table");}
