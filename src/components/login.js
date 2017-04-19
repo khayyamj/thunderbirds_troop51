@@ -69,20 +69,20 @@ export class Login extends React.Component {
           this.setState({ profIndex: temp.loginid})
           userProfileLoaded === false && temp && temp.loginid ? this.updateLoginTable(temp.loginid) : console.log('Profile not updated--> userProfileLoaded: ', userProfileLoaded, 'temp ', temp);
           if(userProfileLoaded === false && temp) {
-            console.log("New profile to add to login table...")
+            // console.log("New profile to add to login table...")
             this.addToLoginTable()
             .then((response) => {
-              console.log("addToLoginTable ", response);
+              // console.log("addToLoginTable ", response);
             })
           }
-          else {console.log("don't need to add to login table");}
+          // else {console.log("don't need to add to login table");}
     }, 1000);
   }
 
   checkProfile() {
     // console.log('<-- checkProfile function -->', stopLoop);
     // stopLoop++;
-    console.log('checkProfile--> active user: ', this.props.user);
+    // console.log('checkProfile--> active user: ', this.props.user);
     // if there is no active user on state, state should be logged out
     if (this.state.login === true) {
       if (this.props.user.length === 0) {
@@ -99,7 +99,7 @@ export class Login extends React.Component {
     // if there is a user then state should be logged in
     } else {
       this.props.loggedIn()
-      console.log('loggedIn function called: checkProfile')
+      // console.log('loggedIn function called: checkProfile')
       if (this.state.clientid === profile.clientID) { return null } // state already updated, end function
         else { this.setState({ clientid:profile.clientID }) }
     }
@@ -151,7 +151,7 @@ export class Login extends React.Component {
   }
 
   loginStatus() {
-    console.log('*** loginStatus function called ***');
+    // console.log('*** loginStatus function called ***');
     this.setState({ login: !login });
     // console.log('<-- loginStatus token-->', JSON.parse(localStorage.getItem('profile')))
     // JSON.parse(localStorage.getItem('profile')) != null ? this.props.loggedIn() : this.props.loggedOut();
@@ -178,12 +178,12 @@ export class Login extends React.Component {
       email: localProfile.email || null,
       lastLogin: localProfile.updated_at
     };
-    console.log('addToLoginTable--> loginProfileObj: ', loginProfileObj);
+    // console.log('addToLoginTable--> loginProfileObj: ', loginProfileObj);
     this.props.createLoginProfile(loginProfileObj)
     .then((response) => {
       // console.log('Profile added: ', response.payload.data[0]);
       loginProfileObj.clientid = response.payload.data[0].clientid;
-      console.log('*** submitting to profile table: ', loginProfileObj);
+      // console.log('*** submitting to profile table: ', loginProfileObj);
       this.props.createProfile(loginProfileObj)
       .then((response) => this.props.fetchRoster());
     })
@@ -211,16 +211,16 @@ export class Login extends React.Component {
     this.props.updateLoginProfile(loginProfileObj)
     .then((response) => {
       let data = response.payload.data[0];
-      console.log('Profile updated: ', data);
+      // console.log('Profile updated: ', data);
       loginProfileObj.clientid = data.clientid;
-      console.log('Client id: ', loginProfileObj.clientid);
+      // console.log('Client id: ', loginProfileObj.clientid);
       let activeProfile = this.props.roster.find((profile) => {
-        console.log('roster profile email: ', profile.email, ' active email: ', data.email);
+        // console.log('roster profile email: ', profile.email, ' active email: ', data.email);
         return profile.email === data.email;
       });
-      console.log('Active Profile: ', activeProfile);
+      // console.log('Active Profile: ', activeProfile);
       loginProfileObj.id = activeProfile.profileid;
-      console.log('*** submitting to profile table: ', loginProfileObj);
+      // console.log('*** submitting to profile table: ', loginProfileObj);
       this.props.updateProfile(loginProfileObj);
     });
 

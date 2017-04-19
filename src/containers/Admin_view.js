@@ -106,12 +106,12 @@ export default class AdminView extends Component {
     // console.log('Admin_view --> resetScout');
     this.setState({ scout: {} })
   }
-  
+
   reloadRoster() {
-    console.log('Admin_view--> reloadingRoster function <--')
+    // console.log('Admin_view--> reloadingRoster function <--')
     return axios.get('http://localhost:3333/api/profiles')
       .then(profiles => {
-        console.log('Admin_view: Reloading roster-->', profiles.data);
+        // console.log('Admin_view: Reloading roster-->', profiles.data);
         this.setState( { roster: profiles.data} );
     })
   }
