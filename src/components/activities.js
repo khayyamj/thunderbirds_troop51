@@ -75,15 +75,15 @@ class Activities extends Component {
      let { lat, lng } = activity;
       return (
         <Grid key={activity.actid}>
-          <Grid.Row>
+          <Grid.Row className="activity-type-row">
             <Grid.Column>
-              <h1>{activity.type}</h1>
+              <h1>{activity.type.charAt(0).toUpperCase()+activity.type.slice(1)}</h1>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row columns={4}>
             <Grid.Column>
               Date: {activity.date} <br />
-              Campsite: {activity.site} <br />
+              Campsite: <span className="activity-site-name">{activity.site}</span> <br />
               Notes: {activity.notes} <br />
             </Grid.Column>
             <Grid.Column>

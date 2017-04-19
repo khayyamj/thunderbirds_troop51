@@ -67,7 +67,7 @@ class ContactUs extends Component {
             </Grid.Column>
             <Grid.Column>
               <p> Troop Meets: </p>
-              <p> Thursdays, 7:00 - 8:00 p.m. <br/>
+              <p> Thursdays, 7:00 - 8:30 p.m. <br/>
                 Provo Elk's Lodge <br />
                 1000 S. University Ave. <br />
                 Provo, UT 84601</p>

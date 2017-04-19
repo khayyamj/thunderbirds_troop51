@@ -1,5 +1,6 @@
-import React, { PropTypes as T } from 'react'
-import {ButtonToolbar } from 'react-bootstrap'
+import React, { PropTypes as T } from 'react';
+// import { PropTypes as T } from 'prop-types';
+import {ButtonToolbar } from 'react-bootstrap';
 import { Button, Icon, Header } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { loggedIn, loggedOut, getUserProfiles, createLoginProfile, updateLoginProfile } from './../actions/action_index';
@@ -10,7 +11,8 @@ import config from './../../config';
 
 let login = false,
     token = false,
-    stopLoop = 0,
+    // stopLoop = 0,
+    profile = {},
     userProfileLoaded = false;
 
 
@@ -24,21 +26,22 @@ export class Login extends React.Component {
       clientid: null
     };
     JSON.parse(localStorage.getItem('profile')) != null ? token = true : token = false;
+    console.log('constructor token: ', JSON.parse(localStorage.getItem('profile')))
 
   }
   componentWillMount() {
     this.props.getUserProfiles()
       .then(response => {
-        console.log('componentWillMount data: ',response.payload.data);
-        console.log( 'componentWillMount--> profile token: ', JSON.parse(localStorage.getItem('profile')) );
-        JSON.parse(localStorage.getItem('profile')) != null ? token = true : token = false;
+        // console.log('componentWillMount data: ',response.payload.data);
+        // console.log( 'componentWillMount--> profile token: ', JSON.parse(localStorage.getItem('profile')) );
+        JSON.parse(localStorage.getItem('profile')) != null ? profile = JSON.parse(localStorage.getItem('profile')) : profile = {};
         // token ? this.addToLoginTable() : '@componentWillMount--> do nothing';
       });
-    console.log('componentWillMount token: ', token);
-    if (token) {
+    console.log('componentWillMount token: ', profile);
+    if (profile != {}) {
       this.props.loggedIn()
-      console.log('componentWillMount client data: ', JSON.parse(localStorage.getItem('profile')))
-      this.setState({ clientid: JSON.parse(localStorage.getItem('profile')).clientID })
+      console.log('componentWillMount client data: ', profile)
+      this.setState({ clientid:profile.clientID })
     } else {
       this.props.loggedOut();
     }
@@ -46,15 +49,15 @@ export class Login extends React.Component {
 
   componentWillUpdate(nextProps = []) {
     setTimeout(() => {
-      console.log('componentWillUpdate...', nextProps);
+      // console.log('componentWillUpdate...', nextProps);
       // if (stopLoop >= 10) {return null}; // end loop, no updates;
-      console.log('componentWillUpdate-->', !token, nextProps.users.length === 0, !this.state.clientid)
-      JSON.parse(localStorage.getItem('profile')) != null ? token = true : token = false;
-      if (!token || nextProps.users.length === 0 || !this.state.clientid) {
+      // console.log('componentWillUpdate-->', !token, nextProps.users.length === 0, !this.state.clientid)
+      JSON.parse(localStorage.getItem('profile')) != null ? profile = JSON.parse(localStorage.getItem('profile')) : profile = {};
+      if (!profile || nextProps.users.length === 0 || !this.state.clientid) {
         console.log('<- ending cycle componentWillUpdate ->');
         return null
       } // no token means nothing to update;
-        stopLoop++;
+        // stopLoop++;
         console.log('nextProps.users: ', nextProps.users, 'clientid: ', this.state.clientid);
         let temp = nextProps.users.find(user => user.clientid == this.state.clientid);
         console.log('temp index: ', temp, this.state.profIndex, temp.loginid);
@@ -62,8 +65,8 @@ export class Login extends React.Component {
           this.setState({ profIndex: temp.loginid})
           userProfileLoaded === false && temp ? this.updateLoginTable(temp.loginid) : console.log('userProfileLoaded: ', userProfileLoaded, 'temp ', temp);
           userProfileLoaded === false ? this.addToLoginTable() : console.log("don't add to login table");
-          console.log(stopLoop,' - componentWillUpdate interation');
-    }, 1000);
+          // console.log(stopLoop,' - componentWillUpdate interation');
+    }, 500);
   }
 
   logout() {
@@ -75,6 +78,7 @@ export class Login extends React.Component {
 
   render() {
     const { auth } = this.props;
+    console.log('render--> token: ', token, ' login: ', this.state.login);
     token === this.state.login ? console.log('token match: ', token) : this.loginStatus();
     console.log('(render) login: ', this.props.login.login);
     return (
@@ -105,6 +109,7 @@ export class Login extends React.Component {
   loginStatus() {
     console.log('login--> loginStatus function');
     this.setState({ login: !login });
+    console.log('<-- loginStatus token-->', JSON.parse(localStorage.getItem('profile')))
     JSON.parse(localStorage.getItem('profile')) != null ? this.props.loggedIn() : this.props.loggedOut();
     this.setState({ clientid: JSON.parse(localStorage.getItem('profile')).clientID })
   }

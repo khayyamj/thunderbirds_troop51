@@ -1,4 +1,5 @@
 import React, { Component, PropTypes as T } from 'react';
+// import { PropTypes as T } from 'prop-types';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -7,7 +8,7 @@ import { Button, Icon } from 'semantic-ui-react';
 
 export class NavBar extends Component {
   static propTypes = {
-    location: T.object,
+    // location: T.object,
     auth: T.instanceOf(AuthService),
     profile: T.object
   }

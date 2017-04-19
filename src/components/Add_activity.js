@@ -1,4 +1,4 @@
-import React, { Component } from 'React';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Button, Radio } from 'semantic-ui-react';
 import { bindActionCreators } from 'redux';

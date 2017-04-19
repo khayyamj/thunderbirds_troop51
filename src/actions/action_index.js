@@ -34,7 +34,7 @@ export const FETCH_ATTENDED_ACTIVITIES = 'FETCH__ATTENDED_ACTIVITIES';
 export const FETCH_ALL_PARTICIPANTS = 'FETCH_ALL_PARTICIPANTS';
 
 export function loggedIn() {
-  console.log('action_index--> loggedIn Function - true');
+  console.log('action_index--> loggedIn Function - set to true');
   return {
     type: LOGGEDIN,
     payload: true
@@ -49,7 +49,6 @@ export function loggedOut() {
 }
 
 export function getUserProfiles() {
-  console.log('action_index--> get user profiles...');
   const request = axios.get(LOGIN_URL);
   return {
     type: FETCH_USER_PROFILES,
@@ -118,6 +117,7 @@ export function deleteProfile(props) {
 
 export function submitMessage() {
    console.log('submitMessage function called');
+   alert('Message not sent')
    const request = null;
    return {
       type: 'NONE',
@@ -214,7 +214,6 @@ export function createActivity(props) {
 }
 
 export function linkParticipantstoActivity(props) {
-  console.log('linkParticipantstoActivity props: ', props);
   const actid = props.actid, profileid = props.profileid;
   const request = axios.post(`${ACTIVITIES_URL}${actid}/${profileid}`);
   return {

@@ -1,27 +1,102 @@
 /* Style Sheet for Troop 51 website */
 
 /* Global styling */
+html, body {
+  margin: 0;
+  padding: 0;
+}
 
+/* Main Container styling */
 
-/* roster.js */
+/* roster.js styling */
 .roster-list {
   width: 100%;
 }
 .profile-individual {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  flex-flow: row;
+
 }
 .profile-information {
+  text-align: left;
+  flex-grow: 1;
   h3 {
-    text-align: left;
     font-size: 3rem;
   }
   h4 {
-    text-align: right;
     font-size: 2rem;
   }
   .profile-information-details {
 
   }
 }
+.profile-name {
+  color: #FF6F00;
+}
+.profile-image {
+  flex-grow: 1;
+}
+/* end roster.js styling */
+
+/* blog.js styling */
+
+.blog-post-title {
+  color: #FF6F00;
+  text-align: center;
+}
+
+/* end blog.js styling */
+
+/* activities.js styling */
+
+.activity-type-row {
+  text-align: center;
+  color: #FF6F00;
+}
+.activity-site-name {
+  font-weight: bold;
+}
+#select-activity {
+  cursor: pointer;
+}
+/* end activities.js styling */
+
+
+/* calender.js styling*/
+.calendar-display {
+  border: 0;
+  width: 100%;
+  height: 75%;
+  min-width: 600px;
+  min-height: 400px;
+  frameborder: 0;
+  scrolling: "no";
+}
+
+@media screen and (max-width: 991px) and (min-width: 768) {
+  div.ui.container.main {
+    padding-top: 25px;
+  }
+  div.ui.container {
+    padding-top:  25px;
+    width: 90vw !important;
+  }
+  .calendar-display {
+    width: 90%;
+
+  }
+}
+@media screen and (max-width: 767px) {
+  div.ui.container.main {
+    padding-top: 5px;
+  }
+  div.ui.container {
+    padding: 5px;
+    width: 100vw !important;
+  }
+  .calendar-display {
+    width: 100%;
+  }
+}
+/* end calender.js styling*/

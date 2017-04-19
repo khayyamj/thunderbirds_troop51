@@ -1,11 +1,10 @@
 {
   "name": "thunderbirds_troop51",
   "version": "1.0.0",
-  "description": "Website designed for Utah Troop 51 Thunderbirds",
+  "description": "Simple starter package for Redux with React and Babel support",
   "main": "./server/server.js",
-  "repository": "https://github.com/khayyamj/thunderbirds_troop51",
+  "repository": "git@github.com:StephenGrider/ReduxSimpleStarter.git",
   "scripts": {
-    "build": "webpack",
     "start": "concurrently \"nodemon server/server.js\" \"node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors\"",
     "test": "mocha --compilers js:babel-core/register --require ./test/test.js --recursive ./test",
     "test:watch": "npm run test -- --watch"
@@ -23,17 +22,14 @@
     "chai-http": "^3.0.0",
     "chai-jquery": "^2.0.0",
     "css-loader": "^0.26.1",
-    "extract-text-webpack-plugin": "^2.1.0",
     "jquery": "^2.2.1",
     "jsdom": "^8.1.0",
-    "jshint": "^2.9.4",
-    "jshint-loader": "^0.8.4",
     "jsx-loader": "^0.13.2",
     "mocha": "^2.4.5",
+    "node-sass": "^4.5.2",
     "react-addons-test-utils": "^0.14.7",
     "sass-loader": "^6.0.2",
     "semantic-ui": "^2.2.9",
-    "strip-loader": "^0.1.2",
     "style-loader": "^0.13.1",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"

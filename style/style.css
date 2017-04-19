@@ -1,6 +1,14 @@
 /*
 font-family: 'Roboto', sans-serif;
 */
+div.ui.container.main {
+  background-color: #FF6F00;
+  width: 100vw;
+  background-image: url('./../images/Tent-Night-Sky.jpg');
+  background-position: left;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 
 .display {
   display: inline-block;
@@ -8,20 +16,15 @@ font-family: 'Roboto', sans-serif;
 .noDisplay {
   display: none;
 }
-body {
-  background: black;
-}
-.ui .container {
-
-  background-image: url('./../images/Tent-Night-Sky.jpg');
-  background-position: left;
-  background-size: cover;
-  background-repeat: no-repeat;
-  padding-top: 100px;
+.ui.container {
+  padding-top: 50px;
   padding-left: 15px;
 }
 .ui.basic.segment {
-  height: 600px;
+  min-width: 600px;
+  min-height: 600px;
+  width: 100%;
+  height: 100vh;
   overflow-x: scroll;
 }
 ui.header {

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes as T } from 'react';
+// import {PropTypes as T } from 'prop-types';
 import { Jumbotron } from 'react-bootstrap';
 import { Sidebar, Segment, Button, Menu, Image, Icon, Header, Container } from 'semantic-ui-react'
 
