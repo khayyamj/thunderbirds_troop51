@@ -42,6 +42,7 @@ export function loggedIn() {
 }
 
 export function loggedOut() {
+  console.log('action_index--> loggedOut Function - set to false')
   return {
     type: LOGGEDOUT,
     payload: false

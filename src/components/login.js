@@ -26,7 +26,7 @@ export class Login extends React.Component {
       clientid: null
     };
     JSON.parse(localStorage.getItem('profile')) != null ? token = true : token = false;
-    console.log('constructor token: ', JSON.parse(localStorage.getItem('profile')))
+    console.log('constructor profile token: ', JSON.parse(localStorage.getItem('profile')))
 
   }
   componentWillMount() {
@@ -34,17 +34,22 @@ export class Login extends React.Component {
       .then(response => {
         // console.log('componentWillMount data: ',response.payload.data);
         // console.log( 'componentWillMount--> profile token: ', JSON.parse(localStorage.getItem('profile')) );
-        JSON.parse(localStorage.getItem('profile')) != null ? profile = JSON.parse(localStorage.getItem('profile')) : profile = {};
+        JSON.parse(localStorage.getItem('profile')) != null ? profile = JSON.parse(localStorage.getItem('profile'))  : profile = {};
         // token ? this.addToLoginTable() : '@componentWillMount--> do nothing';
-      });
-    console.log('componentWillMount token: ', profile);
-    if (profile != {}) {
-      this.props.loggedIn()
-      console.log('componentWillMount client data: ', profile)
-      this.setState({ clientid:profile.clientID })
-    } else {
-      this.props.loggedOut();
-    }
+      })
+      .then(response => {
+        setTimeout(() => {
+          console.log('componentWillMount Timeout function...profile token: ', profile, Object.keys(profile).length);
+          if (Object.keys(profile).length === 0) {
+            this.props.loggedOut();
+          } else {
+            this.props.loggedIn()
+            console.log('componentWillMount client data: ', profile)
+            this.setState({ clientid:profile.clientID })
+          }
+          return ('chicken');
+        },2000)
+      })
   }
 
   componentWillUpdate(nextProps = []) {
@@ -58,7 +63,7 @@ export class Login extends React.Component {
         return null
       } // no token means nothing to update;
         // stopLoop++;
-        console.log('nextProps.users: ', nextProps.users, 'clientid: ', this.state.clientid);
+        // console.log('nextProps.users: ', nextProps.users, 'clientid: ', this.state.clientid);
         let temp = nextProps.users.find(user => user.clientid == this.state.clientid);
         console.log('temp index: ', temp, this.state.profIndex, temp.loginid);
         if (this.state.profIndex === temp.loginid) {return null} // already updated - don't update state again;
@@ -66,7 +71,7 @@ export class Login extends React.Component {
           userProfileLoaded === false && temp ? this.updateLoginTable(temp.loginid) : console.log('userProfileLoaded: ', userProfileLoaded, 'temp ', temp);
           userProfileLoaded === false ? this.addToLoginTable() : console.log("don't add to login table");
           // console.log(stopLoop,' - componentWillUpdate interation');
-    }, 500);
+    }, 1000);
   }
 
   logout() {
