@@ -18,5 +18,6 @@ CREATE TABLE IF NOT EXISTS Profiles (
    orangeneckerchief       BOOLEAN,
    thunderbirdneckerchief  BOOLEAN,
    active         BOOLEAN,
-   adult          BOOLEAN
+   adult          BOOLEAN,
+   clientid       VARCHAR(50)
 )

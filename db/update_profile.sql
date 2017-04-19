@@ -18,7 +18,8 @@ SET
    orangeneckerchief = COALESCE($17, orangeneckerchief),
    thunderbirdneckerchief = COALESCE($18, thunderbirdneckerchief),
    active = COALESCE($19, active),
-   adult = COALESCE($20, adult)
+   adult = COALESCE($20, adult),
+   clientid = COALESCE($21, clientid)
 
 WHERE profileid = $1
 RETURNING *;
