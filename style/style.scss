@@ -14,6 +14,7 @@ html, body {
 }
 .profile-individual {
   width: 100%;
+  height: 300px;
   display: flex;
   flex-flow: row;
 
@@ -36,6 +37,10 @@ html, body {
 }
 .profile-image {
   flex-grow: 1;
+  img {
+    height: 250px;
+    border-radius: 50px;
+  }
 }
 /* end roster.js styling */
 

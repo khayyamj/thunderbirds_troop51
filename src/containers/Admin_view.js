@@ -11,7 +11,7 @@ import UpdateProfile from './../components/Update_profile';
 import AddActivity from './../components/Add_activity';
 import AdminNav from './../components/admin_nav';
 
-let toggle = false, scout={};
+let toggle = false, scout={}, permission=null;
 
 export default class AdminView extends Component {
   constructor(props) {
@@ -32,7 +32,20 @@ export default class AdminView extends Component {
   }
 
   render() {
+
+    // -------------------------------------------------
     // console.log('Admin_view-->', this.state.roster);
+
+    // check permissions...
+    // if permissions are not admin display explanation
+    // user not admin and give menu link options
+    // if permissions are 'admin' proceed
+    // -------------------------------------------------
+    console.log('Admin --> permissions:', permission);
+    if (permission != 'admin') {
+      return (<div>Please contact the system Admin for assistance</div>)
+    }
+
     return (
       <div>
         <AdminNav toggle={this.toggleView}/>
@@ -72,8 +85,12 @@ export default class AdminView extends Component {
   componentDidMount() {
     return axios.get('http://localhost:3333/api/profiles')
       .then(profiles => {
-        // console.log('Admin_view: ', profiles.data);
         this.setState( { roster: profiles.data} );
+        let clientID = JSON.parse(localStorage.getItem('profile')).clientID;
+        let user = profiles.data.find(scouter => {
+          return scouter.clientid === clientID
+        })
+        permission = user.permissions;
     })
   }
 

@@ -4,37 +4,43 @@ export default function() {
             link: 'Posts',
             address: '/posts',
             icon: 'browser',
-            permission: 0
+            permission: "member"
          },
          {
             link: 'Activities',
             address: '/activities',
             icon: 'map outline',
-            permission: 1
+            permission: null
          },
          {
             link: 'Calendar',
             address: '/calendar',
             icon: 'calendar',
-            permission: 0
+            permission: null
          },
          {
             link: 'Roster',
             address: '/roster',
             icon: 'group',
-            permission: 1
+            permission: "member"
          },
          {
             link: 'About',
             address: '/about',
             icon: 'book',
-            permission: 0
+            permission: null
          },
          {
             link: 'Contact',
             address: '/contact',
             icon: 'comment',
-            permission: 0
+            permission: null
+         },
+         {
+            link: 'Admin',
+            address: '/admin2',
+            icon: 'key',
+            permission: "admin"
          }
       ]
 }

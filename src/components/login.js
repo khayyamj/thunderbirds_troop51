@@ -48,13 +48,19 @@ export class Login extends React.Component {
           return null;
         },2000)
       })
+
+    // -------------------------------------------------
+    // check if user logged in from another page
+    // if user logged in from another page, send them
+    // back to that page automatically
+    // -------------------------------------------------
   }
 
   componentWillUpdate(nextProps = []) {
     stopLoop++;
     // console.log('<- componentWillUpdate function -> ', stopLoop);
     setTimeout(() => { // delay action to allow system to update
-      // console.log('nextProps: ', nextProps);
+      console.log('nextProps: ', nextProps);
       // console.log('clientId: ', this.state.clientid);
       // console.log('componentWillUpdate setTimeout function ', Object.keys(profile).length === 0, nextProps.users.length === 0, !this.state.clientid);
       this.checkProfile();
@@ -174,6 +180,7 @@ export class Login extends React.Component {
       lastname: localProfile.family_name,
       firstname: localProfile.given_name,
       picture_sm: localProfile.picture,
+      imageurl: localProfile.picture,
       picture_lg: localProfile.picture_large,
       email: localProfile.email || null,
       lastLogin: localProfile.updated_at
@@ -203,6 +210,7 @@ export class Login extends React.Component {
       lastname: localProfile.family_name,
       firstname: localProfile.given_name,
       picture_sm: localProfile.picture,
+      imageurl: localProfile.picture,
       picture_lg: localProfile.picture_large,
       email: localProfile.email || null,
       lastLogin: localProfile.updated_at

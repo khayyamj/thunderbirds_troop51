@@ -4,7 +4,7 @@ import RichTextEditor, { createEmptyValue } from 'react-rte';
 import { convertToRaw } from 'draft-js';
 import autobind from 'class-autobind';
 import type { EditorValue } from './RichTextEditor';
-import { createPost, fetchTags, createTags, mergeBlogTags } from './../actions/action_index';
+import { createPost, fetchTags, createTags, mergeBlogTags, fetchRoster, loggedOut } from './../actions/action_index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { IntlMixin, FormattedDate } from 'react-intl';
@@ -46,6 +46,7 @@ class BlogEditor extends Component {
   }
 
   componentWillMount() {
+    this.props.fetchRoster();
     this.props.fetchTags();
     let today = new Date();
     let dd = today.getDate();
@@ -77,6 +78,33 @@ class BlogEditor extends Component {
   }
 
   render() {
+    console.log("check user permissions --> ", this.props.user[0], this.props.roster);
+    if (this.props.user.length === 0 || this.props.roster.length === 0) {
+      setTimeout(() => {
+        if (this.props.user.length === 0 || this.props.roster.length === 0) {
+          localStorage.removeItem('id_token');
+          localStorage.removeItem('profile');
+          this.props.loggedOut();
+          browserHistory.push('/posts');
+        }
+      },3500)
+      return (<div> Loading... </div>)
+    }
+    let currentUser = this.props.roster.find((profile) => {
+      console.log(profile.clientid, this.props.user[0].clientid)
+      return profile.clientid === this.props.user[0].clientid
+    })
+    console.log('current user: ', currentUser, " permissions: ", currentUser.permissions);
+    console.log(currentUser.permissions != "admin" ||
+    currentUser.permissions != "member");
+    if (currentUser.permissions != "member") {
+      if (currentUser.permissions != "admin"){
+        setTimeout(() => {
+          browserHistory.push('/posts');
+        },2500)
+        return (<div> You must be a member of Troop 51 to post </div>)
+      }
+    }
     let {value, format} = this.state;
     const { handleSubmit } = this.props;
     const blog = {
@@ -276,10 +304,12 @@ class BlogEditor extends Component {
 
 function mapStateToProps (state) {
   return {
-    tags: state.posts.tags
+    tags: state.posts.tags,
+    roster: state.profiles.roster,
+    user: state.profiles.user
   }
 }
 const mapDispatchToProps = function (dispatch) {
-  return bindActionCreators({ createPost, fetchTags, createTags, mergeBlogTags }, dispatch);
+  return bindActionCreators({ createPost, fetchTags, createTags, mergeBlogTags, fetchRoster, loggedOut }, dispatch);
 };
 export default connect(mapStateToProps, mapDispatchToProps)(BlogEditor);

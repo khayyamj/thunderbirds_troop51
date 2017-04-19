@@ -126,7 +126,7 @@ module.exports = {
 
    createProfile: function(req, res, next) {
       const body = req.body;
-      db.create_profile([body.firstname, body.lastname, body.nickname, body.email, body.address, body.city, body.state, body.zip, body.cellphone, body.homephone, body.birthday, body.imageUrl, body.position, body.permissions, body.handbook, body.orangeneckerchief, body.thunderbirdneckerchief, body.active, body.adult, body.clientid], function(err,table) {
+      db.create_profile([body.firstname, body.lastname, body.nickname, body.email, body.address, body.city, body.state, body.zip, body.cellphone, body.homephone, body.birthday, body.imageurl, body.position, body.permissions, body.handbook, body.orangeneckerchief, body.thunderbirdneckerchief, body.active, body.adult, body.clientid], function(err,table) {
          if (err) {
             console.error('create: ', err);
             return res.status(400).send(err);
@@ -140,7 +140,7 @@ module.exports = {
       const id = parseInt(req.params.id);
       const body = req.body;
       console.log('mainCtrl updateProfile: ', body);
-      db.update_profile([id, body.firstname, body.lastname, body.nickname, body.email, body.address, body.city, body.state, body.zip, body.cellphone, body.homephone, body.birthday, body.imageUrl, body.position, body.permissions, body.handbook, body.orangeneckerchief, body.thunderbirdneckerchief, body.active, body.adult, body.clientid], function(err,table) {
+      db.update_profile([id, body.firstname, body.lastname, body.nickname, body.email, body.address, body.city, body.state, body.zip, body.cellphone, body.homephone, body.birthday, body.imageurl, body.position, body.permissions, body.handbook, body.orangeneckerchief, body.thunderbirdneckerchief, body.active, body.adult, body.clientid], function(err,table) {
          if (err) {
             console.error('update: ', err);
             return res.status(400).send(err);

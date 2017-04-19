@@ -11,7 +11,7 @@ SET
    cellphone = COALESCE($10, cellphone),
    homephone = COALESCE($11, homephone),
    birthday = COALESCE($12, birthday),
-   imageUrl = COALESCE($13, imageUrl),
+   imageurl = COALESCE($13, imageUrl),
    position = COALESCE($14, position),
    permissions = COALESCE($15, permissions),
    handbook = COALESCE($16, handbook),

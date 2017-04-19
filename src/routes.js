@@ -59,7 +59,7 @@ export default (
       <Route path="/dinner" component={Dinner} />
       <Route path="/account/:profileid" component={Account} onEnter={requireAuth} />
       <Route path="/admin" component={Admin} onEnter={requireAuth} />
-      <Route path='admin2' component={Admin2} />
+      <Route path='admin2' component={Admin2} onEnter={requireAuth} />
       <Route path="/about_project" component={AboutProject} />
       <Route path="/eaglescouts" component={ListEagles} />
       <Route path="/scoutmasters" component={Scoutmasters} />

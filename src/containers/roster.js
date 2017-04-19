@@ -16,7 +16,8 @@ class Roster extends Component {
       return <div>Loading Roster...</div>;
     }
      return this.props.profiles.roster.map((profile) => {
-       console.log('roster--> profile', profile)
+       if (!profile.active) {return null} // don't show profile unless active
+       console.log('roster--> profile', profile, profile.active);
         return (
           <div key={profile.profileid} className="profile-individual">
             <div className='profile-information'>
@@ -27,9 +28,8 @@ class Roster extends Component {
               <p className='profile-information-details'> Email: {profile.email}</p>
             </div>
             <div className='profile-image'>
-              <img src='./images/blank_profile.jpg'></img>
+              <img src={profile.imageurl || './images/blank_profile.jpg'}></img>
             </div>
-
           </div>
           // <List divided>
           //   <List.Item key={profile.profileid} className="profile-item">

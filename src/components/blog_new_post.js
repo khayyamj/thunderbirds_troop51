@@ -20,6 +20,16 @@ class newBlogPost extends Component {
    render() {
       const { fields: { title, categories, content }, handleSubmit } = this.props;
 
+      // -------------------------------------------------
+      // check user permissions
+      // if user is not a member display an alternate
+      // screen with various menu options
+      // include a statement that only members may
+      // post on this page...
+      // to become a member contact troop site admin
+      // -------------------------------------------------
+      
+
       return (
          <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
             <h3>Create a New Post</h3>
@@ -42,7 +52,12 @@ class newBlogPost extends Component {
          </form>
       )
    }
-
+   function mapStateToProps(state) {
+     return {
+       login: state.login.login,
+       user: state.profiles.user
+     }
+   };
 
 export default reduxForm({
    form: 'PostsNewForm',

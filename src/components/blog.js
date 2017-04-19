@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { fetchPosts } from './../actions/action_index';
 import { List, Button } from 'semantic-ui-react';
@@ -72,7 +72,8 @@ class Posts extends Component {
 }
 function mapStateToProps(state) {
   return {
-    posts: state.posts.all
+    posts: state.posts.all,
+    user: state.profiles.user
   }
 };
 var mapDispatchToProps = function (dispatch) {
