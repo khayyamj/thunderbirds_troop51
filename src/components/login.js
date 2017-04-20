@@ -42,6 +42,9 @@ export class Login extends React.Component {
     // check if user logged in from another page
     // if user logged in from another page, send them
     // back to that page automatically
+    // may need to use an array on State that keeps track
+    // of the user's browser history
+    // window.location.pathname
     // -------------------------------------------------
 
 
@@ -79,9 +82,6 @@ export class Login extends React.Component {
     userProfileLoaded === false && temp.loginid ? this.updateLoginTable(temp.loginid) : console.log('Profile not updated--> userProfileLoaded: ', userProfileLoaded, 'temp ', temp);
     if(userProfileLoaded === false && temp) {
       this.addToLoginTable()
-      .then((response) => {
-        console.log('- profile added to login table ****** Need next function...')
-      })
     }
     this.setState({ profIndex: temp.loginid }); this.setState({ clientid: profile.clientID });
   }
@@ -114,29 +114,29 @@ export class Login extends React.Component {
   render() {
     console.log('*** login render count: ', rendercount); rendercount++;
     const { auth } = this.props;
-    token === this.state.login ? console.log('render--> login tokens match: ', token) : this.loginStatus();
+    // token === this.state.login ? console.log('render--> login tokens match: ', token) : this.loginStatus();
     return (
       <div style={{textAlign: 'center'}}>
-      <Header centered>
-      {this.props.login.login ? "Thank you for visiting our page. Please remember to logout when you're done." : "Please log in to view additional troop information"}
-      </Header>
-      <Button
-      animated='fade'
-      color='green'
-      onClick={auth.login.bind(this)}
-      style={{ display: this.props.login.login ? "none": "inline-block"}}>
-      <Button.Content visible>Login </Button.Content>
-      <Button.Content hidden><Icon name='sign in' /></Button.Content>
-      </Button>
-      <Button
-      animated='fade'
-      color='red'
-      onClick={this.logout.bind(this)}
-      style={{ display: this.props.login.login ? "inline-block" : "none"}}>
-      <Button.Content visible>Logout </Button.Content>
-      <Button.Content hidden><Icon name='sign out' /></Button.Content>
-      </Button>
-      <ResourceLinks style={{ display: this.props.login.login ? "inline-block" : "none"}} />
+        <Header centered>
+          {this.props.login.login ? "Thank you for visiting our page. Please remember to logout when you're done." : "Please log in to view additional troop information"}
+        </Header>
+        <Button
+          animated='fade'
+          color='green'
+          onClick={auth.login.bind(this)}
+          style={{ display: this.props.login.login ? "none": "inline-block"}}>
+        <Button.Content visible>Login </Button.Content>
+        <Button.Content hidden><Icon name='sign in' /></Button.Content>
+        </Button>
+        <Button
+          animated='fade'
+          color='red'
+          onClick={this.logout.bind(this)}
+          style={{ display: this.props.login.login ? "inline-block" : "none"}}>
+        <Button.Content visible>Logout </Button.Content>
+        <Button.Content hidden><Icon name='sign out' /></Button.Content>
+        </Button>
+        {this.props.login.login ? <ResourceLinks /> : <div></div>}
       </div>
     )
   }
@@ -157,7 +157,7 @@ export class Login extends React.Component {
     if (userProfileLoaded) {return 'completed'}
     let localProfile = JSON.parse(localStorage.getItem('profile'))
     let loginProfileObj = {
-      clientid: this.state.clientid,
+      clientid: localProfile.clientID,
       date: localProfile.created_at,
       lastname: localProfile.family_name,
       firstname: localProfile.given_name,
@@ -165,20 +165,34 @@ export class Login extends React.Component {
       imageurl: localProfile.picture,
       picture_lg: localProfile.picture_large,
       email: localProfile.email || null,
-      lastLogin: localProfile.updated_at
+      lastlogin: localProfile.updated_at
     };
     this.props.createLoginProfile(loginProfileObj)
     .then((response) => {
       this.props.loggedIn();
-      loginProfileObj.clientid = response.payload.data[0].clientid;
-      this.props.createProfile(loginProfileObj)
-      .then((response) => this.props.fetchRoster());
+      let data = response.payload.data[0];
+      loginProfileObj.clientid = data.clientid;
+      console.log('User in system: ', (this.props.roster.find((profile) => { return profile.email === data.email })));
+      if (this.props.roster.find((profile) => { return profile.email === data.email })){
+        console.log('createLoginProfile--> updating Profile roster')
+        let activeProfile = this.props.roster.find((profile) => {
+          return profile.email === data.email;
+        });
+        loginProfileObj.id = activeProfile.profileid;
+        this.props.updateProfile(loginProfileObj)
+          .then((response) => this.props.fetchRoster());
+      } else {
+        console.log('createLoginProfile--> creating Profile in roster')
+        this.props.createProfile(loginProfileObj)
+        .then((response) => this.props.fetchRoster());
+      }
     })
     userProfileLoaded = true;
     console.log('- userProfileLoaded: ', userProfileLoaded);
   }
 
   updateLoginTable(id){
+    if (userProfileLoaded) {console.log('updateLoginTable function terminated'); return null}
     console.log('*** updateLoginTable function');
     if (userProfileLoaded) {return 'completed'}
     let localProfile = JSON.parse(localStorage.getItem('profile'));
@@ -192,18 +206,20 @@ export class Login extends React.Component {
       imageurl: localProfile.picture,
       picture_lg: localProfile.picture_large,
       email: localProfile.email || null,
-      lastLogin: localProfile.updated_at
+      lastlogin: localProfile.updated_at
     };
     this.props.updateLoginProfile(loginProfileObj)
     .then((response) => {
       this.props.loggedIn();
       let data = response.payload.data[0];
+      console.log("update data: ", data);
       loginProfileObj.clientid = data.clientid;
       let activeProfile = this.props.roster.find((profile) => {
         return profile.email === data.email;
       });
       loginProfileObj.id = activeProfile.profileid;
       this.props.updateProfile(loginProfileObj);
+      console.log('updateLoginProfile--> updating Profile roster')
     });
 
     userProfileLoaded = true;

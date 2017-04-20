@@ -10,8 +10,9 @@ import AddTransaction from './../components/Add_transaction';
 import UpdateProfile from './../components/Update_profile';
 import AddActivity from './../components/Add_activity';
 import AdminNav from './../components/admin_nav';
+import ResourceLinks from './../components/Resource_Links';
 
-let toggle = false, scout={}, permission=null;
+let toggle = false, scout={};
 
 export default class AdminView extends Component {
   constructor(props) {
@@ -23,7 +24,8 @@ export default class AdminView extends Component {
       profileView: false,
       transactionsView: false,
       activityView: false,
-      scout: {}
+      scout: {},
+      permission: null
     }
     this.toggleView = this.toggleView.bind(this);
     this.selectProfile = this.selectProfile.bind(this);
@@ -41,13 +43,18 @@ export default class AdminView extends Component {
     // user not admin and give menu link options
     // if permissions are 'admin' proceed
     // -------------------------------------------------
-    console.log('Admin --> permissions:', permission);
-    if (permission != 'admin') {
-      console.log('Render Failed!')
-      setTimeout(() => {
-        browserHistory.push('/home');
-      }, 3500);
-      return (<div>You do not have permission to access this page</div>)
+    console.log('Admin --> permissions:', this.state.permission);
+    if (this.state.permission != 'admin') {
+      // console.log('Render Failed!')
+      // setTimeout(() => {
+      //   browserHistory.push('/home');
+      // }, 3500);
+      return (
+        <div className="admin-page-denied-access">
+          You do not have permission to access this page
+          <ResourceLinks />
+        </div>
+      )
     }
 
     return (
@@ -67,7 +74,6 @@ export default class AdminView extends Component {
         <RosterList
           roster={this.state.roster}
           selectProfile={this.selectProfile}/>
-        <p>This is a scout test --> {this.state.scout.profileid} -  {this.state.scout.firstname}</p>
       </div>
     )
   }
@@ -94,7 +100,8 @@ export default class AdminView extends Component {
         let user = profiles.data.find(scouter => {
           return scouter.clientid === clientID
         })
-        permission = user.permissions;
+        console.log('Admin_view--> componentDidMount--> user: ', user, user.permissions);
+        this.setState({ permission: user.permissions });
     })
   }
 

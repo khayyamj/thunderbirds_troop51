@@ -92,7 +92,7 @@ module.exports = {
   updateUser: function(req, res, next) {
     const loginid = req.params.loginid,
           b = req.body;
-    db.update_login_registration([loginid, b.age, b.clientid, b.date, b.lastname, b.firstname, b.picture_sm, b.picture_lg, b.email, b.lastLogin], function(err, table) {
+    db.update_login_registration([loginid, b.age, b.clientid, b.date, b.lastname, b.firstname, b.picture_sm, b.picture_lg, b.email, b.lastlogin], function(err, table) {
       if (err) {
         console.log('registerUser: ', err);
         return res.status(400).send(err);
