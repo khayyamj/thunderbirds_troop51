@@ -1,17 +1,19 @@
 import React, { PropTypes as T } from 'react';
 // import { PropTypes as T } from 'prop-types';
+import { Link, browserHistory } from 'react-router';
 import {ButtonToolbar } from 'react-bootstrap';
 import { Button, Icon, Header } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { loggedIn, loggedOut, getUserProfiles, createProfile, updateProfile, updateLoginProfile, createLoginProfile, fetchRoster } from './../actions/action_index';
 import { bindActionCreators } from 'redux';
-
 import AuthService from './../utils/AuthService';
 import config from './../../config';
+import ResourceLinks from './Resource_Links';
 
 let login = false,
     token = false,
     stopLoop = 0,
+    rendercount = 0,
     profile = {},
     userProfileLoaded = false;
 
@@ -22,99 +24,82 @@ export class Login extends React.Component {
     this.state = {
       login: false,
       profIndex: null,
-      clientid: null
+      clientid: null,
+      checkState: 0
     };
     JSON.parse(localStorage.getItem('profile')) != null ? token = true : token = false;
     this.checkProfile = this.checkProfile.bind(this);
+    this.sendToLoginTable = this.sendToLoginTable.bind(this);
   }
 
   componentWillMount() {
-    this.props.fetchRoster();
+    this.props.fetchRoster()
+      .then(response => console.log('componentWillMount--> Roster array returned'));
     this.props.getUserProfiles()
-      .then(response => {
-        JSON.parse(localStorage.getItem('profile')) != null ? profile = JSON.parse(localStorage.getItem('profile'))  : profile = {};
-      })
-      .then(response => {
-        setTimeout(() => {
-          // console.log('componentWillMount Timeout function...profile token: ', profile, Object.keys(profile).length);
-          if (Object.keys(profile).length === 0) {
-            this.props.loggedOut();
-          } else {
-            this.props.loggedIn()
-            // console.log('loggedIn function called: componentWillMount');
-            // console.log('componentWillMount client data: ', profile)
-            this.setState({ clientid:profile.clientID })
-          }
-          return null;
-        },2000)
-      })
-
+      .then(response => console.log('componentWillMount--> Users array returned'));
+  }
     // -------------------------------------------------
     // check if user logged in from another page
     // if user logged in from another page, send them
     // back to that page automatically
     // -------------------------------------------------
-  }
+
 
   componentWillUpdate(nextProps = []) {
-    stopLoop++;
-    // console.log('<- componentWillUpdate function -> ', stopLoop);
+    console.log(stopLoop,'- componentWillUpdate--> userProfileLoaded: ', userProfileLoaded);
+    if (userProfileLoaded) {console.log(stopLoop,'- userProfileLoaded, ending function'); stopLoop++; return null} // don't run function if profile is already added/updated
+    stopLoop++; if (stopLoop > 10) {return null} // prevent infinite loops
     setTimeout(() => { // delay action to allow system to update
-      console.log('nextProps: ', nextProps);
-      // console.log('clientId: ', this.state.clientid);
-      // console.log('componentWillUpdate setTimeout function ', Object.keys(profile).length === 0, nextProps.users.length === 0, !this.state.clientid);
-      this.checkProfile();
       JSON.parse(localStorage.getItem('profile')) != null ? profile = JSON.parse(localStorage.getItem('profile')) : profile = {};
-      if (Object.keys(profile).length === 0 || nextProps.users.length === 0 || !this.state.clientid) {
-        // console.log('*** ending cycle componentWillUpdate ***');
-        return null
-      }
-        let temp = nextProps.users.find(user => user.clientid == this.state.clientid) || profile;
-        // console.log('setting temp index: ', temp, this.state.profIndex, temp.loginid, "profIndex ? login ", this.state.profIndex === temp.loginid);
-        if (this.state.profIndex === temp.loginid && temp.loginid || userProfileLoaded) {return null} // already updated - don't update state again;
-          this.setState({ profIndex: temp.loginid})
-          userProfileLoaded === false && temp && temp.loginid ? this.updateLoginTable(temp.loginid) : console.log('Profile not updated--> userProfileLoaded: ', userProfileLoaded, 'temp ', temp);
-          if(userProfileLoaded === false && temp) {
-            // console.log("New profile to add to login table...")
-            this.addToLoginTable()
-            .then((response) => {
-              // console.log("addToLoginTable ", response);
-            })
-          }
-          // else {console.log("don't need to add to login table");}
-    }, 1000);
+      console.log('componentWillUpdate--> need checkProfile function: ', Object.keys(profile).length === 0);
+      if (Object.keys(profile).length === 0) {this.checkProfile(stopLoop)} // if profile is empty, check for updated profile in storage
+        else {this.sendToLoginTable(stopLoop)}
+
+    }, 1000 * stopLoop);
   }
 
-  checkProfile() {
-    // console.log('<-- checkProfile function -->', stopLoop);
-    // stopLoop++;
-    // console.log('checkProfile--> active user: ', this.props.user);
+  sendToLoginTable(count) {
+    if (userProfileLoaded) {console.log('sendToLoginTable function terminated'); return null}
+    console.log(count, '-> sendToLoginTable function called')
+    console.log("add/update profile function to be called: ", !(Object.keys(profile).length === 0 || this.props.users.length === 0 || !profile.clientID))
+    console.log("check - profile: ", !(Object.keys(profile).length === 0));
+    console.log("check - users array: ", !(this.props.users.length === 0), this.props.users);
+    console.log("check - clientid: ", (!this.state.clientid), profile.clientID);
+    if (Object.keys(profile).length === 0 || this.props.users.length === 0 || !profile.clientID) {
+      return null
+    }
+    let temp = this.props.users.find(user => user.clientid == profile.clientID) || profile;
+    console.log('sendToLoginTable--> profile to add/update: ', profile);
+    console.log('if test: ', !!(this.state.profIndex === temp.loginid && temp.loginid || userProfileLoaded));
+    console.log('if check profIndex: ', this.state.profIndex);
+    console.log('if check loginid: ', temp.loginid);
+    console.log('if check userProfileLoaded: ', userProfileLoaded);
+    if (this.state.profIndex === temp.loginid && temp.loginid || userProfileLoaded) {console.log('if test: true, ending function'); return null} // already updated - don't update state again;
+    console.log('updateLoginTable--> ', !!(userProfileLoaded === false && temp.loginid));
+    userProfileLoaded === false && temp.loginid ? this.updateLoginTable(temp.loginid) : console.log('Profile not updated--> userProfileLoaded: ', userProfileLoaded, 'temp ', temp);
+    if(userProfileLoaded === false && temp) {
+      this.addToLoginTable()
+      .then((response) => {
+        console.log('- profile added to login table ****** Need next function...')
+      })
+    }
+    this.setState({ profIndex: temp.loginid }); this.setState({ clientid: profile.clientID });
+  }
+
+  checkProfile(count) {
+    console.log(count, '-> checkProfile function called')
+    setTimeout(() => {
+      let checkStateCount = this.state.checkState + 1;
+      if (this.state.checkState < 5 && !userProfileLoaded) {this.setState({ checkState: checkStateCount})}
+      console.log('checkStateCounter: ', this.state.checkState);
+    },2000)
     // if there is no active user on state, state should be logged out
     if (this.state.login === true) {
       if (this.props.user.length === 0) {
         this.props.loggedOut();
       }
     }
-
-    // stop infinite looping
-    if (stopLoop > 5) {return null};
-
-    // if the user is not in local storage don't do anything
-    if (JSON.parse(localStorage.getItem('profile')) === null) {
-      return null;
-    // if there is a user then state should be logged in
-    } else {
-      this.props.loggedIn()
-      // console.log('loggedIn function called: checkProfile')
-      if (this.state.clientid === profile.clientID) { return null } // state already updated, end function
-        else { this.setState({ clientid:profile.clientID }) }
-    }
   }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   console.log('componentDidUpdate --> prevProps ', prevProps);
-  //   console.log('componentDidUpdate --> prevState ', prevState);
-  // }
 
   logout() {
     localStorage.removeItem('id_token');
@@ -123,14 +108,13 @@ export class Login extends React.Component {
     this.setState({ login : false });
     token = false;
     userProfileLoaded = false;
+    console.log('- userProfileLoaded: ', userProfileLoaded);
   }
 
   render() {
+    console.log('*** login render count: ', rendercount); rendercount++;
     const { auth } = this.props;
-    // console.log('render--> token: ', token, ' login: ', this.state.login);
     token === this.state.login ? console.log('render--> login tokens match: ', token) : this.loginStatus();
-    // console.log('(render) login: ', this.props.login.login);
-    // console.log('users array: ', this.props.roster);
     return (
       <div style={{textAlign: 'center'}}>
       <Header centered>
@@ -152,15 +136,13 @@ export class Login extends React.Component {
       <Button.Content visible>Logout </Button.Content>
       <Button.Content hidden><Icon name='sign out' /></Button.Content>
       </Button>
+      <ResourceLinks style={{ display: this.props.login.login ? "inline-block" : "none"}} />
       </div>
     )
   }
 
   loginStatus() {
-    // console.log('*** loginStatus function called ***');
     this.setState({ login: !login });
-    // console.log('<-- loginStatus token-->', JSON.parse(localStorage.getItem('profile')))
-    // JSON.parse(localStorage.getItem('profile')) != null ? this.props.loggedIn() : this.props.loggedOut();
     if ( JSON.parse(localStorage.getItem('profile')) != null ) {
       this.props.loggedIn();
       console.log('loggedIn function called: loginStatus');
@@ -171,8 +153,8 @@ export class Login extends React.Component {
   }
 
   addToLoginTable() {
+    console.log('*** addToLoginTable function');
     if (userProfileLoaded) {return 'completed'}
-    // console.log('addToLoginTable function...');
     let localProfile = JSON.parse(localStorage.getItem('profile'))
     let loginProfileObj = {
       clientid: this.state.clientid,
@@ -185,24 +167,21 @@ export class Login extends React.Component {
       email: localProfile.email || null,
       lastLogin: localProfile.updated_at
     };
-    // console.log('addToLoginTable--> loginProfileObj: ', loginProfileObj);
     this.props.createLoginProfile(loginProfileObj)
     .then((response) => {
-      // console.log('Profile added: ', response.payload.data[0]);
+      this.props.loggedIn();
       loginProfileObj.clientid = response.payload.data[0].clientid;
-      // console.log('*** submitting to profile table: ', loginProfileObj);
       this.props.createProfile(loginProfileObj)
       .then((response) => this.props.fetchRoster());
     })
     userProfileLoaded = true;
-    // console.log('userProfileLoaded status updated')
+    console.log('- userProfileLoaded: ', userProfileLoaded);
   }
 
   updateLoginTable(id){
+    console.log('*** updateLoginTable function');
     if (userProfileLoaded) {return 'completed'}
-    // console.log('updateLoginTable...', id);
     let localProfile = JSON.parse(localStorage.getItem('profile'));
-    // console.log('updateLoginTable localProfile: ', localProfile);
     let loginProfileObj = {
       loginid: id,
       clientid: this.state.clientid,
@@ -215,25 +194,20 @@ export class Login extends React.Component {
       email: localProfile.email || null,
       lastLogin: localProfile.updated_at
     };
-    // console.log('updateLoginProfile--> loginProfileObj: ', loginProfileObj);
     this.props.updateLoginProfile(loginProfileObj)
     .then((response) => {
+      this.props.loggedIn();
       let data = response.payload.data[0];
-      // console.log('Profile updated: ', data);
       loginProfileObj.clientid = data.clientid;
-      // console.log('Client id: ', loginProfileObj.clientid);
       let activeProfile = this.props.roster.find((profile) => {
-        // console.log('roster profile email: ', profile.email, ' active email: ', data.email);
         return profile.email === data.email;
       });
-      // console.log('Active Profile: ', activeProfile);
       loginProfileObj.id = activeProfile.profileid;
-      // console.log('*** submitting to profile table: ', loginProfileObj);
       this.props.updateProfile(loginProfileObj);
     });
 
     userProfileLoaded = true;
-    // console.log('userProfileLoaded status updated')
+    console.log('- userProfileLoaded: ', userProfileLoaded);
   }
 
 }

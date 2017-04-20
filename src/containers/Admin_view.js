@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
-import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import { Button } from 'semantic-ui-react';
 import { fetchProfile} from './../actions/action_index';
 import RosterList from './../components/roster_list';
@@ -32,7 +32,7 @@ export default class AdminView extends Component {
   }
 
   render() {
-
+    console.log('### Admin --> Render Function')
     // -------------------------------------------------
     // console.log('Admin_view-->', this.state.roster);
 
@@ -43,7 +43,11 @@ export default class AdminView extends Component {
     // -------------------------------------------------
     console.log('Admin --> permissions:', permission);
     if (permission != 'admin') {
-      return (<div>Please contact the system Admin for assistance</div>)
+      console.log('Render Failed!')
+      setTimeout(() => {
+        browserHistory.push('/home');
+      }, 3500);
+      return (<div>You do not have permission to access this page</div>)
     }
 
     return (

@@ -13,7 +13,7 @@ export default function(state = INITIAL_STATE, action) {
       case UPDATE_PROFILE:
         return {...state, profile: action.payload.data};
       case CREATE_LOGIN_PROFILE:
-        return {...state, user: action.payload.data};
+        return {...state, user: action.payload.data, profile: action.payload.data};
       case UPDATE_LOGIN_PROFILE:
         return {...state, user: action.payload.data, profile: action.payload.data};
       default:
