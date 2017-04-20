@@ -13,19 +13,26 @@ export class NavBar extends Component {
     profile: T.object
   }
 
+  componentWillMount() {
+    console.log('navbar--> profile: ', JSON.parse(localStorage.getItem('profile')));
+    if (JSON.parse(localStorage.getItem('profile'))) {
+
+    }
+  }
+
    renderLinks() {
-      return this.props.NavLinks.map((navLink) => {
-         return (
-            <Link to={navLink.address} key={navLink.link}>
-              <Button animated animated='fade' color='orange'>
-                <Button.Content hidden>{navLink.link} </Button.Content>
-                <Button.Content visible>
-                  <Icon name={navLink.icon} />
-                </Button.Content>
-              </Button>
-            </Link>
-         )
-      });
+    return this.props.NavLinks.map((navLink) => {
+      return (
+        <Link to={navLink.address} key={navLink.link}>
+          <Button animated animated='fade' color='orange'>
+            <Button.Content hidden>{navLink.link} </Button.Content>
+            <Button.Content visible>
+              <Icon name={navLink.icon} />
+            </Button.Content>
+          </Button>
+        </Link>
+      )
+    });
    }
 
   render() {
@@ -52,7 +59,9 @@ export class NavBar extends Component {
 const mapStateToProps = function(state) {
    return {
       NavLinks: state.navLinks,
-      login: state.login.login
+      login: state.login.login,
+      user: state.profiles.user,
+      roster: state.profiles.roster
    }
 }
 

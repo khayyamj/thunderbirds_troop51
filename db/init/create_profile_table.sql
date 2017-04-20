@@ -11,12 +11,13 @@ CREATE TABLE IF NOT EXISTS Profiles (
    cellphone      VARCHAR(15),
    homephone      VARCHAR(15),
    birthday       VARCHAR(10),
-   imageUrl       VARCHAR(400),
+   imageurl       VARCHAR(400),
    position       VARCHAR(20),
-   permissions    INTEGER,
+   permissions    VARCHAR(15),
    handbook       BOOLEAN,
    orangeneckerchief       BOOLEAN,
    thunderbirdneckerchief  BOOLEAN,
    active         BOOLEAN,
-   adult          BOOLEAN
+   adult          BOOLEAN,
+   clientid       VARCHAR(50)
 )

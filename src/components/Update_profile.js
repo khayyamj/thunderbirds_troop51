@@ -16,7 +16,7 @@ class UpdateProfile extends Component {
       address: '',
       city: '',
       state: '',
-      zip: '',
+      zip: null,
       email: '',
       cellphone: '',
       homephone: '',
@@ -25,7 +25,8 @@ class UpdateProfile extends Component {
       orangeneckerchief: false,
       thunderbirdneckerchief: false,
       adult: false,
-      active: true,
+      active: false,
+      permissions: null,
       scout: {}
     };
     this.handleChange = this.handleChange.bind(this);
@@ -51,8 +52,9 @@ class UpdateProfile extends Component {
   }
 
   handleChange(event) {
-    const value = event.target.name;
-    this.setState({ [value]: event.target.value})
+    const name = event.target.name;
+    this.setState({ [name]: event.target.value})
+    console.log('handleChange-->',name, event.target.value)
   }
 
   handleSubmit(event) {
@@ -75,7 +77,8 @@ class UpdateProfile extends Component {
       orangeneckerchief: this.state.orangeneckerchief,
       thunderbirdneckerchief: this.state.thunderbirdneckerchief,
       active: this.state.active,
-      adult: this.state.adult
+      adult: this.state.adult,
+      permissions: this.state.permissions
     }
     // console.log('submit profileObj-->', profileObj);
     // console.log('checking profileObj ', profileObj.id);
@@ -108,7 +111,7 @@ class UpdateProfile extends Component {
       address: '',
       city: '',
       state: '',
-      zip: '',
+      zip: null,
       email: '',
       cellphone: '',
       homephone: '',
@@ -117,7 +120,8 @@ class UpdateProfile extends Component {
       orangeneckerchief: false,
       thunderbirdneckerchief: false,
       adult: false,
-      active: true,
+      active: false,
+      permissions: null,
       scout: {}
     });
 
@@ -125,6 +129,7 @@ class UpdateProfile extends Component {
 
   render() {
     // console.log('Update_profile state (render)-->', this.state.id);
+    console.log('render--> permissions: ', this.state.permissions);
     if (!this.props.view) {
       return <div></div>
     }
@@ -249,47 +254,65 @@ class UpdateProfile extends Component {
               </label>
             </Form.Field>
           </Form.Group>
-          <Form.Group widths='equal'>
-            <Checkbox
-              toggle
-              type='checkbox'
-              name='handbook'
-              label='Read Handbook'
-              checked={this.state.handbook}
-              onChange={this.handleCheckbox}
-            /><br />
-            <Checkbox
-              toggle
-              name='orangeneckerchief'
-              label='Orange Neckerchief'
-              checked={this.state.orangeneckerchief}
-              onChange={this.handleCheckbox}
-            /><br />
-            <Checkbox
-              toggle
-              type='checkbox'
-              name='thunderbirdneckerchief'
-              label='T-bird Neckerchief'
-              checked={this.state.thunderbirdneckerchief}
-              onChange={this.handleCheckbox}
-            /><br />
-            <Checkbox
-              toggle
-              type='checkbox'
-              name='adult'
-              label='Adult'
-              checked={this.state.adult}
-              onChange={this.handleCheckbox}
-            /><br />
-            <Checkbox
-              toggle
-              type='checkbox'
-              name='active'
-              label='Active'
-              checked={this.state.active}
-              onChange={this.handleCheckbox}
-            /><br />
-          </Form.Group>
+          <section className="groups-of-checkboxes">
+            <Form.Group className="stacked-checkboxes">
+              <Checkbox
+                toggle
+                type='checkbox'
+                name='handbook'
+                label='Read Handbook'
+                checked={this.state.handbook}
+                onChange={this.handleCheckbox}
+              /><br />
+              <Checkbox
+                toggle
+                name='orangeneckerchief'
+                label='Orange Neckerchief'
+                checked={this.state.orangeneckerchief}
+                onChange={this.handleCheckbox}
+              /><br />
+              <Checkbox
+                toggle
+                type='checkbox'
+                name='thunderbirdneckerchief'
+                label='T-bird Neckerchief'
+                checked={this.state.thunderbirdneckerchief}
+                onChange={this.handleCheckbox}
+              /><br />
+            </Form.Group>
+            <Form.Group className="stacked-checkboxes">
+              <Checkbox
+                toggle
+                type='checkbox'
+                name='adult'
+                label='Adult'
+                checked={this.state.adult}
+                onChange={this.handleCheckbox}
+              /><br />
+              <Checkbox
+                toggle
+                type='checkbox'
+                name='active'
+                label='Active'
+                checked={this.state.active}
+                onChange={this.handleCheckbox}
+              /><br />
+            </Form.Group>
+            <section className="permissions-section-css">
+            <p>Current Permissions: <br /> <span className="bold-text">{this.state.permissions != null ? this.state.permissions.charAt(0).toUpperCase()+this.state.permissions.slice(1) : 'None'}</span></p>
+              <select
+                name='permissions'
+                label="Permissions"
+                className="permissions-dropdown-menu"
+                default={this.state.permissions}
+                onMouseLeave={this.handleChange}>
+                <option value='null'>Permissions:</option>
+                <option value='guest'>Guest</option>
+                <option value='member'>Member</option>
+                <option value='admin'>Admin</option>
+              </select>
+            </section>
+          </section>
           <Button type='submit' value='Submit'>Submit</Button>
 
         </Form>

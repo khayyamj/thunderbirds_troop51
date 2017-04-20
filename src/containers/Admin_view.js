@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
-import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import { Button } from 'semantic-ui-react';
 import { fetchProfile} from './../actions/action_index';
 import RosterList from './../components/roster_list';
@@ -10,6 +10,7 @@ import AddTransaction from './../components/Add_transaction';
 import UpdateProfile from './../components/Update_profile';
 import AddActivity from './../components/Add_activity';
 import AdminNav from './../components/admin_nav';
+import ResourceLinks from './../components/Resource_Links';
 
 let toggle = false, scout={};
 
@@ -23,7 +24,8 @@ export default class AdminView extends Component {
       profileView: false,
       transactionsView: false,
       activityView: false,
-      scout: {}
+      scout: {},
+      permission: null
     }
     this.toggleView = this.toggleView.bind(this);
     this.selectProfile = this.selectProfile.bind(this);
@@ -32,7 +34,29 @@ export default class AdminView extends Component {
   }
 
   render() {
+    console.log('### Admin --> Render Function')
+    // -------------------------------------------------
     // console.log('Admin_view-->', this.state.roster);
+
+    // check permissions...
+    // if permissions are not admin display explanation
+    // user not admin and give menu link options
+    // if permissions are 'admin' proceed
+    // -------------------------------------------------
+    console.log('Admin --> permissions:', this.state.permission);
+    if (this.state.permission != 'admin') {
+      // console.log('Render Failed!')
+      // setTimeout(() => {
+      //   browserHistory.push('/home');
+      // }, 3500);
+      return (
+        <div className="admin-page-denied-access">
+          You do not have permission to access this page
+          <ResourceLinks />
+        </div>
+      )
+    }
+
     return (
       <div>
         <AdminNav toggle={this.toggleView}/>
@@ -50,7 +74,6 @@ export default class AdminView extends Component {
         <RosterList
           roster={this.state.roster}
           selectProfile={this.selectProfile}/>
-        <p>This is a scout test --> {this.state.scout.profileid} -  {this.state.scout.firstname}</p>
       </div>
     )
   }
@@ -72,8 +95,13 @@ export default class AdminView extends Component {
   componentDidMount() {
     return axios.get('http://localhost:3333/api/profiles')
       .then(profiles => {
-        // console.log('Admin_view: ', profiles.data);
         this.setState( { roster: profiles.data} );
+        let clientID = JSON.parse(localStorage.getItem('profile')).clientID;
+        let user = profiles.data.find(scouter => {
+          return scouter.clientid === clientID
+        })
+        console.log('Admin_view--> componentDidMount--> user: ', user, user.permissions);
+        this.setState({ permission: user.permissions });
     })
   }
 
@@ -106,12 +134,12 @@ export default class AdminView extends Component {
     // console.log('Admin_view --> resetScout');
     this.setState({ scout: {} })
   }
-  
+
   reloadRoster() {
-    console.log('Admin_view--> reloadingRoster function <--')
+    // console.log('Admin_view--> reloadingRoster function <--')
     return axios.get('http://localhost:3333/api/profiles')
       .then(profiles => {
-        console.log('Admin_view: Reloading roster-->', profiles.data);
+        // console.log('Admin_view: Reloading roster-->', profiles.data);
         this.setState( { roster: profiles.data} );
     })
   }

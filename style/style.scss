@@ -14,6 +14,7 @@ html, body {
 }
 .profile-individual {
   width: 100%;
+  height: 300px;
   display: flex;
   flex-flow: row;
 
@@ -36,6 +37,10 @@ html, body {
 }
 .profile-image {
   flex-grow: 1;
+  img {
+    height: 250px;
+    border-radius: 50px;
+  }
 }
 /* end roster.js styling */
 
@@ -100,3 +105,31 @@ html, body {
   }
 }
 /* end calender.js styling*/
+
+/* Update_profile.js styles */
+.bold-text {
+  font-weight: bold;
+}
+.groups-of-checkboxes{
+  display: flex;
+}
+.stacked-checkboxes {
+  flex-flow: column !important;
+  margin: 0 30px;
+  padding: 5px 10px;
+}
+.permissions-section-css{
+  margin-left: 25px;
+  text-align: center;
+}
+.permissions-dropdown-menu {
+  height: 30px !important;
+  width: 100px !important;
+  margin: 0 20px;
+
+}
+/*  end Update_profile.js styles */
+
+/* Resource_Links.js styling */
+
+/* end Resource_Links.js styling */

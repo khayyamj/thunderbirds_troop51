@@ -42,6 +42,7 @@ export function loggedIn() {
 }
 
 export function loggedOut() {
+  console.log('action_index--> loggedOut Function - set to false')
   return {
     type: LOGGEDOUT,
     payload: false
@@ -50,6 +51,7 @@ export function loggedOut() {
 
 export function getUserProfiles() {
   const request = axios.get(LOGIN_URL);
+  console.log('action_index: getting user profiles')
   return {
     type: FETCH_USER_PROFILES,
     payload: request
@@ -57,7 +59,7 @@ export function getUserProfiles() {
 }
 
 export function createLoginProfile(props) {
-  console.log('createLoginProfile props: ', props);
+  console.log('action_index--> createLoginProfile props: ', props);
   const request = axios.post(LOGIN_URL, props);
   return {
     type: CREATE_LOGIN_PROFILE,
@@ -66,7 +68,7 @@ export function createLoginProfile(props) {
 }
 
 export function updateLoginProfile(props) {
-  console.log('updateLoginProfile props: ', props);
+  console.log('action_index--> updateLoginProfile props: ', props);
   const request = axios.put(LOGIN_URL+props.loginid, props);
   return {
     type: UPDATE_LOGIN_PROFILE,
@@ -116,7 +118,7 @@ export function deleteProfile(props) {
 }
 
 export function submitMessage() {
-   console.log('submitMessage function called');
+   console.log('action_index--> submitMessage function called');
    alert('Message not sent')
    const request = null;
    return {
