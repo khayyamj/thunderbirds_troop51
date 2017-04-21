@@ -9,14 +9,14 @@ var cors = require('cors');
 // ============================================================
 var config = require('./config');
 var corsOptions = {
-   origin: 'http://localhost:3000'
+   origin: 'http://localhost:80'
 }
 // INITILIZE APP
 // ============================================================
 var app = module.exports = express();
 // INITILIZE DEPENDENCIES
 // ============================================================
-// app.use(express.static(__dirname + ''));
+app.use(express.static(__dirname + './../dist'));
 app.use(cors());
 app.use(bodyParser.json());
 // MASSIVE SETUP

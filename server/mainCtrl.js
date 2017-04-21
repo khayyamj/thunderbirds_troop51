@@ -1,69 +1,69 @@
 const app = require('./server.js');
 const db = app.get('db');
 
-db.init.create_login_registration_table([], function(err, results) {
-  if(err) {
-    console.error(err);
-  } else {
-    // console.log('Initialized Login Registration Table');
-  }
-})
-db.init.create_profile_table([], function(err, results){
-  if(err) {
-    console.error(err);
-  } else {
-    // console.log('Initialized Profile Table');
-  }
-})
-db.init.create_transactions_table([], function(err, results){
-  if(err) {
-    console.error(err);
-  } else {
-    // console.log('Initialized Accounts Table');
-  }
-})
-db.init.create_activities_table([], function(err, results){
-  if(err) {
-    console.error(err);
-  } else {
-    // console.log('Initialized Activities Table');
-  }
-})
-db.init.create_participants_table([], function(err, results){
-  if(err) {
-    console.error(err);
-  } else {
-    // console.log('Initialized Participants Table');
-  }
-})
-db.init.create_ranks_table([], function(err, results){
-  if(err) {
-    console.error(err);
-  } else {
-    // console.log('Initialized Ranks Table');
-  }
-})
-db.init.create_blog([], function(err, results) {
-  if (err) {
-    console.error(err);
-  } else {
-    // console.log('Initialized Blog Table');
-  }
-})
-db.init.create_blogtag_connection([], function(err, results) {
-  if (err) {
-    console.error(err);
-  } else {
-    // console.log('Initialized Blog Tag Connection Table');
-  }
-})
-db.init.create_blogtags([], function(err, results) {
-  if (err) {
-    console.error(err);
-  } else {
-    // console.log('Initialized Blog Tag Table')
-  }
-})
+// db.init.create_login_registration_table([], function(err, results) {
+//   if(err) {
+//     console.error(err);
+//   } else {
+//     // console.log('Initialized Login Registration Table');
+//   }
+// })
+// db.init.create_profile_table([], function(err, results){
+//   if(err) {
+//     console.error(err);
+//   } else {
+//     // console.log('Initialized Profile Table');
+//   }
+// })
+// db.init.create_transactions_table([], function(err, results){
+//   if(err) {
+//     console.error(err);
+//   } else {
+//     // console.log('Initialized Accounts Table');
+//   }
+// })
+// db.init.create_activities_table([], function(err, results){
+//   if(err) {
+//     console.error(err);
+//   } else {
+//     // console.log('Initialized Activities Table');
+//   }
+// })
+// db.init.create_participants_table([], function(err, results){
+//   if(err) {
+//     console.error(err);
+//   } else {
+//     // console.log('Initialized Participants Table');
+//   }
+// })
+// db.init.create_ranks_table([], function(err, results){
+//   if(err) {
+//     console.error(err);
+//   } else {
+//     // console.log('Initialized Ranks Table');
+//   }
+// })
+// db.init.create_blog([], function(err, results) {
+//   if (err) {
+//     console.error(err);
+//   } else {
+//     // console.log('Initialized Blog Table');
+//   }
+// })
+// db.init.create_blogtag_connection([], function(err, results) {
+//   if (err) {
+//     console.error(err);
+//   } else {
+//     // console.log('Initialized Blog Tag Connection Table');
+//   }
+// })
+// db.init.create_blogtags([], function(err, results) {
+//   if (err) {
+//     console.error(err);
+//   } else {
+//     // console.log('Initialized Blog Tag Table')
+//   }
+// })
 
 module.exports = {
 
