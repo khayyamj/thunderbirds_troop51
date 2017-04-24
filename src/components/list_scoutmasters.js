@@ -8,7 +8,7 @@ class Scoutmasters extends Component {
   renderList() {
     return scoutmasters.map((scoutmaster) => {
       return (
-        <Grid.Row key={scoutmaster.start+scoutmaster.name}>
+        <Grid.Row key={scoutmaster.troop+scoutmaster.start+scoutmaster.name}>
           <Grid.Column width={2}>
             Troop: {scoutmaster.troop}
           </Grid.Column>

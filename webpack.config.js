@@ -29,8 +29,8 @@ module.exports = {
    {
      test: /\.(png|jpg|ico)$/,
      exclude: /node_modules/,
-     loader: 'file-loader',
-     include: path.join(__dirname, 'dist')
+     loader: 'file-loader'
+    //  include: path.join(__dirname, 'dist')
    }
    ]
   },
