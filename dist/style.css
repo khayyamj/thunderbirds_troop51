@@ -1,0 +1,74 @@
+/*
+font-family: 'Roboto', sans-serif;
+*/
+div.ui.container.main {
+  background-color: #FF6F00;
+  width: 100vw;
+  background-image: url('./../images/Tent-Night-Sky.jpg');
+  background-position: left;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.display {
+  display: inline-block;
+}
+.noDisplay {
+  display: none;
+}
+.ui.container {
+  padding-top: 50px;
+  padding-left: 15px;
+}
+.ui.basic.segment {
+  min-width: 600px;
+  min-height: 600px;
+  width: 100%;
+  height: 100vh;
+  overflow-x: scroll;
+}
+ui.header {
+  margin: 0;
+
+}
+h1.ui.header:first-child {
+  font-family: 'Merriweather', serif;
+  font-size: 3em;
+  font-weight:bold;
+  color: #FF6F00;
+}
+h2.ui.header {
+  font-family: 'Merriweather', serif;
+  font-size: 5em;
+  font-weight:bold;
+  color: #FF6F00;
+  margin-top: -.45em;
+}
+h3.ui.header {
+  font-family: 'Merriweather', serif;
+  font-size: 1.5em;
+  font-weight:bold;
+  color: #FF6F00;
+  margin-top: -0.05rem;
+}
+#site_title {
+  margin-top: -1.35em;
+}
+.subtitle {
+  font-family: 'Merriweather', serif;
+  font-size: 0.5em;
+
+}
+ui.header.last-child{
+  margin-top: -1rem;
+}
+.google-map {
+  width: 200px;
+  height: 200px;
+}
+.ui.thin.left.sidebar {
+  width: 100px;
+}
+.navigation {
+  padding: 0 5px;
+}
