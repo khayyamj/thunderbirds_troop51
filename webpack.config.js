@@ -26,6 +26,12 @@ module.exports = {
       test: /\.scss$/,
       loaders: ['style', 'css', 'sass']
    },
+   {
+     test: /\.(png|jpg|ico)$/,
+     exclude: /node_modules/,
+     loader: 'file-loader',
+     include: path.join(__dirname, 'dist')
+   }
    ]
   },
   plugins: [

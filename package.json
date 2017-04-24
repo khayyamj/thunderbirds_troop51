@@ -22,7 +22,7 @@
     "chai-http": "^3.0.0",
     "chai-jquery": "^2.0.0",
     "css-loader": "^0.26.1",
-    "jquery": "^2.2.1",
+    "file-loader": "^0.8.4",
     "jsdom": "^8.1.0",
     "jsx-loader": "^0.13.2",
     "mocha": "^2.4.5",

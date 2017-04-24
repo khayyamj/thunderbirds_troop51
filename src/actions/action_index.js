@@ -1,11 +1,12 @@
 import axios from 'axios';
 import CONFIG from './../../server/config';
 
-const LOGIN_URL=`http://localhost:${CONFIG.PORT}/api/login/`;
-const PROFILES_URL = `http://localhost:${CONFIG.PORT}/api/profiles/`;
-const ACTIVITIES_URL = `http://localhost:${CONFIG.PORT}/api/activities/`;
-const TRANSACTIONS_URL = `http://localhost:${CONFIG.PORT}/api/transactions/`;
-const BLOG_URL = `http://localhost:${CONFIG.PORT}/api/blog/`;
+const URL = `${CONFIG.URL}`;
+const LOGIN_URL=`${URL}${CONFIG.PORT}/api/login/`;
+const PROFILES_URL = `${URL}${CONFIG.PORT}/api/profiles/`;
+const ACTIVITIES_URL = `${URL}${CONFIG.PORT}/api/activities/`;
+const TRANSACTIONS_URL = `${URL}${CONFIG.PORT}/api/transactions/`;
+const BLOG_URL = `${URL}${CONFIG.PORT}/api/blog/`;
 
 export const LOGGEDIN = 'LOGGEDIN';
 export const LOGGEDOUT = 'LOGGEDOUT';
@@ -34,7 +35,6 @@ export const FETCH_ATTENDED_ACTIVITIES = 'FETCH__ATTENDED_ACTIVITIES';
 export const FETCH_ALL_PARTICIPANTS = 'FETCH_ALL_PARTICIPANTS';
 
 export function loggedIn() {
-  console.log('action_index--> loggedIn Function - set to true');
   return {
     type: LOGGEDIN,
     payload: true
@@ -42,7 +42,6 @@ export function loggedIn() {
 }
 
 export function loggedOut() {
-  console.log('action_index--> loggedOut Function - set to false')
   return {
     type: LOGGEDOUT,
     payload: false
@@ -51,7 +50,6 @@ export function loggedOut() {
 
 export function getUserProfiles() {
   const request = axios.get(LOGIN_URL);
-  console.log('action_index: getting user profiles')
   return {
     type: FETCH_USER_PROFILES,
     payload: request
@@ -59,7 +57,6 @@ export function getUserProfiles() {
 }
 
 export function createLoginProfile(props) {
-  console.log('action_index--> createLoginProfile props: ', props);
   const request = axios.post(LOGIN_URL, props);
   return {
     type: CREATE_LOGIN_PROFILE,
@@ -68,7 +65,6 @@ export function createLoginProfile(props) {
 }
 
 export function updateLoginProfile(props) {
-  console.log('action_index--> updateLoginProfile props: ', props);
   const request = axios.put(LOGIN_URL+props.loginid, props);
   return {
     type: UPDATE_LOGIN_PROFILE,
@@ -78,7 +74,6 @@ export function updateLoginProfile(props) {
 
 export function fetchRoster() {
    const request = axios.get(PROFILES_URL);
-   console.log('action_index: Fetching Roster ');
    return {
       type: FETCH_ROSTER,
       payload: request
@@ -118,8 +113,7 @@ export function deleteProfile(props) {
 }
 
 export function submitMessage() {
-   console.log('action_index--> submitMessage function called');
-   alert('Message not sent')
+   alert('Message function error. Message not sent.')
    const request = null;
    return {
       type: 'NONE',

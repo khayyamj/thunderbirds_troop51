@@ -23,7 +23,6 @@ class AddTransaction extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log('Add_transaction --> componentWillReceiveProps: ', nextProps.scout);
     if (nextProps.view === false) {return null;}
     this.setState({ profileid: nextProps.scout.profileid});
     this.setState({ firstname: nextProps.scout.firstname });
@@ -32,12 +31,10 @@ class AddTransaction extends Component {
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value })
-    // console.log('handleChange -->', e.target.name, e.target.value)
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    // console.log('handleSubmit: ', this.state);
     let transactionObj = {
       date: this.state.date,
       profileid: this.state.profileid,
@@ -47,7 +44,6 @@ class AddTransaction extends Component {
       actid: null,
       notes: this.state.notes
     }
-    // console.log('Submit transaction obj: ', transactionObj);
     this.props.createTransaction(transactionObj);
     alert('Transaction added for ' + this.state.firstname);
     this.setState({
@@ -66,7 +62,6 @@ class AddTransaction extends Component {
     if (!this.props.view) {
       return <div></div>
     }
-    // console.log('Add_transaction state: ',this.state)
     return (
       <div>
         Add Transaction

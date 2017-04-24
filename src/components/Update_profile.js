@@ -35,17 +35,8 @@ class UpdateProfile extends Component {
     this.resetForm = this.resetForm.bind(this);
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log('shouldComponentUpdate: ', nextProps.scout, nextState);
-  //   if (this.props.scout === {}) {return false}
-  //   if (nextProps.scout != this.state.scout) {
-  //     return true;
-  //   } else {return false;}
-  // }
   componentWillReceiveProps(nextProps) {
-    // console.log('Update_profile --> componentWillReceiveProps: ', nextProps.scout);
     if (nextProps.view === false) {return null;}
-    console.log('Add_transaction---> nextProps: ',nextProps.scout);
     for (var prop in nextProps.scout) {
       this.setState({ [prop] : nextProps.scout[prop] })
     }
@@ -54,11 +45,9 @@ class UpdateProfile extends Component {
   handleChange(event) {
     const name = event.target.name;
     this.setState({ [name]: event.target.value})
-    console.log('handleChange-->',name, event.target.value)
   }
 
   handleSubmit(event) {
-    // console.log('handleSubmit: ', this.state);
     event.preventDefault();
     const profileObj = {
       id: this.state.profileid,
@@ -80,15 +69,12 @@ class UpdateProfile extends Component {
       adult: this.state.adult,
       permissions: this.state.permissions
     }
-    // console.log('submit profileObj-->', profileObj);
-    // console.log('checking profileObj ', profileObj.id);
     if (profileObj.id) {
-      console.log('updating profile ', profileObj.id + " - ", profileObj.firstname, profileObj.lastname)
+
       this.props.updateProfile(profileObj)
         .then(response => this.props.fetchRoster());
       alert(`Profile for ${profileObj.firstname} has been updated`);
     } else {
-      console.log('adding profile ', profileObj.firstname, profileObj.lastname)
       this.props.createProfile(profileObj)
         .then(response => this.props.fetchRoster())
       alert(`Profile for ${profileObj.firstname} has been created`);
@@ -97,11 +83,9 @@ class UpdateProfile extends Component {
     this.resetForm();
     this.props.reset();
     setTimeout(this.props.reloadRoster,1000);
-    console.log('Update_profile--> Reloading Roster function called...')
   }
 
   resetForm() {
-    // console.log('resetForm...', this.props);
     this.props.reset();
     this.setState({
       profileid: null,
@@ -128,8 +112,6 @@ class UpdateProfile extends Component {
   }
 
   render() {
-    // console.log('Update_profile state (render)-->', this.state.id);
-    console.log('render--> permissions: ', this.state.permissions);
     if (!this.props.view) {
       return <div></div>
     }
@@ -321,10 +303,8 @@ class UpdateProfile extends Component {
     )
   }
   handleCheckbox(event, data) {
-    console.log('handleCheckbox: ', data)
     const key = data.name;
     const value = data.checked;
-    console.log([key] + ' value: ', value)
       this.setState({ [key]: value})
   }
 }

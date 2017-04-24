@@ -18,6 +18,10 @@ export default class AuthService extends EventEmitter {
     super()
     // Configure Auth0
     this.lock = new Auth0Lock(clientId, domain, options, {
+      theme: {
+        logo: options.logo,
+        primaryColor: options.primaryColor
+      },
       auth: {
         redirectUrl: `${window.location.origin}/login`,
         responseType: 'token'
