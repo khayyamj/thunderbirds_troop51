@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Header, Image, Grid } from 'semantic-ui-react';
 import { Link } from 'react-router';
+import pageImage from './../../images/atTroop51.jpg';
 
 class Home extends Component {
   constructor(props) {
@@ -55,7 +56,7 @@ class Home extends Component {
           <Grid.Row centered>
             <Grid.Column width={16} centered>
               <Image
-                src='./../../images/atTroop51.jpg'
+                src={pageImage}
                 as='a' size='large'
                 centered
                 href='https://www.facebook.com/Troop-51-of-Provo-Utah-108463195857584/'
