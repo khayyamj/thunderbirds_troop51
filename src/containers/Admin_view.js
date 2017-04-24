@@ -11,8 +11,11 @@ import UpdateProfile from './../components/Update_profile';
 import AddActivity from './../components/Add_activity';
 import AdminNav from './../components/admin_nav';
 import ResourceLinks from './../components/Resource_Links';
+import CONFIG from './../../server/config';
 
 let toggle = false, scout={};
+const URL = `${CONFIG.URL}`;
+const PROFILES_URL = `${URL}${CONFIG.PORT}/api/profiles/`;
 
 export default class AdminView extends Component {
   constructor(props) {
@@ -34,21 +37,7 @@ export default class AdminView extends Component {
   }
 
   render() {
-    console.log('### Admin --> Render Function')
-    // -------------------------------------------------
-    // console.log('Admin_view-->', this.state.roster);
-
-    // check permissions...
-    // if permissions are not admin display explanation
-    // user not admin and give menu link options
-    // if permissions are 'admin' proceed
-    // -------------------------------------------------
-    console.log('Admin --> permissions:', this.state.permission);
     if (this.state.permission != 'admin') {
-      // console.log('Render Failed!')
-      // setTimeout(() => {
-      //   browserHistory.push('/home');
-      // }, 3500);
       return (
         <div className="admin-page-denied-access">
           You do not have permission to access this page
@@ -93,14 +82,13 @@ export default class AdminView extends Component {
   }
 
   componentDidMount() {
-    return axios.get('http://localhost:3333/api/profiles')
+    return axios.get(PROFILES_URL)
       .then(profiles => {
         this.setState( { roster: profiles.data} );
         let clientID = JSON.parse(localStorage.getItem('profile')).clientID;
         let user = profiles.data.find(scouter => {
           return scouter.clientid === clientID
         })
-        console.log('Admin_view--> componentDidMount--> user: ', user, user.permissions);
         this.setState({ permission: user.permissions });
     })
   }
@@ -118,7 +106,6 @@ export default class AdminView extends Component {
     if (e.target.name === 'activityView'){
       this.setState({ profileView: false, transactionsView: false})
     }
-    console.log('toggleView function: ', e.target.name, toggle)
   }
   selectProfile(e,id) {
     this.setState({ profileid: [id]})
@@ -131,15 +118,12 @@ export default class AdminView extends Component {
   }
 
   resetScout() {
-    // console.log('Admin_view --> resetScout');
     this.setState({ scout: {} })
   }
 
   reloadRoster() {
-    // console.log('Admin_view--> reloadingRoster function <--')
-    return axios.get('http://localhost:3333/api/profiles')
+    return axios.get(PROFILES_URL)
       .then(profiles => {
-        // console.log('Admin_view: Reloading roster-->', profiles.data);
         this.setState( { roster: profiles.data} );
     })
   }

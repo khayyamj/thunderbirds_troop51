@@ -14,7 +14,6 @@ export class NavBar extends Component {
   }
 
   componentWillMount() {
-    console.log('navbar--> profile: ', JSON.parse(localStorage.getItem('profile')));
     if (JSON.parse(localStorage.getItem('profile'))) {
 
     }

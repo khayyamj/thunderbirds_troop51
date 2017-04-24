@@ -6,18 +6,20 @@ import { EventEmitter } from 'events';
 import { isTokenExpired } from './jwtHelper';
 import { clientId, domain } from './../../config';
 import { createProfile } from './../containers/profile_creator';
-
-const options = {
-  primaryColor: "#FF6F00",
-  title: "Thunderbirds",
-  logo: "./../images/thunderbird.png"
-}
+import LogoImg from "./../../images/T-Bird_orange.png";
 
 export default class AuthService extends EventEmitter {
   constructor(clientId, domain) {
     super()
     // Configure Auth0
-    this.lock = new Auth0Lock(clientId, domain, options, {
+    this.lock = new Auth0Lock(clientId, domain, {
+      theme: {
+        logo: LogoImg,
+        primaryColor: "#FF6F00"
+      },
+      languageDictionary: {
+        title: "Troop 51"
+      },
       auth: {
         redirectUrl: `${window.location.origin}/login`,
         responseType: 'token'
@@ -33,7 +35,6 @@ export default class AuthService extends EventEmitter {
   }
 
   _doAuthentication(authResult){
-    console.log('AuthService--> Authentication initiated')
     // Saves the user token
     this.setToken(authResult.idToken)
     // navigate to the home route
@@ -46,7 +47,7 @@ export default class AuthService extends EventEmitter {
 
   // ======================================================== //
         this.setProfile(profile);
-        console.log('AuthService.js --> set login profile: ', profile);
+        // console.log('AuthService.js --> set login profile: ', profile);
 
       }
     })

@@ -17,12 +17,10 @@ class Roster extends Component {
     }
      return this.props.profiles.roster.map((profile) => {
        if (!profile.active) {return null} // don't show profile unless active
-       console.log('roster--> profile', profile, profile.active);
         return (
           <div key={profile.profileid} className="profile-individual">
             <div className='profile-information'>
-              <h3> <span className="profile-name">{profile.nickname ? profile.nickname : profile.firstname} </span></h3> <br />
-              <h4> Name: {profile.firstname} {profile.lastname}</h4><br />
+              <h3> <span className="profile-name">{profile.nickname ? profile.nickname : profile.firstname} {profile.lastname.charAt(0).toUpperCase()}</span></h3> <br />
               <p className='profile-information-details'> Address: {profile.address}, {profile.city} {profile.state} </p>
               <p className='profile-information-details'> Phone: {profile.homephone}, Cell: {profile.cellphone ? profile.cellphone : 'none'}</p>
               <p className='profile-information-details'> Email: {profile.email}</p>
@@ -31,15 +29,6 @@ class Roster extends Component {
               <img src={profile.imageurl || './images/blank_profile.jpg'}></img>
             </div>
           </div>
-          // <List divided>
-          //   <List.Item key={profile.profileid} className="profile-item">
-          //     <Link className='nav-btn' to={'/profile/' + profile.profileid}> view </Link>
-          //     Name: {profile.nickname}
-          //
-          //     City: {profile.city} <br />
-          //     Email: {profile.email} <hr />
-          //   </List.Item>
-          // </List>
          )
      })
   }

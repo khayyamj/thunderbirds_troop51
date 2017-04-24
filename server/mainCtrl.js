@@ -1,69 +1,13 @@
 const app = require('./server.js');
 const db = app.get('db');
 
-// db.init.create_login_registration_table([], function(err, results) {
-//   if(err) {
-//     console.error(err);
-//   } else {
-//     // console.log('Initialized Login Registration Table');
-//   }
-// })
-// db.init.create_profile_table([], function(err, results){
-//   if(err) {
-//     console.error(err);
-//   } else {
-//     // console.log('Initialized Profile Table');
-//   }
-// })
-// db.init.create_transactions_table([], function(err, results){
-//   if(err) {
-//     console.error(err);
-//   } else {
-//     // console.log('Initialized Accounts Table');
-//   }
-// })
-// db.init.create_activities_table([], function(err, results){
-//   if(err) {
-//     console.error(err);
-//   } else {
-//     // console.log('Initialized Activities Table');
-//   }
-// })
-// db.init.create_participants_table([], function(err, results){
-//   if(err) {
-//     console.error(err);
-//   } else {
-//     // console.log('Initialized Participants Table');
-//   }
-// })
-// db.init.create_ranks_table([], function(err, results){
-//   if(err) {
-//     console.error(err);
-//   } else {
-//     // console.log('Initialized Ranks Table');
-//   }
-// })
-// db.init.create_blog([], function(err, results) {
-//   if (err) {
-//     console.error(err);
-//   } else {
-//     // console.log('Initialized Blog Table');
-//   }
-// })
-// db.init.create_blogtag_connection([], function(err, results) {
-//   if (err) {
-//     console.error(err);
-//   } else {
-//     // console.log('Initialized Blog Tag Connection Table');
-//   }
-// })
-// db.init.create_blogtags([], function(err, results) {
-//   if (err) {
-//     console.error(err);
-//   } else {
-//     // console.log('Initialized Blog Tag Table')
-//   }
-// })
+db.init.all_tables([], function(err, results) {
+  if(err) {
+    console.error('Initializing tables error: ',err);
+  } else {
+    console.log('Initialized All Site Tables');
+  }
+})
 
 module.exports = {
 
@@ -79,10 +23,9 @@ module.exports = {
 
   registerUser: function(req, res, next) {
     const b = req.body;
-    console.log('registerUser--> body: ', b);
     db.create_login_registration([b.age, b.clientid, b.date, b.lastname, b.firstname, b.picture_sm, b.picture_lg, b.email, b.lastlogin], function(err, table) {
       if (err) {
-        console.log('registerUser: ', err);
+        console.error('registerUser: ', err);
         return res.status(400).send(err);
       }
       return res.status(200).json(table);
@@ -94,7 +37,7 @@ module.exports = {
           b = req.body;
     db.update_login_registration([loginid, b.age, b.clientid, b.date, b.lastname, b.firstname, b.picture_sm, b.picture_lg, b.email, b.lastlogin], function(err, table) {
       if (err) {
-        console.log('registerUser: ', err);
+        console.error('registerUser: ', err);
         return res.status(400).send(err);
       }
       return res.status(200).json(table);
@@ -114,7 +57,6 @@ module.exports = {
    oneProfile: function(req, res, next) {
       const id=parseInt(req.params.id);
       db.get_oneprofile([id], function(err, table){
-         console.log('Params: ', req.params.id);
          if (err) {
             console.error('oneProfile: ', err);
             return res.status(400).json(err);
@@ -139,7 +81,6 @@ module.exports = {
    updateProfile: function(req, res, next) {
       const id = parseInt(req.params.id);
       const body = req.body;
-      console.log('mainCtrl updateProfile: ', body);
       db.update_profile([id, body.firstname, body.lastname, body.nickname, body.email, body.address, body.city, body.state, body.zip, body.cellphone, body.homephone, body.birthday, body.imageurl, body.position, body.permissions, body.handbook, body.orangeneckerchief, body.thunderbirdneckerchief, body.active, body.adult, body.clientid], function(err,table) {
          if (err) {
             console.error('update: ', err);
@@ -153,7 +94,7 @@ module.exports = {
       const id=parseInt(req.params.id);
       db.delete_profile([id], function(err,table) {
          if (err) {
-            console.log('delete: ', err);
+            console.error('delete: ', err);
             return res.status(400).send(err);
          }
          return res.status(200).json(table[0]);
@@ -181,7 +122,6 @@ module.exports = {
    },
 
    allParticipants: function(req, res, next) {
-     console.log('allParticipants function called');
      db.get_all_participants([], function(err, table) {
        if(err) {
          console.error('allParticipants: ', err);
@@ -194,7 +134,6 @@ module.exports = {
    oneActivity: function(req, res, next) {
       const id=parseInt(req.params.id);
       db.get_activity([id], function(err, table){
-         console.log('Params: ', req.params.id);
          if (err) {
             console.error('oneActivity: ', err);
             return res.status(400).json(err);
@@ -228,7 +167,6 @@ module.exports = {
    linkParticipants: function(req, res, next) {
      const actid = req.params.actid,
             profileid = req.params.profileid;
-            console.log('mainCtrl-->',actid, profileid)
      db.create_link_participants_activity([actid, profileid], function(err, table) {
        if (err) {
          console.error('linkParticipants: ', err);
@@ -254,7 +192,6 @@ module.exports = {
       const id=parseInt(req.params.id);
       db.delete_activity([id], function(err,table) {
          if (err) {
-            console.log('deleteActivity: ', err);
             return res.status(400).send(err);
          }
          return res.status(200).json(table[0]);
@@ -274,7 +211,6 @@ module.exports = {
    oneSetOfTransactions: function(req, res, next) {
       const id=parseInt(req.params.profileid);
       db.get_transactionSet([id], function(err, table){
-         console.log('Params: ', req.params.id);
          if (err) {
             console.error('oneSetOfTransactions: ', err);
             return res.status(400).json(err);
@@ -310,7 +246,6 @@ module.exports = {
       const id=parseInt(req.params.id);
       db.delete_transaction([id], function(err,table) {
          if (err) {
-            console.log('deleteTransaction: ', err);
             return res.status(400).send(err);
          }
          return res.status(200).json(table[0]);
@@ -334,7 +269,6 @@ module.exports = {
          console.error('createBlogPostTag: ', err);
          return res.status(400).send(err);
        }
-       console.log('Create Tag response: ', table[0])
        return res.status(200).json(table[0]);
      })
    },
