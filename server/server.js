@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var massive = require('massive');
 var cors = require('cors');
+var path = require('path');
 // CONFIG
 // ============================================================
 var config = require('./config');
@@ -17,6 +18,9 @@ var app = module.exports = express();
 // INITILIZE DEPENDENCIES
 // ============================================================
 app.use(express.static(__dirname + './../dist'));
+app.get('*', function(req, res) {
+  res.sendFile(path.resolve(__dirname, './../dist', 'index.html'))
+})
 app.use(cors());
 app.use(bodyParser.json());
 // MASSIVE SETUP
