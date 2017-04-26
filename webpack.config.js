@@ -7,7 +7,7 @@ module.exports = {
     './src/index.js'
   ],
   output: {
-    path: __dirname,
+    path: __dirname + '/dist',
     publicPath: '/',
     filename: 'bundle.js'
   },
@@ -25,6 +25,10 @@ module.exports = {
    {
       test: /\.scss$/,
       loaders: ['style', 'css', 'sass']
+   },
+   {
+     test: /\.css$/,
+     loaders: ['style', 'css']
    },
    {
      test: /\.(png|jpg|ico)$/,
