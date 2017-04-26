@@ -1,6 +1,2 @@
 node_modules
 config.js
-.env
-.babelrc
-.jshintrc
-webpack-production.config.js
