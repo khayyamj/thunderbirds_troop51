@@ -46,3 +46,7 @@ export default class AboutProject extends Component {
   <List.Item>Authentication with Auth0 </List.Item>
   <List.Item>Semantic UI for React </List.Item>
 </List.List>
+
+// TODO add styling/formatting to page
+// TODO add pictures to make more interesting
+// TODO include link to portfolio and resume

@@ -28,3 +28,4 @@ export default class SideBar extends Component {
    );
   }
 }
+ // TODO check if this component is being used

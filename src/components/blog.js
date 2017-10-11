@@ -94,3 +94,6 @@ var mapDispatchToProps = function (dispatch) {
   return bindActionCreators({ fetchPosts }, dispatch);
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Posts);
+
+// TODO format date
+// TODO add more styling to page

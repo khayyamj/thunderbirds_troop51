@@ -251,7 +251,7 @@ const scoutmasters = [
   {
     name: 'Kevin Keaton',
     start: 2013,
-    end: 2017,
+    end: null,
     troop: 51
   }
 ]

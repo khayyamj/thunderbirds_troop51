@@ -99,3 +99,6 @@ export default reduxForm({
    fields: _.keys(FIELDS),
    validate
 }, null, { submitMessage })(ContactUs);
+
+// TODO add actual email function
+// TODO format page

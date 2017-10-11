@@ -126,3 +126,5 @@ export default class EditorDemo extends Component {
     this.setState({readOnly: event.target.checked});
   }
 }
+
+// TODO check if this component is being used

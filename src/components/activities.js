@@ -19,7 +19,7 @@ class Activities extends Component {
   }
   componentWillMount() {
     this.props.fetchAllAttendedActivities().then(() => {
-      console.log('PROPS -> ', this.props)
+      // console.log('PROPS -> ', this.props)
     });
   }
 
@@ -29,7 +29,7 @@ class Activities extends Component {
     let scout = '', leader = '';
     // console.log('renderList function--> ', elem, currentActivity);
     return everyone.map(activity => {
-      console.log('renderlist function activity--> ', activity);
+      // console.log('renderlist function activity--> ', activity);
       if (activity.actid === currentActivity) {
         if (elem === 'youth' && !activity.adult) {
           scout = `${activity.firstname} ${activity.lastname}`;
@@ -115,7 +115,7 @@ class Activities extends Component {
   }
 
   render() {
-    console.log('this.props.activities', this.props.activities.all)
+    // console.log('this.props.activities', this.props.activities.all)
     return(
       <div className="page-container">
         <form
@@ -143,3 +143,8 @@ const mapDispatchToProps = function(dispatch) {
   return bindActionCreators({ fetchAllAttendedActivities, fetchAllParticipants }, dispatch);
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Activities);
+
+// TODO Add styling to page
+// TODO Add button to link to Add Activity page
+// TODO check Activity filter is working
+// TODO Fix names so that last name doesn't show if not logged in

@@ -102,3 +102,6 @@ class Home extends Component {
   }
 }
 export default Home;
+
+// TODO formatting / styling for page
+// TODO optimize content

@@ -40,3 +40,6 @@ export default function (props) {
       </div>
     )
 }
+
+// TODO definitely add formatting and styling to roster
+// TODO allow for filter by patrol or other criteria

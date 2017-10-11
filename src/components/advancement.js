@@ -12,3 +12,5 @@ class Advancement extends Component {
   }
 }
 export default Advancement;
+
+// TODO incorporate advancement into profiles

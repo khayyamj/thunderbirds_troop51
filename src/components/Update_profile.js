@@ -312,3 +312,6 @@ const mapDispatchToProps = function(dispatch) {
   return bindActionCreators({ updateProfile, createProfile, fetchRoster }, dispatch);
 }
 export default connect (null, mapDispatchToProps)(UpdateProfile);
+
+// TODO format/style page
+// TODO include a way to update profile picture

@@ -206,3 +206,9 @@ const mapDispatchToProps = function (dispatch) {
   return bindActionCreators({ createActivity, linkParticipantstoActivity }, dispatch);
 }
 export default connect(null, mapDispatchToProps)(AddActivity);
+
+// TODO formatting/styling for page
+// TODO? turn into a pop up modal
+// TODO add map picker for lat/lon
+// TODO create a select all option for participants
+// TODO? create a checkbox table component

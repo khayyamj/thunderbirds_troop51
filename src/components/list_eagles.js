@@ -499,3 +499,6 @@ const eagleScouts = [
     deceased: false
   }
 ]
+
+// TODO animate page
+// TODO add formatting / styling to page

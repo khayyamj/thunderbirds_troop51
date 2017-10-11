@@ -36,3 +36,6 @@ const mapDispatchToProps = function (dispatch) {
   return bindActionCreators({ fetchProfile }, dispatch);
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+
+// TODO format/styling for page
+// TODO add filtering by patrol

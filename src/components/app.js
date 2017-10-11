@@ -57,3 +57,11 @@ export default class App extends Component {
     );
    }
 }
+
+// TODO format files into folders by components and related components
+// TODO remove unused components/files
+// TODO refactor webpack for copying all used files into dist folders
+// TODO update package.json to use updated node modules
+// TODO refactor components for efficiency and readability
+// TODO integrate the troop Facebook page into site
+// TODO change background picture to one with the troop (smaller for faster loading)

@@ -16,3 +16,5 @@ class Footer extends Component {
   }
 }
 export default Footer;
+
+// TODO style and formatting

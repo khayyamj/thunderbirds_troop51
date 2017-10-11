@@ -83,3 +83,5 @@ export default reduxForm({
    fields: ['firstname', 'lastname', 'nickname', 'email', 'address', 'city', 'state', 'zip', 'cellphone', 'homephone', 'birthday'], validate
    /* then add mapStateToProps and add dispatchToProps properties */
 }, null, { createProfile })(Profile);
+
+// TODO check if this component is still being used

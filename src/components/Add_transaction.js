@@ -152,3 +152,7 @@ const mapDispatchToProps = function(dispatch) {
   return bindActionCreators({ createTransaction }, dispatch);
 }
 export default connect (null, mapDispatchToProps)(AddTransaction);
+
+// TODO update page formatting/styling
+// TODO if transaction is started, ask for confirmation before navigating away
+// TODO? turn into a pop up modal

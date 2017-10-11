@@ -21,6 +21,7 @@ class newBlogPost extends Component {
       const { fields: { title, categories, content }, handleSubmit } = this.props;
 
       // -------------------------------------------------
+      // TODO
       // check user permissions
       // if user is not a member display an alternate
       // screen with various menu options
@@ -28,7 +29,7 @@ class newBlogPost extends Component {
       // post on this page...
       // to become a member contact troop site admin
       // -------------------------------------------------
-      
+
 
       return (
          <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>

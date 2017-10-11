@@ -14,3 +14,8 @@ class Dinner extends Component {
   }
 }
 export default Dinner;
+
+// TODO create a full page
+// TODO include an option to purchase tickets
+// TODO include option to configure variables from an admin pop up modal
+//    - date, ticket prices

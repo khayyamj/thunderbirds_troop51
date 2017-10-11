@@ -30,3 +30,6 @@ class About extends Component {
   }
 }
 export default About;
+
+// TODO adjust styling for page
+// TODO highlight Troop meeting/contact information

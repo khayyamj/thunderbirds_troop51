@@ -41,3 +41,6 @@ class Handbook extends Component {
   }
 }
 export default Handbook;
+
+// TODO create table of contents with links
+// TODO format handbook page

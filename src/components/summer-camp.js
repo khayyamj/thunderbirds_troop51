@@ -12,3 +12,5 @@ class SummerCamp extends Component {
   }
 }
 export default SummerCamp;
+
+// TODO utilize component

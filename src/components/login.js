@@ -67,7 +67,7 @@ export class Login extends React.Component {
       let checkStateCount = this.state.checkState + 1;
       if (this.state.checkState < 5 && !userProfileLoaded) {this.setState({ checkState: checkStateCount})}
     },2000)
-    // if there is no active user on state, state should be logged out
+    // TODO if there is no active user on state, state should be logged out
     if (this.state.login === true) {
       if (this.props.user.length === 0) {
         this.props.loggedOut();
@@ -199,3 +199,6 @@ const mapDispatchToProps = function (dispatch) {
   return bindActionCreators({ loggedIn, loggedOut, getUserProfiles, createLoginProfile, updateLoginProfile, createProfile, updateProfile, fetchRoster }, dispatch);
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
+// TODO add styling/formatting to page
+// TODO pop out nav menu after logging in

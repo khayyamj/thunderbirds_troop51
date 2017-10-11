@@ -155,3 +155,5 @@ export default reduxForm({
    fields: _.keys(FIELDS),
    validate
 }, null, { createActivity, linkParticipantstoActivity })(CreateActivity);
+
+// TODO verify component is being used
