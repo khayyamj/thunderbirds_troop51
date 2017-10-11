@@ -18,7 +18,9 @@ class Activities extends Component {
     this.selectActivity = this.selectActivity.bind(this);
   }
   componentWillMount() {
-    this.props.fetchAllAttendedActivities();
+    this.props.fetchAllAttendedActivities().then(() => {
+      console.log('PROPS -> ', this.props)
+    });
   }
 
   renderList(elem, currentActivity) {
@@ -27,7 +29,7 @@ class Activities extends Component {
     let scout = '', leader = '';
     // console.log('renderList function--> ', elem, currentActivity);
     return everyone.map(activity => {
-      // console.log('renderlist function activity--> ', activity);
+      console.log('renderlist function activity--> ', activity);
       if (activity.actid === currentActivity) {
         if (elem === 'youth' && !activity.adult) {
           scout = `${activity.firstname} ${activity.lastname}`;
@@ -113,9 +115,9 @@ class Activities extends Component {
   }
 
   render() {
-    // console.log('this.props.activities', this.props.activities.all)
+    console.log('this.props.activities', this.props.activities.all)
     return(
-      <div className="activity-list">
+      <div className="page-container">
         <form
           id='select-activity'
           value={this.state.Activity}

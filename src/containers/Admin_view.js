@@ -47,7 +47,7 @@ export default class AdminView extends Component {
     }
 
     return (
-      <div>
+      <div className="admin-container">
         <AdminNav toggle={this.toggleView}/>
         <UpdateProfile
           view={this.state.profileView}

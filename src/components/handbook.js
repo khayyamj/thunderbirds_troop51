@@ -22,7 +22,7 @@ class Handbook extends Component {
   }
   render() {
     return(
-      <div>
+      <div className="about-container">
         <Header as='h1' textAlign='center'>Troop Handbook</Header> <br />
         <ScoutingValues />
         <ReligiousAffiliation />
