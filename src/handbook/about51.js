@@ -3,12 +3,12 @@ import React from 'react';
 export default function () {
   return (
      <div>
-     <p className="p1"><span className="s1"><strong>About Troop 51</strong></span></p>
-<p className="p2">&nbsp;</p>
-<p className="p3"><span className="s1">The purpose of Troop 51 is to provide an effective program designed to</span></p>
-<p className="p3">&nbsp;</p>
-<ul>
-<li className="li3"><span className="s1">Build character,</span></li>
+       <p className="p1"><span className="s1"><strong>About Troop 51</strong></span></p>
+       <p className="p2">&nbsp;</p>
+       <p className="p3"><span className="s1">The purpose of Troop 51 is to provide an effective program designed to</span></p>
+       <p className="p3">&nbsp;</p>
+       <ul>
+         <li className="li3"><span className="s1">Build character,</span></li>
 <li className="li3"><span className="s1">Train in the responsibilities of citizenship, and</span></li>
 <li className="li3"><span className="s1">Develop personal fitness.</span></li>
 </ul>

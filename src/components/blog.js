@@ -33,13 +33,27 @@ class Posts extends Component {
   }
 
   renderPosts() {
-    const renderedPosts = [];
-    return this.props.posts.map((post) => {
+    let blogidList = []
+    let renderedPosts = []
+    this.props.posts.map(nextPost => {
+      if (renderedPosts.length < 1) {
+        renderedPosts.push(nextPost)
+        renderedPosts[0].tagList = []
+      }
+      renderedPosts.map(unique => {
+        if (unique.blogid !== nextPost.blogid && blogidList.indexOf(nextPost.blogid) === -1) {
+          blogidList.push(nextPost.blogid)
+          renderedPosts.push(nextPost)
+        }
+      })
+    })
+
+    return renderedPosts.map((post) => {
       this.getTags(post)
       if (post.blogid != this.props.posts.indexOf(post.blogid)) {
         return (
           <List key={post.blogid}>
-          <List.Content>
+            <List.Content>
               <List.Header><span style={{ fontSize: '1.5em', fontWeight:'bold'}} className="blog-post-title">{post.title}</span></List.Header>
               <List.Description> Date: {post.date_published}</List.Description>
               <List.Description> Tags: {this.getTags(post)} <br /> </List.Description>
@@ -61,7 +75,7 @@ class Posts extends Component {
       return <div></div>
     }
     return(
-      <div>
+      <div className="page-container">
         <Button color='orange' floated='right' onClick={this._goToNewPost.bind(this)}>
           Add New Post
         </Button>
