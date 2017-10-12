@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import { fetchPosts } from './../actions/action_index';
 import { List, Button } from 'semantic-ui-react';
 import { browserHistory } from 'react-router';
-
+import { DateFilter } from './utilities';
 
 class Posts extends Component {
   constructor(props) {
@@ -51,11 +51,12 @@ class Posts extends Component {
     return renderedPosts.map((post) => {
       this.getTags(post)
       if (post.blogid != this.props.posts.indexOf(post.blogid)) {
-        return (
+        // console.log('Date filter -> ', DateFilter(post.date_published))
+          return (
           <List key={post.blogid}>
             <List.Content>
               <List.Header><span style={{ fontSize: '1.5em', fontWeight:'bold'}} className="blog-post-title">{post.title}</span></List.Header>
-              <List.Description> Date: {post.date_published}</List.Description>
+              <List.Description> Date: {DateFilter(post.date_published)}</List.Description>
               <List.Description> Tags: {this.getTags(post)} <br /> </List.Description>
               <List.Description> Post:  <div dangerouslySetInnerHTML={{__html:post.content}} /> </List.Description>
             </List.Content>
@@ -81,7 +82,7 @@ class Posts extends Component {
         </Button>
         {this.renderPosts()}
       </div>
-    );
+    )
   }
 }
 function mapStateToProps(state) {
@@ -91,9 +92,9 @@ function mapStateToProps(state) {
   }
 };
 var mapDispatchToProps = function (dispatch) {
-  return bindActionCreators({ fetchPosts }, dispatch);
+  return bindActionCreators({ fetchPosts }, dispatch)
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Posts);
+export default connect(mapStateToProps, mapDispatchToProps)(Posts)
 
 // TODO format date
 // TODO add more styling to page
