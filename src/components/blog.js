@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import { fetchPosts } from './../actions/action_index';
 import { List, Button } from 'semantic-ui-react';
 import { browserHistory } from 'react-router';
-import { DateFilter } from './utilities';
+import { DateFilter, CapitalizeEachWord } from './utilities';
 
 class Posts extends Component {
   constructor(props) {
@@ -26,8 +26,12 @@ class Posts extends Component {
       }
     }
     return (
-      tags.map((tag) => {
-        return (tag + ', ')
+      tags.map((tag, i) => {
+        if (i < tags.length - 1) {
+          return `${CapitalizeEachWord(tag)}, `
+        } else {
+          return `${CapitalizeEachWord(tag)}`
+        }
       })
     )
   }
@@ -96,5 +100,4 @@ var mapDispatchToProps = function (dispatch) {
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Posts)
 
-// TODO format date
 // TODO add more styling to page

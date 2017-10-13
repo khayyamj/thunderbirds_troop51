@@ -1,7 +1,6 @@
 import React from 'react';
 
 export function DateFilter(unformattedDate) {
-  console.log('unformattedDate = ', typeof unformattedDate, unformattedDate)
   if (typeof unformattedDate !== 'string') {return <div>{unformattedDate}</div>}
   let year = unformattedDate.split('-')[0]
   let month = unformattedDate.split('-')[1]
@@ -12,12 +11,23 @@ export function DateFilter(unformattedDate) {
   let formattedDate = `${month} ${day}, ${year}`
 
   return (
-    <div>{formattedDate}</div>
+    <span>{formattedDate}</span>
   )
 }
 
-// export function AddTransaction(profileid) {
-//   return (
-//     <div>Add Transaction</div>
-//   )
-// }
+export function Capitalize(text) {
+  let capString = `${text.charAt(0).toUpperCase()}${text.slice(1)}`
+  return capString
+}
+
+export function CapitalizeEachWord(textString) {
+  let capString = ''
+  let wordArray = textString.split(' ')
+    .map(word => {
+      capString = `${capString} ${word.charAt(0).toUpperCase()}${word.slice(1)}`
+    })
+  return capString
+}
+
+// TODO add filter based on tags
+// TODO make tags clickable for filtering
