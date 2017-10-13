@@ -13,7 +13,7 @@ class Activities extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { Activity: 'all'};
+    this.state = { Activity: 'campout'};
     // console.log('activities--> constructor Activity filter: ', this.state.Activity)
     this.selectActivity = this.selectActivity.bind(this);
   }
@@ -32,13 +32,13 @@ class Activities extends Component {
       // console.log('renderlist function activity--> ', activity);
       if (activity.actid === currentActivity) {
         if (elem === 'youth' && !activity.adult) {
-          scout = `${activity.firstname} ${activity.lastname}`;
+          scout = `${activity.firstname} ${activity.lastname.charAt(0)}`;
           return (
             <li key={activity.date + activity.actid + activity.profileid + activity.firstname}>
               {scout}
             </li>)
         } else if (elem === 'adults' && activity.adult){
-          leader = `${activity.firstname} ${activity.lastname}`;
+          leader = `${activity.firstname} ${activity.lastname.charAt(0)}`;
           return (
             <li key={activity.date + activity.actid + activity.profileid + activity.firstname}>
               {leader}
@@ -49,6 +49,7 @@ class Activities extends Component {
   }
 
   selectActivity(event) {  // set activity filter
+    console.log('selectActivity method -> event: ', event)
      this.setState({ Activity: event.target.value });
    }
 
@@ -123,13 +124,14 @@ class Activities extends Component {
           value={this.state.Activity}
           onChange={this.selectActivity} >
           <select name='activity-type'>
-                <option value='all'> All Activities </option>
-                <option value='campout'> Campouts </option>
-                <option value='activity'> Activities </option>
-                <option value='service'> Service Projects </option>
-                <option value='summer_camp'> Summer Camp </option>
+            <option value='all'> All Activities </option>
+            <option value='campout'> Campouts </option>
+            <option value='activity'> Activities </option>
+            <option value='service'> Service Projects </option>
+            <option value='summer_camp'> Summer Camp </option>
           </select>
         </form>
+        <div className="form-spacer"></div>
         {this.renderActivities()}
       </div>
     );
@@ -147,4 +149,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(Activities);
 // TODO Add styling to page
 // TODO Add button to link to Add Activity page
 // TODO check Activity filter is working
-// TODO Fix names so that last name doesn't show if not logged in
+// TODO Adjust back endpoint to return last name first letter only for public calls
+// TODO Add additional endpoint and call to get full last name for login users and admins

@@ -66,7 +66,12 @@ html, body {
   font-weight: bold;
 }
 #select-activity {
-  cursor: pointer;
+  select {
+    cursor: pointer;
+  }
+}
+.form-spacer {
+  margin: 1em;
 }
 /* end activities.js styling */
 
