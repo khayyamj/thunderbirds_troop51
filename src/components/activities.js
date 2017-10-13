@@ -13,9 +13,10 @@ class Activities extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { Activity: 'campout'};
+    this.state = { Activity: 'campout'}
     // console.log('activities--> constructor Activity filter: ', this.state.Activity)
-    this.selectActivity = this.selectActivity.bind(this);
+    this.selectActivity = this.selectActivity.bind(this)
+    this.onAddActivity = this.onAddActivity.bind(this)
   }
   componentWillMount() {
     this.props.fetchAllAttendedActivities().then(() => {
@@ -24,9 +25,9 @@ class Activities extends Component {
   }
 
   renderList(elem, currentActivity) {
-    const youth = [], adults = [];
-    let everyone = this.props.activities.all || [];
-    let scout = '', leader = '';
+    const youth = [], adults = []
+    let everyone = this.props.activities.all || []
+    let scout = '', leader = ''
     // console.log('renderList function--> ', elem, currentActivity);
     return everyone.map(activity => {
       // console.log('renderlist function activity--> ', activity);
@@ -115,22 +116,32 @@ class Activities extends Component {
    })
   }
 
+  onAddActivity() {
+    console.log('Add activity selected')
+  }
+
   render() {
     // console.log('this.props.activities', this.props.activities.all)
     return(
       <div className="page-container">
-        <form
-          id='select-activity'
-          value={this.state.Activity}
-          onChange={this.selectActivity} >
-          <select name='activity-type'>
-            <option value='all'> All Activities </option>
-            <option value='campout'> Campouts </option>
-            <option value='activity'> Activities </option>
-            <option value='service'> Service Projects </option>
-            <option value='summer_camp'> Summer Camp </option>
-          </select>
-        </form>
+        <div className="top-row">
+
+          <form
+            id='select-activity'
+            value={this.state.Activity}
+            onChange={this.selectActivity} >
+            <select name='activity-type'>
+              <option value='all'> All Activities </option>
+              <option value='campout'> Campouts </option>
+              <option value='activity'> Activities </option>
+              <option value='service'> Service Projects </option>
+              <option value='summer_camp'> Summer Camp </option>
+            </select>
+          </form>
+          <div className="link-button" onClick={() => this.onAddActivity()}>
+            Add Activity
+          </div>
+        </div>
         <div className="form-spacer"></div>
         {this.renderActivities()}
       </div>
@@ -148,6 +159,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(Activities);
 
 // TODO Add styling to page
 // TODO Add button to link to Add Activity page
-// TODO check Activity filter is working
 // TODO Adjust back endpoint to return last name first letter only for public calls
 // TODO Add additional endpoint and call to get full last name for login users and admins

@@ -9,8 +9,24 @@ html, body {
 /* Main Container styling */
 .page-container {
   width: 85%;
+  .top-row {
+    display: flex;
+    flex-basis: auto;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 
+.link-button {
+  cursor: pointer;
+  padding: 5px;
+  width: auto;
+  height: 30px;
+  border-radius: 15px;
+  background-color: #FF6F00;
+  color: white;
+  font-weight: bold;
+}
 /* roster.js styling */
 .roster-list {
   width: 100%;
