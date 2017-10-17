@@ -173,6 +173,29 @@ html, body {
 .about-container {
   width: 85%;
 }
+.about-page-styling {
+  top: 400px !important;
+  right: 60% !important;
+  flex-direction: row !important;
+}
+.header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.about-nav-buttons {
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  display: flex;
+  flex-direction: column;
+  .button-padding {
+    margin: 5px;
+    a {
+      color: white;
+    }
+  }
+}
 
 /* end About page styling */
 

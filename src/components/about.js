@@ -16,15 +16,17 @@ class About extends Component {
           Provo Elks Lodge <br />
           1000 S. University Ave. <br/>
         Provo, UT 84601 </p>
-        <Button color='orange'>
-          <Link to='/handbook'> Troop Handbook </Link>
-        </Button>
-        <Button color='orange'>
-          <Link to='/eaglescouts'> Eagle Scouts </Link>
-        </Button>
-        <Button color='orange'>
-          <Link to='/scoutmasters'> Scoutmasters </Link>
-        </Button>
+        <div className="about-nav-buttons about-page-styling">
+          <Button  className="button-padding" color="orange">
+            <Link to="/handbook"> Troop Handbook </Link>
+          </Button>
+          <Button className="button-padding" color="orange">
+            <Link to="/eaglescouts"> Eagle Scouts </Link>
+          </Button>
+          <Button className="button-padding" color="orange">
+            <Link to="/scoutmasters"> Scoutmasters </Link>
+          </Button>
+        </div>
       </div>
     );
   }
@@ -33,3 +35,4 @@ export default About;
 
 // TODO adjust styling for page
 // TODO highlight Troop meeting/contact information
+// TODO adjust page for mobile screens

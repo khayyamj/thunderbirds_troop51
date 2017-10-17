@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Header, Grid } from 'semantic-ui-react';
+import { Link } from 'react-router';
+import { Header, Grid, Button } from 'semantic-ui-react';
 class Scoutmasters extends Component {
   constructor(props) {
     super(props);
@@ -25,9 +26,20 @@ class Scoutmasters extends Component {
   render() {
     return(
       <div>
-      <Header as='h1' textAlign='center'>
-        Scoutmasters of Troop 51
-      </Header>
+        <Header as='h1' textAlign='center'>
+          Scoutmasters of Troop 51
+        </Header>
+        <div className="about-nav-buttons">
+          <Button  className="button-padding" color="orange">
+            <Link to="/handbook"> Troop Handbook </Link>
+          </Button>
+          <Button className="button-padding" color="orange">
+            <Link to="/eaglescouts"> Eagle Scouts </Link>
+          </Button>
+          <Button className="button-padding" color="orange">
+            <Link to="/scoutmasters"> Scoutmasters </Link>
+          </Button>
+        </div>
         <Grid>
           {this.renderList()}
         </Grid>

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
+import { Button } from 'semantic-ui-react';
 import { Header } from 'semantic-ui-react';
 import About from './../handbook/about51';
 import ScoutingValues from './../handbook/scouting_values';
@@ -23,7 +25,19 @@ class Handbook extends Component {
   render() {
     return(
       <div className="about-container">
-        <Header as='h1' textAlign='center'>Troop Handbook</Header> <br />
+        <Header as='h1' textAlign='center'>Troop Handbook</Header>
+        <div className="about-nav-buttons">
+          <Button  className="button-padding" color="orange">
+            <Link to="/handbook"> Troop Handbook </Link>
+          </Button>
+          <Button className="button-padding" color="orange">
+            <Link to="/eaglescouts"> Eagle Scouts </Link>
+          </Button>
+          <Button className="button-padding" color="orange">
+            <Link to="/scoutmasters"> Scoutmasters </Link>
+          </Button>
+        </div>
+        <br />
         <ScoutingValues />
         <ReligiousAffiliation />
         <InternetPolicy />
