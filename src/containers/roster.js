@@ -21,9 +21,9 @@ class Roster extends Component {
           <div key={profile.profileid} className="profile-individual">
             <div className='profile-information'>
               <h3> <span className="profile-name">{profile.nickname ? profile.nickname : profile.firstname} {profile.lastname.charAt(0).toUpperCase()}</span></h3> <br />
-              <p className='profile-information-details'> Address: {profile.address}, {profile.city} {profile.state} </p>
-              <p className='profile-information-details'> Phone: {profile.homephone}, Cell: {profile.cellphone ? profile.cellphone : 'none'}</p>
-              <p className='profile-information-details'> Email: {profile.email}</p>
+              <p className='profile-information-details'> <span className="bold">Address:</span> {profile.address}, {profile.city} {profile.state} </p>
+              <p className='profile-information-details'> <span className="bold">Phone:</span> {profile.homephone}, <span className="bold">Cell:</span> {profile.cellphone ? profile.cellphone : 'none'}</p>
+              <p className='profile-information-details'> <span className="bold">Email:</span> {profile.email}</p>
             </div>
             <div className='profile-image'>
               <img src={profile.imageurl || './images/blank_profile.jpg'}></img>
@@ -35,7 +35,7 @@ class Roster extends Component {
 
   render() {
      return(
-        <div className="roster-list">
+        <div className="page-container">
            {this.renderList()}
         </div>
      )

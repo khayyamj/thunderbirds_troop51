@@ -14,13 +14,11 @@ class Activities extends Component {
   constructor(props) {
     super(props);
     this.state = { Activity: 'campout'}
-    // console.log('activities--> constructor Activity filter: ', this.state.Activity)
     this.selectActivity = this.selectActivity.bind(this)
     this.onAddActivity = this.onAddActivity.bind(this)
   }
   componentWillMount() {
     this.props.fetchAllAttendedActivities().then(() => {
-      // console.log('PROPS -> ', this.props)
     });
   }
 
@@ -28,9 +26,7 @@ class Activities extends Component {
     const youth = [], adults = []
     let everyone = this.props.activities.all || []
     let scout = '', leader = ''
-    // console.log('renderList function--> ', elem, currentActivity);
     return everyone.map(activity => {
-      // console.log('renderlist function activity--> ', activity);
       if (activity.actid === currentActivity) {
         if (elem === 'youth' && !activity.adult) {
           scout = `${activity.firstname} ${activity.lastname.charAt(0)}`;
@@ -50,7 +46,6 @@ class Activities extends Component {
   }
 
   selectActivity(event) {  // set activity filter
-    console.log('selectActivity method -> event: ', event)
      this.setState({ Activity: event.target.value });
    }
 
@@ -74,7 +69,6 @@ class Activities extends Component {
       oneTime.push(activity);
       return filteredActivityList;
     })
-    // console.log('filteredActivityList: ', filteredActivityList);
     return filteredActivityList.map((activity) => {
      let { lat, lng } = activity;
       return (
@@ -121,7 +115,6 @@ class Activities extends Component {
   }
 
   render() {
-    // console.log('this.props.activities', this.props.activities.all)
     return(
       <div className="page-container">
         <div className="top-row">
@@ -158,6 +151,6 @@ const mapDispatchToProps = function(dispatch) {
 export default connect(mapStateToProps, mapDispatchToProps)(Activities);
 
 // TODO Add styling to page
-// TODO Add button to link to Add Activity page
+// TODO Add functionality for button to link to Add Activity page
 // TODO Adjust back endpoint to return last name first letter only for public calls
 // TODO Add additional endpoint and call to get full last name for login users and admins
