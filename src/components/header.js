@@ -16,8 +16,8 @@ class HeaderBanner extends Component {
       <Grid columns={3}>
         <Grid.Row centered>
           <Grid.Column centered width={2}>
-            <Link to={'/home'}>
-              <Image src={url} style={{width: 100}}/>
+            <Link to={'/home'} className='logo-home-img'>
+              <Image className='img-selector' src={url} style={{width: 100}}/>
             </Link>
           </Grid.Column>
           <Grid.Column width={12}>
@@ -26,7 +26,7 @@ class HeaderBanner extends Component {
             <Header as='h3'>Over 100 Years of Scouting</Header>
           </Grid.Column>
           <Grid.Column centered width={2}>
-            <a href={fbURL}> <Image src={fbIconUrl} style={{width: 100}} /> </a>
+            <a href={fbURL}> <Image className='img-selector' src={fbIconUrl} style={{width: 100}} /> </a>
           </Grid.Column>
         </Grid.Row>
       </Grid>

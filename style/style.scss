@@ -17,6 +17,27 @@ html, body {
   }
 }
 
+.img-selector {
+  transform: scale(1,1);
+  transition: transform 1s ease-in;
+
+  &:hover {
+    transform: scale(2,2);
+    transition: transform 1s ease-out;
+  }
+}
+
+/* Form Styling */
+.form-spacer {
+  margin: 1em;
+}
+
+.input-error {
+  color: red;
+  font-style: italic;
+  font-weight: bold;
+}
+
 .link-button {
   cursor: pointer;
   padding: 5px;
@@ -97,9 +118,7 @@ html, body {
     cursor: pointer;
   }
 }
-.form-spacer {
-  margin: 1em;
-}
+
 /* end activities.js styling */
 
 

@@ -34,13 +34,13 @@ class ContactUs extends Component {
   }
 
   renderField(fieldConfig, field) {
-    const fieldHelper = this.props.fields[field];
+    const fieldHelper = this.props.fields[field]
 
     return (
       <div key={fieldConfig.label}>
-         <label>{fieldConfig.label}</label>
-         <fieldConfig.type type='text' className='form-input' {...fieldHelper} />
-         {fieldHelper.touched ? fieldHelper.error : ''}
+        <label>{fieldConfig.label}</label>
+        <fieldConfig.type type='text' className='form-input' {...fieldHelper} />
+        <div className='input-error'>{fieldHelper.touched ? fieldHelper.error : ''}</div>
       </div>
     )
   }
@@ -48,7 +48,7 @@ class ContactUs extends Component {
   render() {
     const { handleSubmit } = this.props;
     return(
-      <div>
+      <div className='page-container'>
          <Form
             className="contact-form"
             onSubmit={handleSubmit(this.props.submitMessage)}>
