@@ -8,17 +8,23 @@ class Scoutmasters extends Component {
   }
   renderList() {
     return scoutmasters.map((scoutmaster) => {
+      // adding a date function to find tenure of current scoutmaster dynamically
+      // const year = new Date();
+      // console.log(year);
+      // Date is an object
+      
+      const tenure = (scoutmaster.end || 2017) - scoutmaster.start;
       return (
         <Grid.Row key={scoutmaster.troop+scoutmaster.start+scoutmaster.name}>
           <Grid.Column width={2}>
             Troop: {scoutmaster.troop}
           </Grid.Column>
-          <Grid.Column width={4}>
-            {scoutmaster.name}
+          <Grid.Column width={3}>
+            <span className="scout-name">{scoutmaster.name}</span>
           </Grid.Column>
           <Grid.Column width={3} >
-            {scoutmaster.start} - {scoutmaster.end}
-          </Grid.Column>
+            {scoutmaster.start} - {scoutmaster.end} ({tenure} <span className="scoutmaster-tenure">{tenure === 1 ? "year" : "years"}</span>)
+              </Grid.Column>
         </Grid.Row>
       )
     })

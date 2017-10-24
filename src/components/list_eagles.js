@@ -7,11 +7,14 @@ class ListEagles extends Component {
     this.state = {};
   }
   renderList() {
-    return eagleScouts.map((scout) => {
+    return eagleScouts.map((scout, i) => {
       return (
         <Grid.Row key={scout.year+scout.name}>
+          <Grid.Column width={1}>
+            {i + 1} -
+          </Grid.Column>
           <Grid.Column width={3}>
-            {scout.name}
+            <span className="scout-name">{scout.name}</span>
           </Grid.Column>
           <Grid.Column width={1}>
             {scout.year}
