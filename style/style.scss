@@ -1,5 +1,5 @@
 /* Style Sheet for Troop 51 website */
-
+$tbird-orange: #FF6F00;
 /* Global styling */
 html, body {
   margin: 0;
@@ -202,6 +202,16 @@ html, body {
   flex-direction: row;
   justify-content: space-between;
 }
+.handbook {
+  .p1 {
+    font-size: 20px;
+    font-weight: bold;
+    color: $tbird-orange;
+  }
+  .about-nav-buttons {
+    height: 100%;
+  }
+}
 .about-nav-buttons {
   position: fixed;
   right: 0px;
@@ -213,6 +223,19 @@ html, body {
     a {
       color: white;
     }
+  }
+  .handbook-table-of-contents {
+    margin-top: 20px;
+    .contents-header {
+      margin-bottom: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+  .top-anchor-tag {
+    position: absolute;
+    bottom: 20px;
+    width: 100%
   }
 }
 
