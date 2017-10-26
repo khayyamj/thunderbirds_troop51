@@ -54,7 +54,17 @@ html, body {
 }
 .roster-display {
   width: 100%;
-  border-bottom: 1px solid gray;
+  height: 2em;
+  // border-bottom: 1px solid gray;
+  display: flex;
+  align-items: center;
+  background-color: lightgrey;
+  &.alternating-highlight {
+    background-color: white;
+  }
+  &.selected-highlight {
+    background-color: orange;
+  }
 }
 .profile-individual {
   width: 100%;

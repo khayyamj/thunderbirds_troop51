@@ -36,37 +36,6 @@ export default class AdminView extends Component {
     this.reloadRoster = this.reloadRoster.bind(this);
   }
 
-  render() {
-    if (this.state.permission != 'admin') {
-      return (
-        <div className="admin-page-denied-access">
-          You do not have permission to access this page
-          <ResourceLinks />
-        </div>
-      )
-    }
-
-    return (
-      <div className="admin-container">
-        <AdminNav toggle={this.toggleView}/>
-        <UpdateProfile
-          view={this.state.profileView}
-          scout={this.state.scout}
-          reset={this.resetScout}
-          reloadRoster = {this.reloadRoster}/>
-        <AddTransaction
-          view={this.state.transactionsView}
-          scout={this.state.scout}/>
-        <AddActivity
-          view={this.state.activityView}
-          scout={this.state.scout}/>
-        <RosterList
-          roster={this.state.roster}
-          selectProfile={this.selectProfile}/>
-      </div>
-    )
-  }
-
   componentWillMount() {
     let today = new Date();
     let dd = today.getDate();
@@ -107,6 +76,7 @@ export default class AdminView extends Component {
       this.setState({ profileView: false, transactionsView: false})
     }
   }
+
   selectProfile(e,id) {
     this.setState({ profileid: [id]})
     for (var person in this.state.roster) {
@@ -126,5 +96,37 @@ export default class AdminView extends Component {
       .then(profiles => {
         this.setState( { roster: profiles.data} );
     })
+  }
+
+  render() {
+    if (this.state.permission != 'admin') {
+      return (
+        <div className="admin-page-denied-access">
+          You do not have permission to access this page
+          <ResourceLinks />
+        </div>
+      )
+    }
+
+    return (
+      <div className="admin-container">
+        <AdminNav toggle={this.toggleView}/>
+        <UpdateProfile
+          view={this.state.profileView}
+          scout={this.state.scout}
+          reset={this.resetScout}
+          reloadRoster = {this.reloadRoster}/>
+        <AddTransaction
+          view={this.state.transactionsView}
+          scout={this.state.scout}/>
+        <AddActivity
+          view={this.state.activityView}
+          scout={this.state.scout}/>
+        <RosterList
+          roster={this.state.roster}
+          selectedId={this.state.scout.profileid || 0}
+          selectProfile={this.selectProfile}/>
+      </div>
+    )
   }
 }
