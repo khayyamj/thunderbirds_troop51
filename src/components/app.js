@@ -20,6 +20,10 @@ export default class App extends Component {
  render() {
    const { visible } = this.state
    let children = null;
+   let user = ', please login'
+   if (JSON.parse(localStorage.getItem('profile'))) {
+     user = JSON.parse(localStorage.getItem('profile'))
+   }
    if (this.props.children) {
      children = React.cloneElement(this.props.children, {
        auth: this.props.route.auth // sends auth instance from route to children
@@ -27,13 +31,16 @@ export default class App extends Component {
   }
     return (
        <Container>
-          <HeaderBanner />
-          <div className="main-body">
-            <Button
-              onClick={this.toggleVisibility}
-              color='orange'>
-              Menu
-            </Button>
+         <HeaderBanner />
+         <div className="main-body">
+           <div className="sub-header">
+             <Button
+               onClick={this.toggleVisibility}
+             color='orange'>
+               Menu
+             </Button>
+             <span className="user-name">Welcome { user.name }</span>
+           </div>
             <Sidebar.Pushable as={Segment}>
               <Sidebar
                   as={Menu}

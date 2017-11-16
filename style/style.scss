@@ -27,6 +27,23 @@ html, body {
   }
 }
 
+
+
+.main-body {
+  .sub-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  .user-name {
+    justify-content: flex-end;
+    background-color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    padding: 10px;
+    margin-right: 25px;
+  }
+}
+
 /* Form Styling */
 .form-spacer {
   margin: 1em;

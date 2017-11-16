@@ -38,7 +38,7 @@ export default function() {
          },
          {
             link: 'Admin',
-            address: '/admin2',
+            address: '/admin',
             icon: 'key',
             permission: "admin"
          }

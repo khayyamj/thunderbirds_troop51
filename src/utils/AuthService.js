@@ -5,7 +5,7 @@ import { createStore } from 'redux';
 import { EventEmitter } from 'events';
 import { isTokenExpired } from './jwtHelper';
 import { clientId, domain } from './../../config';
-import { createProfile } from './../containers/profile_creator';
+import { createProfile } from './../containers';
 import LogoImg from "./../../images/T-Bird_orange.png";
 
 export default class AuthService extends EventEmitter {

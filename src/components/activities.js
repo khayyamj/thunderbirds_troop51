@@ -112,6 +112,8 @@ class Activities extends Component {
 
   onAddActivity() {
     console.log('Add activity selected')
+    console.log('props: ', this.props)
+    console.log('state: ', this.state)
   }
 
   render() {
