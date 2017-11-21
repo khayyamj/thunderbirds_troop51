@@ -1,12 +1,14 @@
-module.exports = require("./activities");
-module.exports = require("./admin");
-module.exports = require("./transaction_form");
-module.exports = require("./profile_creator");
+// imports from folders
+import * as Activities from './activities'
+import * as Admin from './admin'
 
-// exports from folders
-// export * from './activities'
-// export * from './admin'
+// imports from files
+import * as TransactionForm from './transaction_form'
+import * as LoginProfileCreator from './profile_creator'
 
-// exports from files
-// export * from './transaction_form'
-// export * from './profile_creator'
+export default {
+  Activities,
+  Admin,
+  LoginProfileCreator,
+  TransactionForm,
+}
