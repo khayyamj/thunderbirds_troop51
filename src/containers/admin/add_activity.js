@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Button, Radio } from 'semantic-ui-react';
 import { bindActionCreators } from 'redux';
-import { createActivity, linkParticipantstoActivity } from './../actions/action_index.js'
+import { createActivity, linkParticipantstoActivity } from '../../actions'
 
 const scoutParticipants = [], leaderParticipants = [];
 

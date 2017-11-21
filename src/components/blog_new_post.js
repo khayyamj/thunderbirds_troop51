@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 // import PropTypes from 'prop-types';
 import { reduxForm } from 'redux-form';
 import { Link } from 'react-router';
-import { createBlogPost } from './../actions/action_index.js';
+import { createBlogPost } from '../actions';
 
 class newBlogPost extends Component {
    static contextTypes = {

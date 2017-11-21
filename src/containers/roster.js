@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { Link } from 'react-router';
 import { List } from 'semantic-ui-react';
-import { fetchRoster } from './../actions/action_index';
+import { fetchRoster } from '../actions';
 
 
 class Roster extends Component {

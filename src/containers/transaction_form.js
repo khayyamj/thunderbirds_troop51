@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { reduxForm } from 'redux-form';
-import { createTransaction} from './../actions/action_index';
+import { createTransaction} from '../actions';
 class TransactionForm extends Component {
   constructor(props) {
     super(props);

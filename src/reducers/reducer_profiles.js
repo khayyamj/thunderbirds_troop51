@@ -1,4 +1,4 @@
-import { FETCH_ROSTER, CREATE_PROFILE, FETCH_PROFILE, UPDATE_PROFILE, UPDATE_LOGIN_PROFILE, CREATE_LOGIN_PROFILE } from './../actions/action_index'
+import { FETCH_ROSTER, CREATE_PROFILE, FETCH_PROFILE, UPDATE_PROFILE, UPDATE_LOGIN_PROFILE, CREATE_LOGIN_PROFILE } from '../actions'
 
 export const INITIAL_STATE = { roster: [], profile: [], user: [] };
 

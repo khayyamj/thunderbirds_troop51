@@ -4,11 +4,11 @@ import { Link, browserHistory } from 'react-router';
 import {ButtonToolbar } from 'react-bootstrap';
 import { Button, Icon, Header } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { loggedIn, loggedOut, getUserProfiles, createProfile, updateProfile, updateLoginProfile, createLoginProfile, fetchRoster } from './../actions/action_index';
+import { loggedIn, loggedOut, getUserProfiles, createProfile, updateProfile, updateLoginProfile, createLoginProfile, fetchRoster } from '../actions';
 import { bindActionCreators } from 'redux';
 import AuthService from './../utils/AuthService';
 import config from './../../config';
-import ResourceLinks from './Resource_Links';
+import ResourceLinks from './site_resource_links';
 
 let login = false,
     token = false,

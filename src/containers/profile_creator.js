@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {updateLoginProfile, createLoginProfile} from './../actions/action_index';
+import {updateLoginProfile, createLoginProfile} from '../actions';
 class LoginProfileCreator extends Component {
   constructor(props) {
     super(props);

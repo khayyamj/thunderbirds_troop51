@@ -1,4 +1,4 @@
-import {LOGGEDIN, LOGGEDOUT} from './../actions/action_index';
+import {LOGGEDIN, LOGGEDOUT} from '../actions';
 
 const INITIAL_STATE = { login: false };
 

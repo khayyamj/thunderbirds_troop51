@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import { fetchPosts } from './../actions/action_index';
+import { fetchPosts } from '../actions';
 import { List, Button } from 'semantic-ui-react';
 import { browserHistory } from 'react-router';
 import { DateFilter, CapitalizeEachWord } from './utilities';

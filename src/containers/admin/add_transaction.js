@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { createTransaction } from './../actions/action_index.js';
+import { createTransaction } from '../../actions';
 
 class AddTransaction extends Component {
   constructor(props) {

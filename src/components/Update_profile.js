@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Button, Checkbox } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateProfile, createProfile, fetchRoster } from './../actions/action_index.js';
+import { updateProfile, createProfile, fetchRoster } from '../actions';
 
 
 class UpdateProfile extends Component {

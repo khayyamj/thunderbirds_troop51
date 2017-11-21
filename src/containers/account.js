@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { Link } from 'react-router';
 import { reduxForm } from 'redux-form';
-import { fetchAccountTransactions, fetchProfile } from './../actions/action_index';
+import { fetchAccountTransactions, fetchProfile } from '../actions';
 import PicNameHeader from './../components/pic_name';
 import TransactionForm from './transaction_form';
 import AccountTotal from './account_total';

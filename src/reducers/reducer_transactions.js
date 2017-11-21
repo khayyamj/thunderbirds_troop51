@@ -1,4 +1,4 @@
-import { FETCH_TRANSACTIONS, FETCH_ALL_TRANSACTIONS } from './../actions/action_index'
+import { FETCH_TRANSACTIONS, FETCH_ALL_TRANSACTIONS } from '../actions'
 
 const INITIAL_STATE = { transactions: [], allTransactions: [] }
 

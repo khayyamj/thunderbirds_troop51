@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
-import { submitMessage } from './../actions/action_index';
+import { submitMessage } from '../actions';
 import { Form, Button} from 'semantic-ui-react';
 import { Grid } from 'semantic-ui-react';
 import GoggleMaps from './google_map';

@@ -17,9 +17,6 @@ var config = require('./config');
 var whitelist = ['http://localhost:80', 'http://localhost:8080', 'http://localhost:3000', 'http://159.203.255.40', 'http://troop51.com'];
 var corsOptions = {
   origin: function (origin, callback) {
-    console.log('*** corsOptions function ***');
-    console.log('origin: ', origin);
-    console.log('whitelist: ', whitelist);
     if (whitelist.indexOf(origin) !== -1) {
       callback(null, true);
       res.setHeader('Access-Control-Allow-Origin', origin);
@@ -33,29 +30,8 @@ var corsOptions = {
 // INITILIZE DEPENDENCIES
 // ============================================================
 app.use(express.static(__dirname + './../dist'));
-// app.use(function(req, res, next) {
-//   console.log('*** use function: Access-Control-Allow-Origin ***');
-//
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   next();
-// });
 
 app.use(cors());
-// app.use(function(req, res, next) {
-//   var allowedOrigins = ['http://localhost:80', 'http://localhost:8080', 'http://localhost:3000', 'http://159.203.255.40', 'http://troop51.com'];
-//   var origin = req.headers.origin;
-//   if(allowedOrigins.indexOf(origin) > -1){
-//        res.setHeader('Access-Control-Allow-Origin', origin);
-//   }
-//   //res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:8020');
-//   res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
-//   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-//   res.header('Access-Control-Allow-Credentials', true);
-//   console.log('Allowed origins: ', allowedOrigins);
-//   return next();
-// });
 app.use(bodyParser.json());
 
 // MASSIVE SETUP

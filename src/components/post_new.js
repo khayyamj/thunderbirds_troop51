@@ -4,7 +4,7 @@ import RichTextEditor, { createEmptyValue } from 'react-rte';
 import { convertToRaw } from 'draft-js';
 import autobind from 'class-autobind';
 import type { EditorValue } from './RichTextEditor';
-import { createPost, fetchTags, createTags, mergeBlogTags, fetchRoster, loggedOut } from './../actions/action_index';
+import { createPost, fetchTags, createTags, mergeBlogTags, fetchRoster, loggedOut } from '../actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { IntlMixin, FormattedDate } from 'react-intl';

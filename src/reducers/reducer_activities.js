@@ -1,4 +1,4 @@
-import { CREATE_ACTIVITY, FETCH_ACTIVITY, FETCH_ALL_PARTICIPANTS, FETCH_ATTENDED_ACTIVITIES } from './../actions/action_index';
+import { CREATE_ACTIVITY, FETCH_ACTIVITY, FETCH_ALL_PARTICIPANTS, FETCH_ATTENDED_ACTIVITIES } from '../actions';
 
 const INITIAL_STATE = { all: [], activity: [], allParticipants: [], activityParticipants: []};
 

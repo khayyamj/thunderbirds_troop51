@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { reduxForm } from 'redux-form';
-import { createActivity, linkParticipantstoActivity } from './../actions/action_index';
+import { createActivity, linkParticipantstoActivity } from '../actions';
 import { Button, Form } from 'semantic-ui-react';
 
 const FIELDS = {

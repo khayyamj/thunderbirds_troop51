@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import GoogleMap from './google_map';
 import { Grid, Image, Dropdown} from 'semantic-ui-react';
-import { fetchAllAttendedActivities, fetchAllParticipants } from './../actions/action_index';
+import GoogleMap from '../../components'
+import { fetchAllAttendedActivities, fetchAllParticipants } from '../../actions';
 
 const
   oneTime = [],
@@ -18,6 +18,7 @@ class Activities extends Component {
     this.onAddActivity = this.onAddActivity.bind(this)
   }
   componentWillMount() {
+    console.log('Activities page')
     this.props.fetchAllAttendedActivities().then(() => {
     });
   }
